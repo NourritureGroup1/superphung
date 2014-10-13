@@ -1,6 +1,6 @@
 #!/bin/sh
 
-ssh jenkins@54.64.212.101 -t -t << EOF
+ssh jenkins@54.64.212.101 -t -t -i /var/lib/jenkins/.ssh/jenkins << EOF
 	cd ~/hello_jenkins
 	git pull
 	npm install --production
