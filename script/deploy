@@ -1,8 +1,8 @@
 #!/bin/sh
 
 ssh jenkins@54.64.212.101 -t -t -i /var/lib/jenkins/.ssh/jenkins << EOF
-	cd ~/hello_jenkins
-	git pull
+	git clone https://github.com/NourritureGroup1/superphung.git nodeRepo
+	cd nodeRepo
 	npm install --production
 	forever restartall
 	exit
