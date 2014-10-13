@@ -1,5 +1,7 @@
 #!/bin/sh
 
+whoami
+ssh-add -L
 ssh jenkins@54.64.212.101 -t -t << EOF
 	git clone https://github.com/NourritureGroup1/superphung.git nodeRepo
 	cd nodeRepo
