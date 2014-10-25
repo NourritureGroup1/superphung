@@ -4,12 +4,12 @@
 ssh jenkins@54.64.212.101 -t -t << EOF
 	if [[ -d nodeRepo ]]
 	then
-		git clone https://github.com/NourritureGroup1/superphung.git nodeRepo
-		cd nodeRepo
-	elif
-	then
 		cd nodeRepo
 		git pull
+	elif
+	then
+		git clone https://github.com/NourritureGroup1/superphung.git nodeRepo
+		cd nodeRepo
 	fi
 	npm install --production
 	forever restartall
