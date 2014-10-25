@@ -21,9 +21,10 @@ router.use(function(req, res, next) {
 	next();
 });
 
-/*router.get("/", function(req, res) {
-	res.json({ message: "welcome to our api !" });
-});*/
+router.get("/", function(req, res) {
+	//res.json({ message: "welcome to our api !" });
+	res.send("hello world");
+})
 
 router.route("/users")
 	.post(function(req, res) {
