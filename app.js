@@ -77,3 +77,5 @@ router.route("/users/:user_id")
 app.use("/api", router);
 
 app.listen(port);
+
+module.exports = app;
