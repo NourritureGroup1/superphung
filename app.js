@@ -16,14 +16,17 @@ var User = require("./user");
 //ROUTE FOR API
 var router = express.Router();
 
+app.get("/", function(req,res) {
+	res.send("hello world");
+})
+
 router.use(function(req, res, next) {
-	//console.log(req.method, req.url);
+	console.log(req.method, req.url);
 	next();
 });
 
 router.get("/", function(req, res) {
-	//res.json({ message: "welcome to our api !" });
-	res.send("hello world");
+	res.json({ message: "welcome to our api !" });
 })
 
 router.route("/users")
