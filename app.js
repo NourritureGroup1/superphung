@@ -17,7 +17,7 @@ var User = require("./user");
 var router = express.Router();
 
 router.use(function(req, res, next) {
-	console.log(req.method, req.url);
+	//console.log(req.method, req.url);
 	next();
 });
 
@@ -77,5 +77,3 @@ router.route("/users/:user_id")
 app.use("/api", router);
 
 app.listen(port);
-
-console.log("Magic happens on port " + port);
