@@ -1,15 +1,7 @@
 {
-	"name": "hello-jenkins",
-	"description": "hello jenkins test app",
-	"version": "0.0.1",
-	"private": true,
-	"dependencies": {
-	  "body-parser": "^1.9.1",
-	  "express": "^4.9.8",
-	  "mongoose": "^3.8.18"
-	},
-	"devDependencies": {
-		"mocha": "1.20.1",
-		"supertest": "0.13.0"
-	}
+  "name": "application-name",
+  "version": "0.0.1",
+  "dependencies": {
+    "express": "^4.10.0"
+  }
 }
