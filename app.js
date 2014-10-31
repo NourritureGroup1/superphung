@@ -7,6 +7,9 @@ var fs = require("fs");
 var app = express();
 //module.exports = app;
 
+var mongoose = require("mongoose");
+mongoose.connect("mongodb://superphung:superphung@novus.modulusmongo.net:27017/y7dysOta");
+
 var options = {
     key: fs.readFileSync("server_key.pem"),
     cert: fs.readFileSync("server_cert.pem")
@@ -22,7 +25,7 @@ function main () {
 
     require("./routes")(app);
 
-    https.createServer(options, app).listen(443);
+    https.createServer(options, app).listen(app.get("port"));
 }
 
 main();
