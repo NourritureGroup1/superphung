@@ -2,6 +2,8 @@
  * Created by Tristan on 31/10/2014.
  */
 
+var Ingredient = require("../models/ingredient.js");
+
 exports.getById = function (req, res) {
     Ingredient.findById(req.params.id, function(err, user){
         if (err)
