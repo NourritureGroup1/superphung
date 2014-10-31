@@ -5,7 +5,7 @@
 var recipe = require("./recipeHandler")
 
 module.exports = function (app) {
-    app.get("/recipe/:id", ingredient.getById);
-    app.post("/recipe", ingredient.create);
-    app.get("/recipes", ingredient.getAll);
+    app.get("/recipe/:id", recipe.getById);
+    app.post("/recipe", recipe.create);
+    app.get("/recipes", recipe.getAll);
 };
