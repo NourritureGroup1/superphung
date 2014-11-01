@@ -4,8 +4,8 @@
 var express = require("express");
 var https = require("https");
 var fs = require("fs");
-var formidable = require("formidable");
-var sjcl = require("sjcl");
+var cookieParser = require("cookie-parser");
+var session = require("express-session");
 var app = express();
 
 //module.exports = app;
@@ -21,24 +21,16 @@ var options = {
 function main () {
 
     app.use(express.static(__dirname + "/public"));
+    app.use(cookieParser());
+    app.use(session({ secret : "loliblastobar" }));
     require("./config")(app);
 
     app.get("/", function(req, res) {
-       //res.end("Welcome to the dashboard" + " " + req.protocol);
-        //res.render("index");
-        res.sendFile(__dirname + "/public/index.html");
+       res.end("Welcome to the dashboard" + " " + req.protocol);
     });
 
-    app.post("/data", function(req, res) {
-        var form = new formidable.IncomingForm();
-
-        form.parse(req, function(err, fields, files) {
-            console.log(fields);
-            var pass = sjcl.decrypt("pass", fields.pass);
-            console.log(pass);
-            res.end("va te faire enculer par des grosses vaches");
-
-        });
+    app.get("/owi_ca_marche", function(req, res, next) {
+       res.end("LOLIBLASTORBAR");
     });
 
     require("./routes")(app);
