@@ -5,6 +5,6 @@ var user = require("./userHandler");
 
 module.exports = function(app) {
     app.get("/user/:id", user.getById);
-    app.get("/users", user.getAll);
+    app.get("/user", user.getAll);
     app.post("/user", user.create);
 };

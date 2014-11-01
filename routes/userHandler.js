@@ -8,7 +8,12 @@ exports.getById = function(req, res) {
     User.findById(req.params.id, function(err, user){
         if (err)
             res.send(err);
-        res.json(user);
+        /*for (int i=0; i < user.friends.length; i++)
+        {
+
+        }*/
+        //res.json(user);
+        res.render("user.ejs", {user: user});
     });
 };
 
@@ -28,6 +33,6 @@ exports.create = function(req, res) {
     user.save(function(err) {
         if (err)
             res.send(err);
-        res.json({ message: "user create" });
+        res.json({ message: "user created" });
     });
 };
