@@ -7,4 +7,5 @@ module.exports = function(app) {
     app.get("/user/:id", user.getById);
     app.get("/user", user.getAll);
     app.post("/user", user.create);
+    app.post("/user/update", user.update);
 };

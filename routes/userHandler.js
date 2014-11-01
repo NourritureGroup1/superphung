@@ -36,3 +36,20 @@ exports.create = function(req, res) {
         res.json({ message: "user created" });
     });
 };
+
+exports.update = function(req, res) {
+    User.findById(req.params.id, function(err, user){
+        if (err)
+            res.send(err);
+
+        user.email = req.body.email;
+        user.friends = req.body.friends;
+        user.likes = req.body.likes;
+        user.dislikes = req.body.dislikes;
+        user.save(function(err) {
+            if (err)
+                res.send(err);
+            res.json({ message: "user updated"})
+        });
+    });
+}
