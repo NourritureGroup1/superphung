@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script type="text/javascript" src="sjcl.js"></script>
+    <script>
+        function encryptPass() {
+            elem = document.getElementById("pass");
+            elem.value = sjcl.encrypt("pass", elem.value);
+        }
+    </script>
+</head>
+<body>
+<form method="post" action="/data" enctype="multipart/form-data" onsubmit="encryptPass()">
+    <input type="text" name="username" />
+    <input type="password" name="pass" id="pass"/>
+    <input type="submit" value="Submit">
+</form>
+</body>
+
+</html>
