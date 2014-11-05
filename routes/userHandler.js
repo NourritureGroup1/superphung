@@ -21,17 +21,17 @@ exports.getById = function(req, res) {
 };
 
 exports.getAll = function(req, res) {
-    if(req.session && req.session.authenticated) {
+    //if(req.session && req.session.authenticated) {
         User.find(function (err, users) {
             if (err) {
                 res.send(err);
             }
             res.json(users);
         });
-    }
+    /*}
     else {
         res.redirect("/login");
-    }
+    }*/
 
 };
 
@@ -39,23 +39,21 @@ exports.create = function(req, res, next) {
     //test si user already exists
     User.findOne({ username: req.body.username }, function(err, user) {
         if (err) {
-            console.log("erreur");
+            console.log("erreur create user");
             return (res.send(err));
         }
         else if (user) {
-            console.log("USER");
-            return (res.send("user exist deja"));
-            //console.log("user exist deja");
-            //return next("user exist deja");
+            console.log("USER EXIST");
+            res.send("user exist deja");
         }
         else {
             console.log("toto");
-            var user = new User();
-            user.username = req.body.username;
-            user.pass = sjcl.encrypt("pass", req.body.pass);
-            user.email = req.body.email;
+            var _user = new User();
+            _user.username = req.body.username;
+            _user.pass = sjcl.encrypt("pass", req.body.pass);
+            _user.email = req.body.email;
 
-            user.save(function(err) {
+            _user.save(function(err) {
                 if (err) {
                     return (res.status(500).end(err));
                 }
@@ -79,6 +77,7 @@ exports.update = function(req, res) {
             if (err) {
                 return (res.send(err));
             }
+            console.log("USER UPDATE");
             res.json({ message: "user updated"});
             res.end();
         });
@@ -86,10 +85,10 @@ exports.update = function(req, res) {
 };
 
 exports.delete = function(req, res, next) {
-    User.remove({ _id : req.params.id }, function(err, user) {
+    User.remove({ _id : req.params.id }, function(err) {
         if (err) {
             return (res.send(err));
         }
         res.json({ message: "Successfully deleted" });
-    })
+    });
 };

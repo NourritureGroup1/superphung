@@ -12,6 +12,7 @@ var app = express();
 
 var mongoose = require("mongoose");
 mongoose.connect("mongodb://superphung:superphung@novus.modulusmongo.net:27017/y7dysOta");
+//mongoose.connect("localhost:27017/");
 
 var options = {
     key: fs.readFileSync("server_key.pem"),
