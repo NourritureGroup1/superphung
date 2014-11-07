@@ -13,6 +13,15 @@ exports.getById = function (req, res) {
     });
 };
 
+exports.getAll = function (req, res) {
+    Ingredient.find(function(err, ingredients) {
+        if (err)
+            res.send(err);
+        //res.json(ingredients);
+        res.render("ingredient.ejs", { ingredients : ingredients });
+    });
+};
+
 exports.create = function (req, res) {
 
     Ingredient.findOne({ name: req.body.name }, function(err, ingredient) {
@@ -42,16 +51,8 @@ exports.create = function (req, res) {
     });
 };
 
-exports.getAll = function (req, res) {
-    Ingredient.find(function(err, ingredients) {
-        if (err)
-            res.send(err);
-        res.json(ingredients);
-    });
-};
-
 exports.getByPartialName = function (req, res) {
-    Ingredient.find({ name: { $regex: req.params.name, $options: "i" } }, function(req, ingredients) {
+    Ingredient.find({ name: { $regex: req.params.name, $options: "i" } }, function(err, ingredients) {
         if (err)
             res.send(err);
         res.json(ingredients);
@@ -61,7 +62,7 @@ exports.getByPartialName = function (req, res) {
 exports.update = function(req, res) {
     Ingredient.findById(req.params.id, function(err, ingredient) {
         if (err)
-            res.send(err);
+            return (res.send(err));
         ingredient.description = req.body.description;
         ingredient.category = req.body.category;
         ingredient.nutrients = req.body.nutrients;

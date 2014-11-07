@@ -35,12 +35,21 @@ exports.getAll = function(req, res) {
 
 };
 
+exports.getRestrictedFood = function(req, res) {
+    User.findById(req.params.id, function(err, user) {
+        if (err)
+            return (res.send(err));
+        res.json(user.restrictedFood);
+    });
+};
+
 exports.create = function(req, res, next) {
     //test si user already exists
     User.findOne({ username: req.body.username }, function(err, user) {
         if (err) {
             console.log("erreur create user");
-            return (res.send(err));
+            //return (res.send(err));
+            res.send(err);
         }
         else if (user) {
             console.log("USER EXIST");
@@ -52,6 +61,11 @@ exports.create = function(req, res, next) {
             _user.username = req.body.username;
             _user.pass = sjcl.encrypt("pass", req.body.pass);
             _user.email = req.body.email;
+            _user.followings = req.body.followings;
+            _user.likes = req.body.likes;
+            _user.dislikes = req.body.dislikes;
+            _user.favoriteFood = req.body.favoriteFood;
+            _user.restrictedFood = req.body.restrictedFood;
 
             _user.save(function(err) {
                 if (err) {

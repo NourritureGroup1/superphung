@@ -8,9 +8,11 @@ var UserSchema = new Schema({
     username: String,
     pass: JSON,
     email: String,
-    followings: Array,
-    likes: Array,
-    dislikes: Array
+    followings: Array,      //username
+    likes: Array,           //recipes
+    dislikes: Array,        //recipes
+    favoriteFood: Array,    //ingredient
+    restrictedFood: Array   //ingredient
 });
 
 module.exports = mongoose.model("User", UserSchema);

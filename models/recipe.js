@@ -6,10 +6,10 @@ var Schema = mongoose.Schema;
 
 var RecipeSchema = new Schema({
     name: String,
-    description: String,
     creator: String,
+    description: String,
     steps: Array,
-    ingredients: Array,
+    ingredients: Array, //ref to ingredient
     creationDate: String
 });
 

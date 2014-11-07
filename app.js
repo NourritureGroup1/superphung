@@ -11,8 +11,14 @@ var app = express();
 //module.exports = app;
 
 var mongoose = require("mongoose");
+//CONNECT TO MONGODB MODULUS WORKING IN LOCAL
 //mongoose.connect("mongodb://superphung:superphung@novus.modulusmongo.net:27017/y7dysOta");
+
+//CONNECT TO MONGODB IN SERVER WORKING IN SERVER OR IN LOCAL
 mongoose.connect("mongodb://localhost:27017/");
+
+//CONNECT TO MONGODB IN SERVER WORKING IN LOCAL
+//mongoose.connect("mongodb://54.64.212.101:27017/");
 
 var options = {
     key: fs.readFileSync("server_key.pem"),

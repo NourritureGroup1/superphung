@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+    <h1>ingredients</h1>
+    <ul>
+        <% ingredients.forEach(function(ingredient, index) { %>
+            <li>name = <%= ingredient.name %>, id = <%= ingredient._id %></li>
+        <% }); %>
+    </ul>
+</body>
+
+</html>
