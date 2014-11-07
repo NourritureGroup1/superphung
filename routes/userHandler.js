@@ -4,6 +4,8 @@
 
 var User = require("../models/user.js");
 var sjcl = require("sjcl");
+var fs = require("fs");
+var moment = require("moment");
 
 exports.getById = function(req, res) {
     User.findById(req.params.id, function(err, user){
@@ -77,23 +79,33 @@ exports.create = function(req, res, next) {
     });
 };
 
-exports.update = function(req, res) {
+exports.update = function(req, res, next) {
     User.findById(req.params.id, function(err, user){
         if (err) {
-            return (res.send(err));
+            var ip = req.headers["x-forwarded-for"] || req.connection.remoteAddress;
+            //return (res.status(500).send(err));
+            fs.appendFile("log/log", "date=" + moment().format("MM/DD/YYYY h:mm:ss a") + ", ip=" + ip + ", method=" + req.method + ", err=" + err + "\n", function(err) {
+                if (err)
+                    console.log("erreur appendFile");
+            });
+            console.log("date=" + moment().format("MM/DD/YYYY h:mm:ss a") + ", ip=" + ip + ", method=" + req.method + ", err=" + err);
+            return (res.status(500).end());
         }
 
         user.email = req.body.email;
-        user.friends = req.body.friends;
+        user.followings = req.body.followings;
         user.likes = req.body.likes;
         user.dislikes = req.body.dislikes;
+        user.favoriteFood = req.body.favoriteFood;
+        user.restrictedFood = req.body.restrictedFood;
         user.save(function(err) {
             if (err) {
                 return (res.send(err));
             }
             console.log("USER UPDATE");
-            res.json({ message: "user updated"});
-            res.end();
+            //res.json({ message: "user updated"});
+            //res.end();
+            res.status(200).json(user);
         });
     });
 };
