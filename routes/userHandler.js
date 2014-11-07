@@ -4,8 +4,7 @@
 
 var User = require("../models/user.js");
 var sjcl = require("sjcl");
-var fs = require("fs");
-var moment = require("moment");
+var error = require("./errorHandler");
 
 exports.getById = function(req, res) {
     User.findById(req.params.id, function(err, user){
@@ -42,6 +41,14 @@ exports.getRestrictedFood = function(req, res) {
         if (err)
             return (res.send(err));
         res.json(user.restrictedFood);
+    });
+};
+
+exports.getFavoriteFood = function(req, res) {
+    User.findById(req.params.id, function(err, user) {
+        if (err)
+            return (res.send(err));
+        res.json(user.favoriteFood);
     });
 };
 
@@ -82,22 +89,16 @@ exports.create = function(req, res, next) {
 exports.update = function(req, res, next) {
     User.findById(req.params.id, function(err, user){
         if (err) {
-            var ip = req.headers["x-forwarded-for"] || req.connection.remoteAddress;
-            //return (res.status(500).send(err));
-            fs.appendFile("log/log", "date=" + moment().format("MM/DD/YYYY h:mm:ss a") + ", ip=" + ip + ", method=" + req.method + ", err=" + err + "\n", function(err) {
-                if (err)
-                    console.log("erreur appendFile");
-            });
-            console.log("date=" + moment().format("MM/DD/YYYY h:mm:ss a") + ", ip=" + ip + ", method=" + req.method + ", err=" + err);
+            error.logError(req, res, err);
             return (res.status(500).end());
         }
 
-        user.email = req.body.email;
-        user.followings = req.body.followings;
-        user.likes = req.body.likes;
-        user.dislikes = req.body.dislikes;
-        user.favoriteFood = req.body.favoriteFood;
-        user.restrictedFood = req.body.restrictedFood;
+        if (req.body.email) user.email = req.body.email;
+        if (req.body.followings) user.followings = req.body.followings;
+        if (req.body.likes) user.likes = req.body.likes;
+        if (req.body.dislikes) user.dislikes = req.body.dislikes;
+        if (req.body.favoriteFood) user.favoriteFood = req.body.favoriteFood;
+        if (req.body.restrictedFood) user.restrictedFood = req.body.restrictedFood;
         user.save(function(err) {
             if (err) {
                 return (res.send(err));
