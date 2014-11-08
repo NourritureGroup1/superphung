@@ -52,6 +52,14 @@ exports.getFavoriteFood = function(req, res) {
     });
 };
 
+exports.getBadFood = function(req, res) {
+    User.findById(req.params.id, function(err, user) {
+        if (err)
+            return (res.send(err));
+        res.json(user.badFood);
+    });
+};
+
 exports.create = function(req, res, next) {
     //test si user already exists
     User.findOne({ username: req.body.username }, function(err, user) {
@@ -75,6 +83,7 @@ exports.create = function(req, res, next) {
             _user.dislikes = req.body.dislikes;
             _user.favoriteFood = req.body.favoriteFood;
             _user.restrictedFood = req.body.restrictedFood;
+            _user.badFood = req.body.badFood;
 
             _user.save(function(err) {
                 if (err) {
@@ -99,6 +108,7 @@ exports.update = function(req, res, next) {
         if (req.body.dislikes) user.dislikes = req.body.dislikes;
         if (req.body.favoriteFood) user.favoriteFood = req.body.favoriteFood;
         if (req.body.restrictedFood) user.restrictedFood = req.body.restrictedFood;
+        if (req.body.badFood) user.badFood = req.body.badFood;
         user.save(function(err) {
             if (err) {
                 return (res.send(err));

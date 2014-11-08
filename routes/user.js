@@ -8,6 +8,7 @@ module.exports = function(app) {
     app.get("/user", user.getAll);
     app.get("/user/:id/rfood", user.getRestrictedFood);
     app.get("/user/:id/ffood", user.getFavoriteFood);
+    app.get("/user/:id/bfood", user.getBadFood);
     app.post("/user", user.create);
     app.put("/user/:id", user.update);
     app.delete("/user/:id", user.delete);
