@@ -3,21 +3,22 @@
  */
 
 var User = require("../models/user.js");
+var Ingredient = require("../models/ingredient.js");
 var sjcl = require("sjcl");
 var error = require("./errorHandler");
 
 exports.getById = function(req, res) {
     User.findById(req.params.id, function(err, user){
         if (err) {
-            res.status(500).send(err);
+            return (res.status(500).send(err));
         }
         /*for (int i=0; i < user.friends.length; i++)
         {
 
         }*/
         //res.json(user);
-        res.status(200);
-        res.render("user.ejs", {user: user});
+        res.status(200).json(user);
+        //res.render("user.ejs", {user: user});
     });
 };
 
@@ -40,7 +41,12 @@ exports.getRestrictedFood = function(req, res) {
     User.findById(req.params.id, function(err, user) {
         if (err)
             return (res.send(err));
-        res.json(user.restrictedFood);
+        Ingredient.find({ _id : { $in : user.restrictedFood }}, function(err, rfood) {
+            if (err)
+                return (res.send(err));
+            res.json(rfood);
+        });
+        //res.json(user.restrictedFood);
     });
 };
 
@@ -48,7 +54,12 @@ exports.getFavoriteFood = function(req, res) {
     User.findById(req.params.id, function(err, user) {
         if (err)
             return (res.send(err));
-        res.json(user.favoriteFood);
+        Ingredient.find({ _id : { $in : user.favoriteFood }}, function(err, ffood) {
+            if (err)
+                return (res.send(err));
+            res.json(ffood);
+        });
+        //res.json(user.favoriteFood);
     });
 };
 
@@ -56,7 +67,12 @@ exports.getBadFood = function(req, res) {
     User.findById(req.params.id, function(err, user) {
         if (err)
             return (res.send(err));
-        res.json(user.badFood);
+        Ingredient.find({ _id : { $in : user.badFood }}, function(err, bfood) {
+            if (err)
+                return (res.send(err));
+            res.json(bfood);
+        });
+        //res.json(user.badFood);
     });
 };
 
@@ -106,9 +122,9 @@ exports.update = function(req, res, next) {
         if (req.body.followings) user.followings = req.body.followings;
         if (req.body.likes) user.likes = req.body.likes;
         if (req.body.dislikes) user.dislikes = req.body.dislikes;
-        if (req.body.favoriteFood) user.favoriteFood = req.body.favoriteFood;
-        if (req.body.restrictedFood) user.restrictedFood = req.body.restrictedFood;
-        if (req.body.badFood) user.badFood = req.body.badFood;
+        user.favoriteFood = req.body.favoriteFood;
+        user.restrictedFood = req.body.restrictedFood;
+        user.badFood = req.body.badFood;
         user.save(function(err) {
             if (err) {
                 return (res.send(err));

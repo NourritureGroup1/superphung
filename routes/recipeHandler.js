@@ -12,34 +12,38 @@ exports.getById = function (req, res) {
     });
 };
 
-exports.create = function (req, res) {
-    Recipe.findOne({ creator : req.body.creator }, function(err, recipe) {
+exports.create = function (req, res, next) {
+
+    Recipe.find({ name : req.body.name }, function(err, recipes) {
         if (err) {
             console.log("erreur create recipe");
-            res.send(err);
-        }
-        else if (recipe) {
-            console.log("RECIPE EXIST - 2 USERS CANNOT CREATE THE SAME RECIPE");
-            res.send("recipe exist deja");
-        }
-        else {
-            console.log("RECIPE CREATION");
-            var _recipe = new Recipe();
-
-            _recipe.name = req.body.name;
-            _recipe.creator = req.body.creator;
-            _recipe.description = req.body.description;
-            _recipe.steps = req.body.steps;
-            _recipe.ingredients = req.body.ingredients;
-            _recipe.creationDate = req.body.creationDate;
-
-            _recipe.save(function(err) {
-                if (err)
-                    res.send(err);
-                res.json({ message : "recipe created"});
-            })
+            return (res.send(err));
         }
 
+        var res = 0;
+        recipes.forEach(function(recipe) {
+            if (recipe.creator === req.body.creator) {
+                console.log("RECIPE EXIST - 1 USER CANNOT CREATE A RECIPE TWICE"); res = 1;
+            }
+        });
+        if (res == 1)
+            return (res.status(500).end());
+
+        console.log("RECIPE CREATION");
+        var _recipe = new Recipe();
+
+        _recipe.name = req.body.name;
+        _recipe.creator = req.body.creator;
+        _recipe.description = req.body.description;
+        _recipe.steps = req.body.steps;
+        _recipe.ingredients = req.body.ingredients;
+        _recipe.creationDate = req.body.creationDate;
+
+        _recipe.save(function(err) {
+            if (err)
+                return (res.send(err));
+            res.json(_recipe);
+        });
     });
 };
 

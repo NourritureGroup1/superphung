@@ -5,6 +5,8 @@ var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 
 var UserSchema = new Schema({
+    oauthID: Number,
+    name: String,
     username: String,
     pass: JSON,
     email: String,

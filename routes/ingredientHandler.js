@@ -17,8 +17,8 @@ exports.getAll = function (req, res) {
     Ingredient.find(function(err, ingredients) {
         if (err)
             res.send(err);
-        //res.json(ingredients);
-        res.render("ingredient.ejs", { ingredients : ingredients });
+        res.json(ingredients);
+        //res.render("ingredient.ejs", { ingredients : ingredients });
     });
 };
 
