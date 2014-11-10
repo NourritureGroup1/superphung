@@ -4,7 +4,9 @@
 ## ssh-add $1
 ssh-add -L
 ssh $1 -t -t << EOF
-	test -d nodeRepo && eval 'echo "updating existing directory" && cd nodeRepo && git pull' || eval 'echo "cloning to new directory" && git clone https://github.com/NourritureGroup1/superphung.git nodeRepo && cd nodeRepo'
+	test -d nodeRepo && rm -rf nodeRepo
+	git clone https://github.com/NourritureGroup1/superphung.git nodeRepo
+	cd nodeRepo
 	npm install --production
 	eval 'forever list | grep app.js && forever restart app.js' || forever start app.js
 	exit
