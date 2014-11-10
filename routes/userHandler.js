@@ -29,7 +29,7 @@ exports.getAll = function(req, res) {
             if (err) {
                 res.send(err);
             }
-            res.json(users);
+            res.status(200).json(users);
         });
     /*}
     else {
@@ -101,17 +101,16 @@ exports.getBadFood = function(req, res) {
     });
 };
 
-exports.create = function(req, res, next) {
+exports.create = function(req, res) {
     //test si user already exists
     User.findOne({ username: req.body.username }, function(err, user) {
         if (err) {
-            console.log("erreur create user");
-            //return (res.send(err));
-            res.send(err);
+            error.logError(req, res, err);
+            return res.status(500).send(err);
         }
         else if (user) {
             console.log("USER EXIST");
-            res.send("user exist deja");
+            return res.status(409).send("user exist");
         }
         else {
             console.log("toto");
@@ -128,9 +127,10 @@ exports.create = function(req, res, next) {
 
             _user.save(function(err) {
                 if (err) {
-                    return (res.status(500).end(err));
+                    error.logError(req, res, err);
+                    return res.status(500).end(err);
                 }
-                res.status(201).json({ message: "user created" });
+                res.status(201).json(_user);
             });
         }
     });
