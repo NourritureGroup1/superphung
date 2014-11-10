@@ -8,21 +8,41 @@ var expect = require("chai").expect;
 var app = require("../app.js");
 
 
-describe("GET /user", function() {
+describe("REST API /user", function() {
 
     var log = console.log;
 
     beforeEach(function() {
-        console.log = function(){};
+      console.log = function(){};
     });
 
-    it("should get all the user", function(done) {
+    var userTest = {
+        username : "lolibar",
+        email : "lolivache@gmail.com"
+    };
+
+    it("POST /user", function(done) {
+        request(app)
+            .post("/user")
+            .send(userTest)
+            .end(function(err, res) {
+                console.log = log;
+                expect(err).to.be.null;
+                var data = JSON.parse(res.text);
+                expect(res.status).to.equal(201);
+                expect(userTest.username).to.equal(data.username);
+                done();
+            });
+    });
+
+    it("GET /user", function(done) {
         request(app)
             .get("/user")
             .end(function(err, res) {
+                //var data = JSON.parse(res.text);
                 console.log = log;
-                var data = JSON.parse(res.text);
                 expect(err).to.be.null;
+                expect(res.status).to.equal(200);
                 done();
             });
     });
