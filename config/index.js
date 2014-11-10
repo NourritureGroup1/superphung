@@ -2,7 +2,7 @@
  * Created by Eric on 29/10/2014.
  */
 
-var bodyParser = require("body-parser");
+//var bodyParser = require("body-parser");
 
 module.exports = function(app) {
     app.set("title", "Nourriture");
@@ -10,6 +10,6 @@ module.exports = function(app) {
     //app.set("views", __dirname + "/views");
     app.set("models", __dirname + "/models");
     app.set("view engine", "ejs");
-    app.use(bodyParser.urlencoded({ extended: false }));
-    app.use(bodyParser.json());
+    //app.use(bodyParser.urlencoded({ extended: false }));
+    //app.use(bodyParser.json());
 };

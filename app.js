@@ -2,13 +2,16 @@
  * Created by Eric on 28/10/2014.
  */
 var express = require("express");
+var app = express();
 var https = require("https");
 var fs = require("fs");
-var cookieParser = require("cookie-parser");
-var session = require("express-session");
-var app = express();
 var passport = require("passport");
-//module.exports = app;
+
+var cookieParser = require("cookie-parser");
+var bodyParser = require("body-parser");
+var session = require("express-session");
+
+
 
 var mongoose = require("mongoose");
 //CONNECT TO MONGODB MODULUS WORKING IN LOCAL
@@ -31,6 +34,8 @@ function main () {
 
     app.use(express.static(__dirname + "/public"));
     app.use(cookieParser());
+    app.use(bodyParser.urlencoded({ extended : false }));
+    app.use(bodyParser.json());
     app.use(session({ secret : "loliblastobar" }));
     app.use(passport.initialize());
     app.use(passport.session());
@@ -47,38 +52,11 @@ function main () {
        res.end("LOLIBLASTORBAR");
     });
 
-    //TEST GROS CRADE : ROUTE FACEBOOK
-    app.get("/account", ensureAuthenticated, function(req, res) {
-        //User.findById(req.session.passport.user, function(err, user) {
-          //  if (err)
-            //    console.log(err);
-           // else
-                res.render("account.ejs");
-        //});
-    });
-    app.get("/auth/facebook",
-        passport.authenticate("facebook"),
-        function(req,res){});
-    app.get("/auth/facebook/callback",
-        passport.authenticate("facebook", { failureRedirect : "/"}),
-        function(req, res) {
-            res.redirect("/account");
-        });
-    app.get("/logout", function(req, res) {
-        req.logout();
-        res.redirect("/");
-    });
-
-    function ensureAuthenticated(req, res, next) {
-        if (req.isAuthenticated())
-            return next();
-        res.redirect("/");
-    }
-    //TEST END
-
     require("./routes")(app);
 
     https.createServer(options, app).listen(app.get("port"));
 }
 
 main();
+
+module.exports = app;

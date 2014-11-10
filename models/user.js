@@ -5,10 +5,10 @@ var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 
 var UserSchema = new Schema({
-    oauthID: Number,
+    oauthID: Number,        //Facebook Id
     name: String,
     username: String,
-    pass: JSON,
+    //pass: JSON,
     email: String,
     followings: Array,      //username
     likes: Array,           //recipes

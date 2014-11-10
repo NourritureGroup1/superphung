@@ -2,6 +2,7 @@
  * Created by Tristan on 31/10/2014.
  */
 
+var Ingredient = require("../models/ingredient.js");
 var Recipe = require("../models/recipe.js");
 
 exports.getById = function (req, res) {
@@ -9,6 +10,26 @@ exports.getById = function (req, res) {
         if (err)
             res.send(err);
         res.json(recipe);
+    });
+};
+
+exports.getAll = function (req, res) {
+    Recipe.find(function(err, recipes) {
+        if (err)
+            return (res.send(err));
+        res.json(recipes);
+    });
+};
+
+exports.getIngredients = function(req, res) {
+    Recipe.findById(req.params.id, function(err, recipe) {
+        if (err)
+            return (res.send(err));
+        Ingredient.find({ _id : { $in : recipe.ingredients }}, function(err, ingredients) {
+            if (err)
+                return (res.send(err));
+            res.json(ingredients);
+        });
     });
 };
 
@@ -44,14 +65,6 @@ exports.create = function (req, res, next) {
                 return (res.send(err));
             res.json(_recipe);
         });
-    });
-};
-
-exports.getAll = function (req, res) {
-    Recipe.find(function(err, recipes) {
-        if (err)
-            res.send(err);
-        res.json(recipes);
     });
 };
 

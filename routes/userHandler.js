@@ -4,6 +4,7 @@
 
 var User = require("../models/user.js");
 var Ingredient = require("../models/ingredient.js");
+var Recipe = require("../models/recipe.js");
 var sjcl = require("sjcl");
 var error = require("./errorHandler");
 
@@ -35,6 +36,30 @@ exports.getAll = function(req, res) {
         res.redirect("/login");
     }*/
 
+};
+
+exports.getLikesRecipes = function(req, res) {
+    User.findById(req.params.id, function(err, user) {
+        if (err)
+            return (res.send(err));
+        Recipe.find({ _id : { $in : user.likes }}, function(err, lrecipes) {
+            if (err)
+                return (res.send(err));
+            res.json(lrecipes);
+        });
+    });
+};
+
+exports.getDislikesRecipes = function(req, res) {
+    User.findById(req.params.id, function(err, user) {
+        if (err)
+            return (res.send(err));
+        Recipe.find({ _id : { $in : user.dislikes }}, function(err, drecipes) {
+            if (err)
+                return (res.send(err));
+            res.json(drecipes);
+        });
+    });
 };
 
 exports.getRestrictedFood = function(req, res) {
@@ -92,7 +117,7 @@ exports.create = function(req, res, next) {
             console.log("toto");
             var _user = new User();
             _user.username = req.body.username;
-            _user.pass = sjcl.encrypt("pass", req.body.pass);
+            //_user.pass = sjcl.encrypt("pass", req.body.pass);
             _user.email = req.body.email;
             _user.followings = req.body.followings;
             _user.likes = req.body.likes;
