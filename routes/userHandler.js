@@ -109,21 +109,21 @@ exports.create = function(req, res) {
             return res.status(500).send(err);
         }
         else if (user) {
-            console.log("USER EXIST");
+            //console.log("USER EXIST");
             return res.status(409).send("user exist");
         }
         else {
-            console.log("toto");
+            //console.log("toto");
             var _user = new User();
             _user.username = req.body.username;
             //_user.pass = sjcl.encrypt("pass", req.body.pass);
             _user.email = req.body.email;
-            _user.followings = req.body.followings;
-            _user.likes = req.body.likes;
-            _user.dislikes = req.body.dislikes;
-            _user.favoriteFood = req.body.favoriteFood;
-            _user.restrictedFood = req.body.restrictedFood;
-            _user.badFood = req.body.badFood;
+            if (req.body.followings) _user.followings = req.body.followings;
+            if (req.body.likes) _user.likes = req.body.likes;
+            if (req.body.dislikes) _user.dislikes = req.body.dislikes;
+            if (req.body.favoriteFood) _user.favoriteFood = req.body.favoriteFood;
+            if (req.body.restrictedFood) _user.restrictedFood = req.body.restrictedFood;
+            if (req.body.badFood) _user.badFood = req.body.badFood;
 
             _user.save(function(err) {
                 if (err) {
@@ -165,8 +165,8 @@ exports.update = function(req, res, next) {
 exports.delete = function(req, res, next) {
     User.remove({ _id : req.params.id }, function(err) {
         if (err) {
-            return (res.send(err));
+            return (res.status(500).send(err));
         }
-        res.json({ message: "Successfully deleted" });
+        res.status(200).json({ message: "Successfully deleted" });
     });
 };

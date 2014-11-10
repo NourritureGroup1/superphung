@@ -20,6 +20,7 @@ describe("REST API /user", function() {
         username : "lolibar",
         email : "lolivache@gmail.com"
     };
+    var id;
 
     it("POST /user", function(done) {
         request(app)
@@ -31,6 +32,7 @@ describe("REST API /user", function() {
                 var data = JSON.parse(res.text);
                 expect(res.status).to.equal(201);
                 expect(userTest.username).to.equal(data.username);
+                id = data._id;
                 done();
             });
     });
@@ -45,5 +47,16 @@ describe("REST API /user", function() {
                 expect(res.status).to.equal(200);
                 done();
             });
+    });
+
+    it("DELETE /user", function(done) {
+        request(app)
+            .delete("/user/" + id)
+            .end(function(err, res) {
+                console.log = log;
+                expect(err).to.be.null;
+                expect(res.status).to.equal(200);
+                done();
+            })
     });
 });
