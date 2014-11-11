@@ -40,38 +40,30 @@ exports.getAll = function(req, res) {
 
 };
 
-exports.getLikesRecipes = function(req, res) {
-    User.findById(req.params.id, function(err, user) {
+var getUserPreferences = function(req, res, preferences) {
+    Recipe.find({ _id : { $in : preferences }}, function(err, preferencesData) {
         if (err) {
             error.logError(req, res, err);
             return (res.status(500).send(err));
         }
-        Recipe.find({ _id : { $in : user.likes }}, function(err, lrecipes) {
-            if (err) {
-                error.logError(req, res, err);
-                return (res.status(500).send(err));
-            }
-            if (lrecipes.length == 0)
-                return (res.status(204).end());
-            res.status(200).json(lrecipes);
-        });
+        if (preferencesData.length == 0)
+            return (res.status(204).end());
+        res.status(200).json(preferencesData);
+    });
+};
+
+
+exports.getLikesRecipes = function(req, res) {
+    User.findById(req.params.id, function(err, user) {
+        if (err) { error.logError(req, res, err); return (res.status(500).send(err)); }
+        return getUserPreferences(req, res, user.likes);
     });
 };
 
 exports.getDislikesRecipes = function(req, res) {
     User.findById(req.params.id, function(err, user) {
-        if (err) {
-            error.logError(req, res, err);
-            return (res.status(500).send(err));
-        }
-        Recipe.find({ _id : { $in : user.dislikes }}, function(err, drecipes) {
-            if (err) {
-                return (res.status(500).send(err));
-            }
-            if (drecipes.length == 0)
-                return (res.status(204).end());
-            res.status(200).json(drecipes);
-        });
+        if (err) { error.logError(req, res, err); return (res.status(500).send(err)); }
+        return getUserPreferences(req, res, user.dislikes);
     });
 };
 
