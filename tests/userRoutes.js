@@ -8,7 +8,7 @@ var expect = require("chai").expect;
 var app = require("../app.js");
 
 
-describe("REST API /user", function() {
+describe("REST API /user ::", function() {
 
     var log = console.log;
 
@@ -24,10 +24,21 @@ describe("REST API /user", function() {
             "545f3bb4c55b49d80a941979"
         ],
         restrictedFood : [
-            "545a0b0dd9087e0424db9e9b"
         ]
     };
+
     var id;
+
+    it("SETUP API", function(done) {
+        request(app)
+            .get("/ingredient/pomme/ssearch")
+            .end(function(err, res) {
+                var data = JSON.parse(res.text);
+                userTest.restrictedFood.push(data._id);
+                done();
+            });
+    });
+
 
     it("POST /user", function(done) {
         request(app)

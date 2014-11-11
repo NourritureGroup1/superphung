@@ -3,6 +3,7 @@
  */
 
 var Ingredient = require("../models/ingredient.js");
+var error = require("./errorHandler");
 
 exports.getById = function (req, res) {
     Ingredient.findById(req.params.id, function(err, ingredient){
@@ -22,19 +23,35 @@ exports.getAll = function (req, res) {
     });
 };
 
+exports.getByStrictName = function(req, res) {
+    Ingredient.findOne({ name : req.params.name }, function(err, ingredient) {
+        if (err) {
+            error.logError(req, res, err);
+            return res.status(500).send(err);
+        }
+        res.status(200).json(ingredient);
+    });
+};
+
+exports.getByPartialName = function (req, res) {
+    Ingredient.find({ name : { $regex: req.params.name, $options : "i" } }, function(err, ingredients) {
+        if (err)
+            res.send(err);
+        res.json(ingredients);
+    });
+};
+
 exports.create = function (req, res) {
 
     Ingredient.findOne({ name: req.body.name }, function(err, ingredient) {
         if (err) {
-            console.log("ERREUR CREATION INGREDIENT");
-            res.send(err);
+            error.logError(req, res, err);
+            return res.status(500).send(err);
         }
         else if (ingredient) {
-            console.log("INGREDIENT EXIST");
-            res.send("ingredient exist deja");
+            return res.status(409).send("ingredient exist");
         }
         else {
-            console.log("INGREDIENT CREATION");
             var _ingredient = new Ingredient();
 
             _ingredient.name = req.body.name;
@@ -43,19 +60,13 @@ exports.create = function (req, res) {
             _ingredient.nutrients = req.body.nutrients;
 
             _ingredient.save(function(err) {
-                if (err)
-                    res.send(err);
-                res.json({ message: "ingredient created" });
+                if (err) {
+                    error.logError(req, res, err);
+                    return res.status(500).send(err);
+                }
+                res.status(201).json(_ingredient);
             });
         }
-    });
-};
-
-exports.getByPartialName = function (req, res) {
-    Ingredient.find({ name: { $regex: req.params.name, $options: "i" } }, function(err, ingredients) {
-        if (err)
-            res.send(err);
-        res.json(ingredients);
     });
 };
 
