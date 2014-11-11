@@ -40,8 +40,8 @@ exports.getAll = function(req, res) {
 
 };
 
-var getUserPreferences = function(req, res, preferences) {
-    Recipe.find({ _id : { $in : preferences }}, function(err, preferencesData) {
+var getUserPreferences = function(req, res, Type, preferences) {
+    Type.find({ _id : { $in : preferences }}, function(err, preferencesData) {
         if (err) {
             error.logError(req, res, err);
             return (res.status(500).send(err));
@@ -56,53 +56,35 @@ var getUserPreferences = function(req, res, preferences) {
 exports.getLikesRecipes = function(req, res) {
     User.findById(req.params.id, function(err, user) {
         if (err) { error.logError(req, res, err); return (res.status(500).send(err)); }
-        return getUserPreferences(req, res, user.likes);
+        return getUserPreferences(req, res, Recipe, user.likes);
     });
 };
 
 exports.getDislikesRecipes = function(req, res) {
     User.findById(req.params.id, function(err, user) {
         if (err) { error.logError(req, res, err); return (res.status(500).send(err)); }
-        return getUserPreferences(req, res, user.dislikes);
+        return getUserPreferences(req, res, Recipe, user.dislikes);
     });
 };
 
 exports.getRestrictedFood = function(req, res) {
     User.findById(req.params.id, function(err, user) {
-        if (err)
-            return (res.send(err));
-        Ingredient.find({ _id : { $in : user.restrictedFood }}, function(err, rfood) {
-            if (err)
-                return (res.send(err));
-            res.json(rfood);
-        });
-        //res.json(user.restrictedFood);
+        if (err) { error.logError(req, res, err); return (res.send(err)); }
+        return getUserPreferences(req, res, Ingredient, user.restrictedFood);
     });
 };
 
 exports.getFavoriteFood = function(req, res) {
     User.findById(req.params.id, function(err, user) {
-        if (err)
-            return (res.send(err));
-        Ingredient.find({ _id : { $in : user.favoriteFood }}, function(err, ffood) {
-            if (err)
-                return (res.send(err));
-            res.json(ffood);
-        });
-        //res.json(user.favoriteFood);
+        if (err) { error.logError(res, req, err); return (res.status(500).send(err)); }
+        return getUserPreferences(req, res, Ingredient, user.favoriteFood);
     });
 };
 
 exports.getBadFood = function(req, res) {
     User.findById(req.params.id, function(err, user) {
-        if (err)
-            return (res.send(err));
-        Ingredient.find({ _id : { $in : user.badFood }}, function(err, bfood) {
-            if (err)
-                return (res.send(err));
-            res.json(bfood);
-        });
-        //res.json(user.badFood);
+        if (err) { error.logError(req, res, err); return (res.status(500).send(err)); }
+        return getUserPreferences(req, res, Ingredient, user.badFood);
     });
 };
 
