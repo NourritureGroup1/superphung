@@ -12,13 +12,17 @@ describe("REST API /user", function() {
 
     var log = console.log;
 
-    beforeEach(function() {
+    /*beforeEach(function() {
       console.log = function(){};
-    });
+    });*/
 
     var userTest = {
         username : "lolibar",
-        email : "lolivache@gmail.com"
+        email : "lolivache@gmail.com",
+        likes : [
+            "545f3b5dc55b49d80a941978",
+            "545f3bb4c55b49d80a941979"
+        ]
     };
     var id;
 
@@ -29,10 +33,23 @@ describe("REST API /user", function() {
             .end(function(err, res) {
                 console.log = log;
                 expect(err).to.be.null;
-                var data = JSON.parse(res.text);
                 expect(res.status).to.equal(201);
+                var data = JSON.parse(res.text);
                 expect(userTest.username).to.equal(data.username);
                 id = data._id;
+                done();
+            });
+    });
+
+    it ("GET /user/:id", function(done) {
+        request(app)
+            .get("/user/" + id)
+            .end(function(err, res) {
+                console.log = log;
+                expect(err).to.be.null;
+                expect(res.status).to.equal(200);
+                var data = JSON.parse(res.text);
+                expect(userTest.username).to.equal(data.username);
                 done();
             });
     });
@@ -49,6 +66,30 @@ describe("REST API /user", function() {
             });
     });
 
+    it("GET /user/:id/likes", function(done) {
+        request(app)
+            .get("/user/" + id + "/likes")
+            .end(function(err, res) {
+                console.log = log;
+                expect(err).to.be.null;
+                expect(res.status).to.equal(200);
+                var data = JSON.parse(res.text);
+                expect(userTest.likes[0]).to.equal(data[0]._id);
+                expect(userTest.likes[1]).to.equal(data[1]._id);
+                done();
+            });
+    });
+
+    it("GET /user/:id/dislikes", function(done) {
+        request(app)
+            .get("/user/" + id + "/dislikes")
+            .end(function(err, res) {
+                console.log = log;
+                expect(res.status).to.equal(204);
+                done();
+            });
+    });
+
     it("DELETE /user", function(done) {
         request(app)
             .delete("/user/" + id)
@@ -57,6 +98,6 @@ describe("REST API /user", function() {
                 expect(err).to.be.null;
                 expect(res.status).to.equal(200);
                 done();
-            })
+            });
     });
 });

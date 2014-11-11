@@ -11,6 +11,7 @@ var error = require("./errorHandler");
 exports.getById = function(req, res) {
     User.findById(req.params.id, function(err, user){
         if (err) {
+            error.logError(req, res, err);
             return (res.status(500).send(err));
         }
         /*for (int i=0; i < user.friends.length; i++)
@@ -27,7 +28,8 @@ exports.getAll = function(req, res) {
     //if(req.session && req.session.authenticated) {
         User.find(function (err, users) {
             if (err) {
-                res.send(err);
+                error.logError(req, res, err);
+                return (res.status(500).send(err));
             }
             res.status(200).json(users);
         });
@@ -40,24 +42,35 @@ exports.getAll = function(req, res) {
 
 exports.getLikesRecipes = function(req, res) {
     User.findById(req.params.id, function(err, user) {
-        if (err)
-            return (res.send(err));
+        if (err) {
+            error.logError(req, res, err);
+            return (res.status(500).send(err));
+        }
         Recipe.find({ _id : { $in : user.likes }}, function(err, lrecipes) {
-            if (err)
-                return (res.send(err));
-            res.json(lrecipes);
+            if (err) {
+                error.logError(req, res, err);
+                return (res.status(500).send(err));
+            }
+            if (lrecipes.length == 0)
+                return (res.status(204).end());
+            res.status(200).json(lrecipes);
         });
     });
 };
 
 exports.getDislikesRecipes = function(req, res) {
     User.findById(req.params.id, function(err, user) {
-        if (err)
-            return (res.send(err));
+        if (err) {
+            error.logError(req, res, err);
+            return (res.status(500).send(err));
+        }
         Recipe.find({ _id : { $in : user.dislikes }}, function(err, drecipes) {
-            if (err)
-                return (res.send(err));
-            res.json(drecipes);
+            if (err) {
+                return (res.status(500).send(err));
+            }
+            if (drecipes.length == 0)
+                return (res.status(204).end());
+            res.status(200).json(drecipes);
         });
     });
 };
