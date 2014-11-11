@@ -24,13 +24,18 @@ describe("REST API /ingredient", function() {
         ]
     };
 
-    var ingredientRes;
-    request(app)
-        .get("/ingredient/pomme/ssearch")
-        .end(function(err, res) {
-            if (res.status == 200) ingredientRes = 1;
-            else ingredientRes = 0;
-        });
+    var ingredientRes = 0;
+    it("SETUP /ingredient", function(done) {
+        request(app)
+            .get("/ingredient/pomme/ssearch")
+            .end(function(err, res) {
+                //console.log(res.status);
+                if (res.status == 200)
+                    ingredientRes = 1;
+                done();
+            });
+    });
+
 
     it("POST /ingredient", function(done) {
         if (ingredientRes == 0) {

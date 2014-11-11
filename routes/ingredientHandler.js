@@ -29,6 +29,8 @@ exports.getByStrictName = function(req, res) {
             error.logError(req, res, err);
             return res.status(500).send(err);
         }
+        if (ingredient == null)
+            return (res.status(204).end());
         res.status(200).json(ingredient);
     });
 };
