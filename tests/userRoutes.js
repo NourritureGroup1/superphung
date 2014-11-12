@@ -20,8 +20,6 @@ describe("REST API /user ::", function() {
         username : "lolibar",
         email : "lolivache@gmail.com",
         likes : [
-            "545f3b5dc55b49d80a941978",
-            "545f3bb4c55b49d80a941979"
         ],
         restrictedFood : [
         ]
@@ -37,6 +35,16 @@ describe("REST API /user ::", function() {
                 userTest.restrictedFood.push(data._id);
                 done();
             });
+    });
+
+    it("SETUP API", function(done) {
+        request(app)
+            .get("/recipe/nems/eric")
+            .end(function(err, res) {
+                var data = JSON.parse(res.text);
+                userTest.likes.push(data._id);
+                done();
+            })
     });
 
 
@@ -89,7 +97,6 @@ describe("REST API /user ::", function() {
                 expect(res.status).to.equal(200);
                 var data = JSON.parse(res.text);
                 expect(userTest.likes[0]).to.equal(data[0]._id);
-                expect(userTest.likes[1]).to.equal(data[1]._id);
                 done();
             });
     });
@@ -176,4 +183,15 @@ describe("REST API /user ::", function() {
                 done();
             });
     });
+    it("DELETE /recipe/:id", function(done) {
+        request(app)
+            .delete("/recipe/" + userTest.likes[0])
+            .end(function(err, res) {
+                console.log = log;
+                expect(err).to.be.null;
+                expect(res.status).to.equal(200);
+                done();
+            });
+    });
+
 });
