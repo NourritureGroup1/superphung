@@ -14,11 +14,8 @@ exports.getById = function(req, res) {
             error.logError(req, res, err);
             return (res.status(500).send(err));
         }
-        /*for (int i=0; i < user.friends.length; i++)
-        {
-
-        }*/
-        //res.json(user);
+        if (user == null)
+            return res.status(204).end();
         res.status(200).json(user);
         //res.render("user.ejs", {user: user});
     });
@@ -31,6 +28,8 @@ exports.getAll = function(req, res) {
                 error.logError(req, res, err);
                 return (res.status(500).send(err));
             }
+            if (users.length == 0)
+                return res.status(204).end();
             res.status(200).json(users);
         });
     /*}
@@ -47,7 +46,7 @@ var getUserPreferences = function(req, res, Type, preferences) {
             return (res.status(500).send(err));
         }
         if (preferencesData.length == 0)
-            return (res.status(204).end());
+            return res.status(204).end();
         res.status(200).json(preferencesData);
     });
 };
@@ -123,27 +122,29 @@ exports.create = function(req, res) {
     });
 };
 
-exports.update = function(req, res, next) {
-    User.findById(req.params.id, function(err, user){
+exports.update = function(req, res) {
+    User.findById(req.params.id, function(err, user) {
         if (err) {
             error.logError(req, res, err);
             return (res.status(500).end());
         }
+        //cette condition sert a rien : si findByid ne trouve pas l'user il renvoit 500
+        //verifier cote client que err=null et !res
+        if (user == null)
+            return res.status(204).end();
 
-        if (req.body.email) user.email = req.body.email;
-        if (req.body.followings) user.followings = req.body.followings;
-        if (req.body.likes) user.likes = req.body.likes;
-        if (req.body.dislikes) user.dislikes = req.body.dislikes;
+        user.email = req.body.email;
+        user.followings = req.body.followings;
+        user.likes = req.body.likes;
+        user.dislikes = req.body.dislikes;
         user.favoriteFood = req.body.favoriteFood;
         user.restrictedFood = req.body.restrictedFood;
         user.badFood = req.body.badFood;
         user.save(function(err) {
             if (err) {
+                error.logError(req, res, err);
                 return (res.send(err));
             }
-            console.log("USER UPDATE");
-            //res.json({ message: "user updated"});
-            //res.end();
             res.status(200).json(user);
         });
     });
@@ -152,6 +153,7 @@ exports.update = function(req, res, next) {
 exports.delete = function(req, res, next) {
     User.remove({ _id : req.params.id }, function(err) {
         if (err) {
+            error.logError(req, res, err);
             return (res.status(500).send(err));
         }
         res.status(200).json({ message: "Successfully deleted" });

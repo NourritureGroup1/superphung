@@ -6,7 +6,7 @@ var request = require("supertest");
 var expect = require("chai").expect;
 
 var app = require("../app.js");
-
+var mongoose = require("mongoose");
 
 describe("REST API /user ::", function() {
 
@@ -140,9 +140,35 @@ describe("REST API /user ::", function() {
             });
     });
 
+    it("PUT /user/:id", function(done) {
+        userTest.email = "lolibite@gmail.com";
+        request(app)
+            .put("/user/" + id)
+            .send(userTest)
+            .end(function(err, res) {
+                console.log = log;
+                expect(err).to.be.null;
+                expect(res.status).to.equal(200);
+                var data = JSON.parse(res.text);
+                expect(userTest.email).to.equal(data.email);
+                done();
+            });
+    });
+
     it("DELETE /user", function(done) {
         request(app)
             .delete("/user/" + id)
+            .end(function(err, res) {
+                console.log = log;
+                expect(err).to.be.null;
+                expect(res.status).to.equal(200);
+                done();
+            });
+    });
+
+    it("DELETE /ingredient/:id", function(done) {
+        request(app)
+            .delete("/ingredient/" + userTest.restrictedFood[0])
             .end(function(err, res) {
                 console.log = log;
                 expect(err).to.be.null;

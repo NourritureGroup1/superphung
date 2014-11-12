@@ -7,18 +7,23 @@ var error = require("./errorHandler");
 
 exports.getById = function (req, res) {
     Ingredient.findById(req.params.id, function(err, ingredient){
-        if (err)
-            res.status(500).send(err);
-        res.status(200);
-        res.json(ingredient);
+        if (err) {
+            error.logError(req, res, err);
+            return res.status(500).send(err);
+        }
+        res.status(200).json(ingredient);
     });
 };
 
 exports.getAll = function (req, res) {
     Ingredient.find(function(err, ingredients) {
-        if (err)
-            res.send(err);
-        res.json(ingredients);
+        if (err) {
+            error.logError(req, res, err);
+            return res.status(500).send(err);
+        }
+        if (ingredients.length == 0)
+            return res.status(204).end();
+        res.status(200).json(ingredients);
         //res.render("ingredient.ejs", { ingredients : ingredients });
     });
 };
@@ -37,9 +42,13 @@ exports.getByStrictName = function(req, res) {
 
 exports.getByPartialName = function (req, res) {
     Ingredient.find({ name : { $regex: req.params.name, $options : "i" } }, function(err, ingredients) {
-        if (err)
-            res.send(err);
-        res.json(ingredients);
+        if (err) {
+            error.logError(req, res, err);
+            return res.status(500).send(err);
+        }
+        if (ingredients.length == 0)
+            return res.status(204).end();
+        res.status(200).json(ingredients);
     });
 };
 
@@ -74,26 +83,29 @@ exports.create = function (req, res) {
 
 exports.update = function(req, res) {
     Ingredient.findById(req.params.id, function(err, ingredient) {
-        if (err)
-            return (res.send(err));
+        if (err) {
+            error.logError(req, res, err);
+            return res.status(500).send(err);
+        }
         ingredient.description = req.body.description;
         ingredient.category = req.body.category;
         ingredient.nutrients = req.body.nutrients;
         ingredient.save(function(err) {
             if (err) {
-                res.send(err);
+                error.logError(req, res, err);
+                return res.status(500).send(err);
             }
-            console.log("INGREDIENT UPDATE");
-            res.json({ message : "ingredient update" });
-            res.end();
+            res.status(200).json(ingredient);
         });
     });
 };
 
 exports.delete = function(req, res) {
     Ingredient.remove({ _id : req.params.id }, function(err) {
-        if (err)
-            res.send(err);
-        res.json({ message: "Successfully deleted" });
+        if (err) {
+            error.logError(req, res, err);
+            return res.status(500).send(err);
+        }
+        res.status(200).json({ message: "Successfully deleted" });
     });
 };
