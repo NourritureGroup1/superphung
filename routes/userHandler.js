@@ -17,7 +17,6 @@ exports.getById = function(req, res) {
         if (user == null)
             return res.status(204).end();
         res.status(200).json(user);
-        //res.render("user.ejs", {user: user});
     });
 };
 

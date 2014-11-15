@@ -24,7 +24,6 @@ exports.getAll = function (req, res) {
         if (ingredients.length == 0)
             return res.status(204).end();
         res.status(200).json(ingredients);
-        //res.render("ingredient.ejs", { ingredients : ingredients });
     });
 };
 

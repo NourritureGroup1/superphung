@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <style>
+        body { padding-top: 50px; }
+    </style>
+</head>
+<body>
+    <table class="table table-striped">
+        <div class="jumbotron">
+            <p>Welcome to Nourriture API</p>
+        </div>
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>method</th>
+                <th>path</th>
+            </tr>
+        </thead>
+        <tbody>
+        <% var i = 1;%>
+        <% for (var key in routes) {%>
+            <% if (routes.hasOwnProperty(key)) {%>
+                <% if (routes[key].route) { %>
+                    <tr>
+                        <td><%= i %></td>
+                        <td><%= routes[key].route.stack[0].method %></td>
+                        <td><%= routes[key].route.path %></td>
+                        <% i = i + 1;%>
+                    </tr>
+                <%}%>
+            <%}%>
+        <%}%>
+        </tbody>
+    </table>
+</body>
+
+</html>

@@ -48,11 +48,13 @@ function main () {
         res.render("fb.ejs");
     });
 
-    app.get("/owi_ca_marche", function(req, res, next) {
-       res.end("LOLIBLASTORBAR");
-    });
-
     require("./routes")(app);
+
+    require("./config/end_points")(app._router.stack);
+
+    app.get("/api", function(req, res) {
+        res.render("end_points", { routes : app._router.stack });
+    });
 
     https.createServer(options, app).listen(app.get("port"));
 }
