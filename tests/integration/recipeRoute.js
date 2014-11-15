@@ -6,7 +6,7 @@ var request = require("supertest");
 var expect = require("chai").expect;
 var moment = require("moment");
 
-var app = require("../app.js");
+var app = require("../../app.js");
 
 describe("REST API /recipe", function() {
 

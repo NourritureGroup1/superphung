@@ -3,10 +3,10 @@
  */
 
 module.exports = {
-    all : {
+    integrationTest : {
         options : {
             reporter : "list"
         },
-        src : ["tests/**/*.js"]
+        src : ["tests/integration/*.js"]
     }
 };

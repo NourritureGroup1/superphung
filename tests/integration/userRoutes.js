@@ -5,8 +5,7 @@
 var request = require("supertest");
 var expect = require("chai").expect;
 
-var app = require("../app.js");
-var mongoose = require("mongoose");
+var app = require("../../app.js");
 
 describe("REST API /user ::", function() {
 

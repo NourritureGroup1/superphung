@@ -8,7 +8,7 @@ module.exports = function(routes) {
     var table = new Table({ head : ["", "Path"] });
 
     console.log('\n********************************************');
-    console.log('\t\tEXPRESS');
+    console.log('\t\tNourriture API');
     console.log('********************************************\n');
     for (var key in routes) {
         if (routes.hasOwnProperty(key)) {
