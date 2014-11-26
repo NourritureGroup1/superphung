@@ -10,7 +10,9 @@ module.exports = function(app) {
           //if (err)
           //    console.log(err);
          // else
-              res.render("account.ejs");
+              //res.render("account.ejs");
+        res.redirect("/");
+        //res.sendFile(__dirname + "/../public/app.html");
        // });
     });
 
@@ -18,7 +20,7 @@ module.exports = function(app) {
         passport.authenticate("facebook"),
         function(req,res){});
     app.get("/auth/facebook/callback",
-        passport.authenticate("facebook", { failureRedirect : "/"}),
+        passport.authenticate("facebook", { failureRedirect : "#/login"}),
         function(req, res) {
             res.redirect("/account");
         });
@@ -27,9 +29,26 @@ module.exports = function(app) {
         res.redirect("/");
     });
 
+    app.get("/session", isLoggedIn, function(req, res) {
+        console.log(req.user);
+        res.status(200).json(req.user);
+        /*res.send({
+            //loginStatus: true,
+            user: req.user
+        });*/
+    });
+
+    function isLoggedIn(req, res, next) {
+        if (req.isAuthenticated()) {
+            next();
+        } else {
+            res.status(400).send({msg : "Please login to access this information"});
+        }
+    }
+
     function ensureAuthenticated(req, res, next) {
         if (req.isAuthenticated())
             return next();
-        res.redirect("/");
+        res.redirect("#/login");
     }
 };

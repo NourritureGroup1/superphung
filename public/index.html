@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="scripts/vendors/angular.js"></script>
+    <script src="scripts/vendors/angular-route.js"></script>
+
+    <script src="scripts/nourritureApp.module.js"></script>
+    <script src="scripts/app.js"></script>
+    <script src="scripts/services.js"></script>
+    <script src="scripts/controllers.js"></script>
+</head>
+<body ng-app="NourritureApp">
+
+
+    <div ng-controller="MainCtrl as mainCtrl">
+        <span ng-hide="mainCtrl.userService.isLoggedIn">
+            <a href="#/login">Login</a>
+        </span>
+
+        <span ng-show="mainCtrl.userService.isLoggedIn">
+            <a href="#/account">my account</a>
+            <a href="/logout">logout</a>
+        </span>
+    </div>
+
+
+
+    <div ng-view></div>
+</body>
+</html>
