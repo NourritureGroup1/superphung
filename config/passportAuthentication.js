@@ -36,7 +36,8 @@ module.exports = function(passport) {
            else {
                var _user = new User({
                    oauthID : profile.id,
-                   name : profile.displayName
+                   name : profile.displayName,
+                   email : profile.emails[0].value
                });
                _user.save(function(err) {
                    if (err)
