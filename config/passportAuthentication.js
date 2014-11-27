@@ -27,36 +27,15 @@ module.exports = function(passport) {
         clientID : config.facebook.clientID,
         clientSecret : config.facebook.clientSecret,
         callbackURL : config.facebook.callbackURL
-    },
-    function(token, refreshToken, profile, done) {
-       User.findOne({ oauthID : profile.id }, function(err, user) {
-           if (err)
-               return done(err);
-           if (!err && user != null)
-               return done(null, user);
-           else {
-               var _user = new User({
-                   oauthID : profile.id,
-                   name : profile.displayName,
-                   email : profile.emails[0].value
-               });
-               _user.save(function(err) {
-                   if (err)
-                       console.log(err);
-                   else
-                       return done(null, _user);
-               });
-           }
-       });
-
-    }));
+    }, configStrategy));
 
     passport.use(new GoogleStrategy({
         clientID : config.google.clientID,
         clientSecret : config.google.clientSecret,
         callbackURL : config.google.callbackURL
-    },
-    function(token, refreshToken, profile, done) {
+    }, configStrategy));
+
+    function configStrategy(token, refreshToken, profile, done) {
         User.findOne({ oauthID : profile.id }, function(err, user) {
             if (err)
                 return done(err);
@@ -70,11 +49,11 @@ module.exports = function(passport) {
                 });
                 _user.save(function(err) {
                     if (err)
-                       console.log(err);
+                        console.log(err);
                     else
                         return done(null, _user);
                 });
             }
         });
-    }));
+    }
 };
