@@ -16,14 +16,20 @@ module.exports = function(app) {
        // });
     });
 
-    app.get("/auth/facebook",
-        passport.authenticate("facebook", { scope : "email" }),
-        function(req,res){});
+    app.get("/auth/facebook", passport.authenticate("facebook", { scope : "email" }));
     app.get("/auth/facebook/callback",
-        passport.authenticate("facebook", { failureRedirect : "#/login"}),
-        function(req, res) {
-            res.redirect("/account");
-        });
+        passport.authenticate("facebook", {
+            successRedirect : "/account",
+            failureRedirect : "#/login"
+        }));
+
+    app.get("/auth/google", passport.authenticate("google", { scope : ["profile", "email"] }));
+    app.get("/auth/google/callback",
+        passport.authenticate("google", {
+            successRedirect : "/account",
+            failureRedirect : "#/login"
+        }));
+
     app.get("/logout", function(req, res) {
         req.logout();
         res.redirect("/");
@@ -32,10 +38,6 @@ module.exports = function(app) {
     app.get("/session", isLoggedIn, function(req, res) {
         console.log(req.user);
         res.status(200).json(req.user);
-        /*res.send({
-            //loginStatus: true,
-            user: req.user
-        });*/
     });
 
     function isLoggedIn(req, res, next) {
