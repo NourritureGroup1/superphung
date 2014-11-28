@@ -11,6 +11,7 @@ UserService.$inject = ["$http"];
 function UserService($http) {
     var service = {
         isLoggedIn: false,
+        spinner: false,
         user: {},
 
         session: session

@@ -3,6 +3,10 @@
 <head lang="en">
     <meta charset="UTF-8">
     <title></title>
+    <link rel="stylesheet" href="css/bootstrap.css" />
+    <link rel="stylesheet" href="css/font-awesome-4.2.0/css/font-awesome.css"/>
+    <link rel="stylesheet" href="css/style.css">
+
     <script src="scripts/vendors/angular.js"></script>
     <script src="scripts/vendors/angular-route.js"></script>
 
@@ -13,7 +17,7 @@
 </head>
 <body ng-app="NourritureApp">
 
-
+    <!--
     <div ng-controller="MainCtrl as mainCtrl">
         <span ng-hide="mainCtrl.userService.isLoggedIn">
             <a href="#/login">Login</a>
@@ -23,10 +27,52 @@
             <a href="#/account">my account</a>
             <a href="/logout">logout</a>
         </span>
-    </div>
+    </div> -->
+
+    <div class="container" ng-controller="MainCtrl as mainCtrl">
+
+        <!-- Login with fb or google -->
+        <span ng-hide="mainCtrl.userService.isLoggedIn || mainCtrl.userService.spinner">
+            <a href="#">Login</a><br>
+            <a href="/auth/facebook" ng-click="mainCtrl.userService.spinner = true">Login via facebook</a>
+            <a href="/auth/google" ng-click="mainCtrl.userService.spinner = true">Login via google</a>
+        </span>
+
+        <!-- Spinner loading -->
+        <i class="fa fa-spinner fa-spin fa-5x" ng-show="!mainCtrl.userService.isLoggedIn && mainCtrl.userService.spinner" style="position: absolute;top: 40%;left: 50%"></i>
+
+        <!-- Nav bar -->
+        <nav class="navbar navbar-default" role="navigation" ng-show="mainCtrl.userService.isLoggedIn">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">Nourriture</a>
+                </div>
+
+                <div class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav">
+                        <li><a href="#/account"><i class="fa fa-user"></i>&nbsp;Profile</a></li>
+                        <li><a href="#"><i class="fa fa-cutlery"></i>&nbsp;Recipes</a></li>
+                        <li><a href="#">Lolibar</a></li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="/logout">Logout</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Fragments of views -->
+        <div ng-view></div>
 
 
+    </div> <!-- ./container -->
 
-    <div ng-view></div>
+    <script src="scripts/vendors/jquery.js"></script>
+    <script src="scripts/vendors/bootstrap.js"></script>
 </body>
 </html>

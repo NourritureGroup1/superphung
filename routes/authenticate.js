@@ -20,14 +20,14 @@ module.exports = function(app) {
     app.get("/auth/facebook/callback",
         passport.authenticate("facebook", {
             successRedirect : "/account",
-            failureRedirect : "#/login"
+            failureRedirect : "/"
         }));
 
     app.get("/auth/google", passport.authenticate("google", { scope : ["profile", "email"] }));
     app.get("/auth/google/callback",
         passport.authenticate("google", {
             successRedirect : "/account",
-            failureRedirect : "#/login"
+            failureRedirect : "/"
         }));
 
     app.get("/logout", function(req, res) {
@@ -51,6 +51,6 @@ module.exports = function(app) {
     function ensureAuthenticated(req, res, next) {
         if (req.isAuthenticated())
             return next();
-        res.redirect("#/login");
+        res.redirect("/");
     }
 };

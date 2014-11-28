@@ -8,9 +8,9 @@ angular
 
 function config($routeProvider) {
     $routeProvider
-        .when("/login", {
+        /*.when("/login", {
             templateUrl: "views/login.html"
-        })
+        })*/
         .when("/account", {
             templateUrl: "views/account.html",
             controller: "MainCtrl as mainCtrl",
@@ -27,7 +27,7 @@ function auth($q, $location, UserService) {
     return UserService.session().then(
         function(success) {},
         function(err) {
-            $location.path("/login");
+            $location.path("/");
             $location.replace();
             return $q.reject(err);
         });
