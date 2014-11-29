@@ -1,0 +1,20 @@
+{
+  "name": "superphung",
+  "version": "0.0.0",
+  "homepage": "https://github.com/NourritureGroup1/superphung",
+  "authors": [
+    "superphung <superphung44@gmail.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests",
+    "components"
+  ],
+  "dependencies": {
+    "angular-strap": "~2.1.4"
+  }
+}

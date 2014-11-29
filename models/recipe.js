@@ -10,7 +10,8 @@ var RecipeSchema = new Schema({
     description: String,
     steps: Array,
     ingredients: Array, //ref to ingredient
-    creationDate: String
+    creationDate: String,
+    imgUrl: String
 });
 
 module.exports = mongoose.model("Recipe", RecipeSchema);

@@ -3,11 +3,11 @@
  */
 
 angular.module("NourritureApp")
-    .controller("MainCtrl", MainCtrl);
+    .controller("UserCtrl", UserCtrl);
 
-MainCtrl.$inject = ["UserService"];
+UserCtrl.$inject = ["UserService"];
 
-function MainCtrl(userService) {
+function UserCtrl(userService) {
     var self = this;
 
     self.userService = userService;

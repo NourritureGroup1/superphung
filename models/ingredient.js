@@ -8,7 +8,8 @@ var IngredientSchema = new Schema({
     name: String,
     description: String,
     category: Array,
-    nutrients: Array
+    nutrients: Array,
+    imgUrl: String
 });
 
 module.exports = mongoose.model("Ingredient", IngredientSchema);

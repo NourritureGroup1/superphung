@@ -84,6 +84,7 @@ exports.create = function (req, res) {
         _recipe.steps = req.body.steps;
         _recipe.ingredients = req.body.ingredients;
         _recipe.creationDate = req.body.creationDate;
+        _recipe.imgUrl = req.files.name;
 
         _recipe.save(function(err) {
             if (err) {

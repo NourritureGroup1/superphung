@@ -12,9 +12,14 @@ function config($routeProvider) {
             templateUrl: "views/login.html"
         })*/
         .when("/account", {
-            templateUrl: "views/account.html",
-            controller: "MainCtrl as mainCtrl",
+            templateUrl: "user/account.html",
+            controller: "UserCtrl as userCtrl",
             resolve: { auth: auth }
+        })
+        .when("/recipes-create", {
+            templateUrl: "recipes/recipes-create.html",
+            controller: "RecipesCreateCtrl as recipeCreateCtrl",
+            resolve: { auth : auth }
         })
         .otherwise({
             redirectTo: "/"

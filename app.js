@@ -9,6 +9,7 @@ var passport = require("passport");
 
 var cookieParser = require("cookie-parser");
 var bodyParser = require("body-parser");
+var multer = require("multer");
 var session = require("express-session");
 
 
@@ -36,6 +37,11 @@ function main () {
     app.use(cookieParser());
     app.use(bodyParser.urlencoded({ extended : false }));
     app.use(bodyParser.json());
+    app.use(multer({
+        dest : "./public/uploads/",
+        rename : function(fieldname, filename) {
+            return filename.replace(/\W+/g, "-").toLocaleLowerCase() + Date.now();
+        }}));
     app.use(session({ secret : "loliblastobar" }));
     app.use(passport.initialize());
     app.use(passport.session());
