@@ -1,20 +1,41 @@
-<form class="form-horizontal">
-    <div class="form-group">
-        <input type="text" class="form-control" placeholder="Enter recipe name" required="">
-    </div>
-    <div class="form-group">
-        <input type="text" class="form-control" placeholder="Enter description" required="">
-    </div>
-    <div class="form-group">
-        <div ng-repeat="(i, step) in recipeCreateCtrl.steps track by $index">
-            <textarea class="form-control" placeholder="Enter a step" ng-model="recipeCreateCtrl.steps[i]"></textarea>
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <div class="alert alert-danger" ng-bind="recipeCreateCtrl.errMessageIng" ng-show="recipeCreateCtrl.errMessageIng"></div>
+            <div class="alert alert-danger" ng-bind="recipeCreateCtrl.errMessageFile" ng-show="recipeCreateCtrl.errMessageFile"></div>
+            <form class="form-horizontal" ng-submit="recipeCreateCtrl.submit()" name="recipeForm" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label>Name</label>
+                    <input type="text" class="form-control" placeholder="Enter recipe name" ng-model="recipeCreateCtrl.name" required>
+                </div>
+                <div class="form-group">
+                    <label>Description</label>
+                    <input type="text" class="form-control" placeholder="Enter description" ng-model="recipeCreateCtrl.description" required>
+                </div>
+                <div class="form-group">
+                    <label>Steps</label>
+                    <div ng-repeat="(i, step) in recipeCreateCtrl.steps track by $index">
+                        <textarea class="form-control" placeholder="Enter a step" ng-model="recipeCreateCtrl.steps[i]" required></textarea>
+                        <i class="glyphicon glyphicon-remove-circle pull-right" ng-click="recipeCreateCtrl.deleteStep(i)"></i>
+                    </div>
+                    <button type="button" class="btn btn-primary" ng-click="recipeCreateCtrl.addStep()">Add new Step</button>
+                </div>
+                <div class="form-group">
+                    <label>Ingredients</label>
+                    <div ng-repeat="(i, step) in recipeCreateCtrl.ingredients track by $index">
+                        <input type="text" class="form-control" placeholder="Enter an ingredient" ng-model="recipeCreateCtrl.ingredients[i]" ng-options="ing as ing.name for ing in recipeCreateCtrl.recipeCreateService.ingredients" required bs-typeahead>
+                        <i class="glyphicon glyphicon-remove-circle pull-right" ng-click="recipeCreateCtrl.deleteIngredient(i)"></i>
+                    </div>
+                    <button type="button" class="btn btn-primary" ng-click="recipeCreateCtrl.addIngredient()">Add new Ingredient</button>
+                </div>
+                <div class="form-group">
+                    <label>Recipe photo</label>
+                    <input type="file" file-model="myFile" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <input type="submit" class="btn btn-success" ng-disabled="recipeForm.$invalid">
+                </div>
+            </form>
         </div>
-        <button type="button" class="btn btn-primary" ng-click="recipeCreateCtrl.addStep()">Add new Step</button>
     </div>
-    <div class="form-group">
-        <div ng-repeat="(i, step) in recipeCreateCtrl.ingredients track by $index">
-            <input class="form-control" placeholder="Enter an ingredient" ng-model="recipeCreateCtrl.ingredients[i]" ng-options="ing as ing.name for ing in recipeCreateCtrl.recipeCreateService.ingredients" bs-typeahead>
-        </div>
-        <button type="button" class="btn btn-primary" ng-click="recipeCreateCtrl.addIngredient()">Add new Ingredient</button>
-    </div>
-</form>
+</div>

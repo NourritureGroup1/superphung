@@ -15,7 +15,8 @@ var UserSchema = new Schema({
     dislikes: Array,        //recipes
     favoriteFood: Array,    //ingredient
     restrictedFood: Array,  //ingredient
-    badFood: Array          //ingredient
+    badFood: Array,          //ingredient
+    recipesCreated: Array
 });
 
 module.exports = mongoose.model("User", UserSchema);

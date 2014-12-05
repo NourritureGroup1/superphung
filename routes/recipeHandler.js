@@ -4,6 +4,7 @@
 
 var Ingredient = require("../models/ingredient.js");
 var Recipe = require("../models/recipe.js");
+var User = require("../models/user.js");
 var error = require("./errorHandler");
 
 exports.getById = function (req, res) {
@@ -84,7 +85,8 @@ exports.create = function (req, res) {
         _recipe.steps = req.body.steps;
         _recipe.ingredients = req.body.ingredients;
         _recipe.creationDate = req.body.creationDate;
-        _recipe.imgUrl = req.files.name;
+        _recipe.imgUrl = "";
+        //_recipe.imgUrl = req.files.name;
 
         _recipe.save(function(err) {
             if (err) {
@@ -124,4 +126,39 @@ exports.delete = function (req, res) {
         }
         res.status(200).json({ message : "Successfully deleted" });
     });
+};
+
+exports.upload = function (req, res) {
+    console.log("post - upload req.body : ", req.body);
+    console.log("post - file upload : " + JSON.stringify(req.files));
+    console.log("id recipe : " + req.body.idCreation);
+    console.log("id user : " + req.body.idUser);
+    Recipe.findById(req.body.idCreation, function(err, recipe) {
+        if (err) {
+            error.logError(req, res, err);
+            return res.status(500).send(err);
+        }
+        recipe.imgUrl = "/uploads/" + req.files.file.name;
+        recipe.save(function(err) {
+            if (err) {
+                error.logError(req, res, err);
+                return res.status(500).send(err);
+            }
+        });
+    });
+    User.findById(req.body.idUser, function(err, user) {
+        if (err) {
+            error.logError(req, res, err);
+            return res.status(500).send(err);
+        }
+        user.recipesCreated.push(req.body.idCreation);
+        user.save(function(err) {
+            if (err) {
+                error.logError(req, res, err);
+                return res.status(500).send(err);
+            }
+        });
+    });
+    //res.status(200).json(req.files);
+
 };
