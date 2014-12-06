@@ -15,6 +15,7 @@
     "components"
   ],
   "dependencies": {
-    "angular-strap": "~2.1.4"
+    "angular-strap": "~2.1.4",
+    "angular-bootstrap": "~0.12.0"
   }
 }

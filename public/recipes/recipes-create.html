@@ -23,7 +23,8 @@
                 <div class="form-group">
                     <label>Ingredients</label>
                     <div ng-repeat="(i, step) in recipeCreateCtrl.ingredients track by $index">
-                        <input type="text" class="form-control" placeholder="Enter an ingredient" ng-model="recipeCreateCtrl.ingredients[i]" ng-options="ing as ing.name for ing in recipeCreateCtrl.recipeCreateService.ingredients" required bs-typeahead>
+                        <!--<input type="text" class="form-control" placeholder="Enter an ingredient" ng-model="recipeCreateCtrl.ingredients[i]" ng-options="ing as ing.name for ing in recipeCreateCtrl.recipeCreateService.ingredients" required bs-typeahead>-->
+                        <input type="text" class="form-control" placeholder="Enter an ingredient" ng-model="recipeCreateCtrl.ingredients[i]" typeahead="ing as ing.name for ing in recipeCreateCtrl.recipeCreateService.ingredients | filter:{name:$viewValue}" required>
                         <i class="glyphicon glyphicon-remove-circle pull-right" ng-click="recipeCreateCtrl.deleteIngredient(i)"></i>
                     </div>
                     <button type="button" class="btn btn-primary" ng-click="recipeCreateCtrl.addIngredient()">Add new Ingredient</button>

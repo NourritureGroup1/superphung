@@ -16,6 +16,11 @@ function config($routeProvider) {
             controller: "UserCtrl as userCtrl",
             resolve: { auth: auth }
         })
+        .when("/recipes-list", {
+            templateUrl: "recipes/recipes-list.html",
+            controller: "RecipesListCtrl as recipesListCtrl",
+            resolve: { auth : auth }
+        })
         .when("/recipes-create", {
             templateUrl: "recipes/recipes-create.html",
             controller: "RecipesCreateCtrl as recipeCreateCtrl",

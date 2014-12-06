@@ -16,6 +16,8 @@
     <script src="components/angular-animate/angular-animate.js"></script>
     <script src="components/angular-strap/dist/angular-strap.min.js"></script>
     <script src="components/angular-strap/dist/angular-strap.tpl.min.js"></script>
+    <script src="components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+
 
     <script src="app.module.js"></script>
     <script src="app.route.js"></script>
@@ -23,6 +25,8 @@
     <script src="user/user.controller.js"></script>
     <script src="services/recipes-create.service.js"></script>
     <script src="recipes/recipes-create.controller.js"></script>
+    <script src="services/recipes.service.js"></script>
+    <script src="recipes/recipes-list.controller.js"></script>
 
     <script src="directives/file.directive.js"></script>
     <script src="services/fileUpload.js"></script>
@@ -68,7 +72,13 @@
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav">
                         <li><a href="#/account"><i class="fa fa-user"></i>&nbsp;Profile</a></li>
-                        <li><a href="#/recipes-create"><i class="fa fa-cutlery"></i>&nbsp;Recipes</a></li>
+                        <li class="dropdown">
+                            <a href="#/recipes-list" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-cutlery"></i>&nbsp;Recipes <span class="caret"></span></a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="#/recipes-create">Create recipes</a></li>
+                            </ul>
+                        </li>
+                        <!--<li><a href="#/recipes-create"><i class="fa fa-cutlery"></i>&nbsp;Recipes</span></a></li>-->
                         <li><a href="#">Lolibar</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
