@@ -9,7 +9,8 @@ RecipeService.$inject = ["$http"];
 
 function RecipeService($http) {
     var service = {
-        getRecipes : getRecipes
+        getRecipes : getRecipes,
+        getRecipeById : getRecipeById
     };
 
     return service;
@@ -21,5 +22,9 @@ function RecipeService($http) {
                 console.log(JSON.stringify(service.recipes));
                 return res;
             });*/
+    }
+
+    function getRecipeById(id) {
+        return $http.get("/recipe/" + id);
     }
 }

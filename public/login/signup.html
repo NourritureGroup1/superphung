@@ -1,0 +1,33 @@
+<div class="modal-header">
+    <h1><span class="fa fa-thumbs-o-up"> Sign up</span></h1>
+</div>
+
+<div class="alert alert-danger" ng-bind="signupCtrl.showFail" ng-show="signupCtrl.showFail"></div>
+<div class="alert alert-success" ng-bind="signupCtrl.showSuccess" ng-show="signupCtrl.showSuccess"></div>
+
+<div class="modal-body">
+    <!--<form action="/signup" method="post">-->
+    <form ng-submit="signupCtrl.submit(email, password)">
+        <div class="form-group">
+            <label>Email</label>
+            <input type="text" class="form-control" name="email" required="" ng-model="email">
+        </div>
+        <!--<div class="form-group">
+            <label>Name</label>
+            <input type="text" class="form-control" name="name" required="" ng-bind="">
+        </div>-->
+        <div class="form-group">
+            <label>Password</label>
+            <input type="password" class="form-control" name="password" required="" ng-model="password">
+        </div>
+        <button type="submit" class="btn btn-primary btn-lg">Sign up</button>
+        <!--<div class="form-group">
+            <input type="submit" class="btn btn-success">
+        </div>-->
+    </form>
+</div>
+
+<div class="modal-footer">
+    <p>Already have and account? <a href="" ng-click="signupCtrl.close()">Login</a></p>
+    <button class="btn btn-warning" ng-click="signupCtrl.cancel()">Cancel</button>
+</div>

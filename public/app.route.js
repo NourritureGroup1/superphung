@@ -9,7 +9,7 @@ angular
 function config($routeProvider) {
     $routeProvider
         /*.when("/login", {
-            templateUrl: "views/login.html"
+            templateUrl: "login/login.html"
         })*/
         .when("/account", {
             templateUrl: "user/account.html",
@@ -19,6 +19,11 @@ function config($routeProvider) {
         .when("/recipes-list", {
             templateUrl: "recipes/recipes-list.html",
             controller: "RecipesListCtrl as recipesListCtrl",
+            resolve: { auth : auth }
+        })
+        .when("/recipes/:id", {
+            templateUrl: "recipes/recipes-detail.html",
+            controller: "RecipesDetailCtrl as recipesDetailCtrl",
             resolve: { auth : auth }
         })
         .when("/recipes-create", {

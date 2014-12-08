@@ -14,7 +14,8 @@ function UserService($http) {
         spinner: false,
         user: {},
 
-        session: session
+        session: session,
+        signup: signup
     };
 
     return service;
@@ -26,5 +27,9 @@ function UserService($http) {
                 service.isLoggedIn = true;
                 return res;
             });
+    }
+
+    function signup(data) {
+        return $http.post("/signup", data);
     }
 }

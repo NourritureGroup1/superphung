@@ -3,4 +3,4 @@
  */
 
 angular
-    .module("NourritureApp", ["ngRoute", "ngAnimate", "mgcrea.ngStrap", "ui.bootstrap"]);
+    .module("NourritureApp", ["ngRoute", "ngAnimate", "mgcrea.ngStrap", "ui.bootstrap", "mgcrea.ngStrap.alert"]);

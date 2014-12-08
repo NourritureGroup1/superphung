@@ -6,6 +6,7 @@
     <!--<link rel="stylesheet" href="css/bootstrap.css" />-->
     <link rel="stylesheet" href="components/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="css/font-awesome-4.2.0/css/font-awesome.css"/>
+    <link rel="stylesheet" href="css/social-buttons.css">
     <link rel="stylesheet" href="css/style.css">
 
     <!--<script src="scripts/vendors/angular.js"></script>
@@ -27,6 +28,9 @@
     <script src="recipes/recipes-create.controller.js"></script>
     <script src="services/recipes.service.js"></script>
     <script src="recipes/recipes-list.controller.js"></script>
+    <script src="recipes/recipes-detail.controller.js"></script>
+    <script src="login/login.controller.js"></script>
+    <script src="login/signup.controller.js"></script>
 
     <script src="directives/file.directive.js"></script>
     <script src="services/fileUpload.js"></script>
@@ -48,17 +52,18 @@
     <div class="container" ng-controller="UserCtrl as userCtrl">
 
         <!-- Login with fb or google -->
-        <span ng-hide="userCtrl.userService.isLoggedIn || userCtrl.userService.spinner">
+        <!--<span ng-hide="userCtrl.userService.isLoggedIn || userCtrl.userService.spinner">
             <a href="#">Login</a><br>
             <a href="/auth/facebook" ng-click="userCtrl.userService.spinner = true">Login via facebook</a>
             <a href="/auth/google" ng-click="userCtrl.userService.spinner = true">Login via google</a>
-        </span>
+        </span> -->
 
-        <!-- Spinner loading -->
-        <i class="fa fa-spinner fa-spin fa-5x" ng-show="!userCtrl.userService.isLoggedIn && userCtrl.userService.spinner" style="position: absolute;top: 40%;left: 50%"></i>
+        <!-- Spinner loading
+        <i class="fa fa-spinner fa-spin fa-5x" ng-show="!userCtrl.userService.isLoggedIn && userCtrl.userService.spinner" style="position: absolute;top: 40%;left: 50%"></i>-->
 
         <!-- Nav bar -->
-        <nav class="navbar navbar-default" role="navigation" ng-show="userCtrl.userService.isLoggedIn">
+        <!--<nav class="navbar navbar-default" role="navigation" ng-show="userCtrl.userService.isLoggedIn">-->
+        <nav class="navbar navbar-default" role="navigation">
             <div class="container-fluid">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
@@ -79,10 +84,14 @@
                             </ul>
                         </li>
                         <!--<li><a href="#/recipes-create"><i class="fa fa-cutlery"></i>&nbsp;Recipes</span></a></li>-->
-                        <li><a href="#">Lolibar</a></li>
+                        <li><a href="#">Ingredients</a></li>
                     </ul>
-                    <ul class="nav navbar-nav navbar-right">
+                    <ul class="nav navbar-nav navbar-right" ng-show="userCtrl.userService.isLoggedIn">
                         <li><a href="/logout">Logout</a></li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right" ng-hide="userCtrl.userService.isLoggedIn">
+                        <!--<li><a href="#/login">Login</a></li>-->
+                        <li ng-click="userCtrl.openLogin()"><a href="">Login</a></li>
                     </ul>
                 </div>
             </div>
