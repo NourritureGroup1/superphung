@@ -1,4 +1,5 @@
 <div class="container">
+    <div class="alert alert-info" ng-show="recipesDetailCtrl.showLike()">You like this recipe</div>
     <div class="media">
         <a class="pull-left">
             <img class="media-object" ng-src="{{recipesDetailCtrl.recipe.imgUrl}}" width="120px" height="120px" alt="recipe">
@@ -17,6 +18,8 @@
             <div ng-repeat="ing in recipesDetailCtrl.recipe.ingredients track by $index">
                 <div ng-bind="ing"></div>
             </div>
+            <button type="button" class="btn btn-primary" ng-click="recipesDetailCtrl.likeRecipe()" ng-show="!recipesDetailCtrl.showLike()">Like</button>
+            <button type="button" class="btn btn-primary" ng-click="recipesDetailCtrl.removeLikeRecipe()" ng-show="recipesDetailCtrl.showLike()">Remove like</button>
         </div>
     </div>
 </div>

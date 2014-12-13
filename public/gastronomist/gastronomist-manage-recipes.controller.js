@@ -6,9 +6,9 @@ angular
     .module("NourritureApp")
     .controller("GmistManageRecipesCtrl", GmistManageRecipesCtrl);
 
-GmistManageRecipesCtrl.$inject = ["RecipeService", "IngredientService","$routeParams"];
+GmistManageRecipesCtrl.$inject = ["RecipeService", "IngredientService","$routeParams", "UserService", "$location"];
 
-function GmistManageRecipesCtrl(recipeService, ingredientService, $routeParams) {
+function GmistManageRecipesCtrl(recipeService, ingredientService, $routeParams, userService, $location) {
     var self = this;
 
     self.recipe = {};
@@ -24,8 +24,10 @@ function GmistManageRecipesCtrl(recipeService, ingredientService, $routeParams) 
     self.addIngredient = addIngredient;
     self.deleteStep = deleteStep;
     self.deleteIngredient = deleteIngredient;
+    self.deleteRecipe = deleteRecipe;
     self.submit = submit;
 
+    userService.session();
     fetchRecipeById();
     fetchIngredients();
 
@@ -65,6 +67,21 @@ function GmistManageRecipesCtrl(recipeService, ingredientService, $routeParams) 
 
     function deleteIngredient(index) {
         self.recipeIngredients.splice(index, 1);
+    }
+
+    function deleteRecipe() {
+        /*for (var i = 0; i < userService.user.recipesCreated.length; i++) {
+            if (userService.user.recipesCreated[i] == self.recipe._id) {
+                userService.user.recipesCreated.splice(i, 1);
+                userService.updateUser(userService.user);
+            }
+        }*/
+        recipeService.deleteRecipe(self.recipe._id)
+            .then(function(res) {
+                $location.path("/gastronomist-manager");
+                $location.replace();
+            });
+
     }
 
     function submit() {

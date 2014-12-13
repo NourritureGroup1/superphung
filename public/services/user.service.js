@@ -20,7 +20,9 @@ function UserService($http) {
         signup: signup,
         getAllUsers: getAllUsers,
         getUserById: getUserById,
-        updateUser: updateUser
+        updateUser: updateUser,
+        getLikesRecipes: getLikesRecipes,
+        getRestrictedFood: getRestrictedFood
     };
 
     return service;
@@ -35,16 +37,18 @@ function UserService($http) {
     }
 
     function isAdmin() {
-        if (service.user.role == "admin")
+        return (service.user.role == "admin");
+        /*if (service.user.role == "admin")
             return true;
-        return false;
+        return false;*/
     }
 
     function isGastronomist() {
-        if (service.user.role == "gastronomist") {
+        return (service.user.role == "gastronomist");
+       /*if (service.user.role == "gastronomist") {
             return true;
         }
-        return false;
+        return false;*/
     }
 
     function signup(data) {
@@ -61,5 +65,13 @@ function UserService($http) {
 
     function updateUser(user) {
         return $http.put("/user/" + user._id, user);
+    }
+
+    function getLikesRecipes(id) {
+        return $http.get("/user/" + id + "/likes");
+    }
+
+    function getRestrictedFood(id) {
+        return $http.get("/user/" + id + "/rfood");
     }
 }

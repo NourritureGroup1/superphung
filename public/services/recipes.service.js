@@ -13,7 +13,8 @@ function RecipeService($http) {
         getRecipes : getRecipes,
         getRecipeById : getRecipeById,
         getRecipeIngredients: getRecipeIngredients,
-        putRecipe : putRecipe
+        putRecipe : putRecipe,
+        deleteRecipe : deleteRecipe
     };
 
     return service;
@@ -37,5 +38,9 @@ function RecipeService($http) {
 
     function putRecipe(recipe) {
         return $http.put("/recipe/" + recipe._id, recipe);
+    }
+
+    function deleteRecipe(id) {
+        return $http.delete("/recipe/" + id);
     }
 }

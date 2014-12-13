@@ -19,6 +19,7 @@ function GmistManageIngredientsCtrl(ingredientService, $routeParams) {
     self.addNutrient = addNutrient;
     self.deleteCategory = deleteCategory;
     self.deleteNutrient = deleteNutrient;
+    self.deleteIngredient = deleteIngredient;
     self.submit = submit;
 
     fetchIngredientById();
@@ -44,6 +45,14 @@ function GmistManageIngredientsCtrl(ingredientService, $routeParams) {
 
     function deleteNutrient(index) {
         self.ingredient.nutrients.splice(index, 1);
+    }
+
+    function deleteIngredient() {
+        ingredientService.deleteIngredient(self.ingredient._id)
+            .then(function(res) {
+                $location.path("/gastronomist-manager");
+                $location.replace();
+            });
     }
 
     function submit() {

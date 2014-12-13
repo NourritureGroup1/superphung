@@ -1,0 +1,28 @@
+<div class="container">
+    <div class="row">
+        <div class="col-xs-6 col-xs-offset-3">
+            <h1>ALL INGREDIENTS</h1>
+
+            <div ng-repeat="ingredient in ingredientsListCtrl.ingredientsDisplay">
+                <div class="container-fluid">
+                    <div class="media">
+                        <a class="pull-left" ng-href="#/ingredients/{{ingredient._id}}">
+                            <img class="media-object" ng-src="{{ingredient.imgUrl}}" width="120px" height="120px"
+                                 alt="ingredient">
+                        </a>
+
+                        <div class="media-body">
+                            <h4 class="media-heading">{{ ingredient.name }}</h4>
+                            {{ ingredient.description }}
+                        </div>
+                    </div>
+                </div>
+                <br>
+            </div>
+            <pagination total-items="ingredientsListCtrl.ingredients.length" ng-model="ingredientsListCtrl.currentPage"
+                        max-size="ingredientsListCtrl.maxSize" class="pagination-sm" boundary-links="true"
+                        ng-change="ingredientsListCtrl.updateIngredients()"></pagination>
+        </div>
+    </div>
+
+</div>

@@ -27,6 +27,7 @@ function GmistCtrl(recipeService, ingredientService, sortService, $location) {
     self.showRecipe = showRecipe;
     self.fetchRecipes = fetchRecipes;
     self.updateRecipes = updateRecipes;
+    self.createRecipe = createRecipe;
 
     //ingredients methods
     self.showIngredient = showIngredient;
@@ -61,6 +62,10 @@ function GmistCtrl(recipeService, ingredientService, sortService, $location) {
         var start = ((self.currentPage - 1) * self.numPerPage),
             end = start + self.numPerPage;
         self.recipesDisplay = self.recipes.slice(start, end);
+    }
+
+    function createRecipe() {
+        $location.path("/recipes-create");
     }
 
     function showIngredient(ingredient) {

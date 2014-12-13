@@ -1,1 +1,37 @@
-<div>Hi {{ userCtrl.userService.user.name }} </div>
+<h1>User Portal</h1>
+<hr>
+<tabset>
+    <tab heading="Personal info">
+        <div class="container">
+            <h3>Hi, {{ userCtrl.userService.user.name }} !</h3><br>
+            <h4>Email : </h4>
+            <div ng-bind="userCtrl.userService.user.email"></div>
+            <h4>Role : </h4>
+            <div ng-bind="userCtrl.userService.user.role"></div>
+        </div>
+    </tab>
+    <tab heading="Likes recipes">
+        <br>
+        <div ng-repeat="(i, recipe) in userCtrl.likesRecipes">
+            <span>{{i+1}}) </span>
+            <a ng-href="#/recipes/{{recipe._id}}">{{recipe.name}}</a>
+            <span>: {{recipe.description}}</span>
+        </div>
+    </tab>
+    <tab heading="Restricted Food">
+        <br>
+        <h4>List of ingredients :</h4>
+        <form ng-submit="userCtrl.submit()">
+            <div class="form-group">
+                <div ng-repeat="(i, rFood) in userCtrl.restrictedFood track by $index">
+                    <input type="text" class="form-control" placeholder="Enter an ingredient" ng-bind="userCtrl.restrictedFood[i].name" ng-model="userCtrl.restrictedFood[i]" typeahead="ing as ing.name for ing in userCtrl.ingredients | filter:{name:$viewValue}" required>
+                    <i class="glyphicon glyphicon-remove-circle pull-right" ng-click="userCtrl.deleteRestrictedFood(i)"></i>
+                </div>
+                <button type="button" class="btn btn-primary" ng-click="userCtrl.addRestrictedFood()">Add new Ingredient</button>
+            </div>
+             <div class="form-group">
+                <input type="submit" class="btn btn-success">
+            </div>
+        </form>
+    </tab>
+</tabset>

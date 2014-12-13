@@ -110,3 +110,19 @@ exports.delete = function(req, res) {
         res.status(200).json({ message: "Successfully deleted" });
     });
 };
+
+exports.upload = function(req, res) {
+    Ingredient.findById(req.body.idCreation, function(err, ingredient) {
+        if (err) {
+            error.logError(req, res, err);
+            return res.status(500).send(err);
+        }
+        ingredient.imgUrl = "/uploads/" + req.files.file.name;
+        ingredient.save(function(err) {
+            if (err) {
+                error.logError(req, res, err);
+                return res.status(500).send(err);
+            }
+        });
+    });
+};

@@ -1,0 +1,40 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <div class="alert alert-danger" ng-bind="ingredientCreateCtrl.errMessageFile" ng-show="ingredientCreateCtrl.errMessageFile"></div>
+            <form class="form-horizontal" ng-submit="ingredientCreateCtrl.submit()" name="ingredientForm" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label>Name</label>
+                    <input type="text" class="form-control" placeholder="Enter ingredient name" ng-model="ingredientCreateCtrl.name" required>
+                </div>
+                <div class="form-group">
+                    <label>Description</label>
+                    <input type="text" class="form-control" placeholder="Enter description" ng-model="ingredientCreateCtrl.description" required>
+                </div>
+                <div class="form-group">
+                    <label>Category</label>
+                    <div ng-repeat="(i, category) in ingredientCreateCtrl.category track by $index">
+                        <input type="text" class="form-control" placeholder="Enter a category" ng-model="ingredientCreateCtrl.category[i]" required>
+                        <i class="glyphicon glyphicon-remove-circle pull-right" ng-click="ingredientCreateCtrl.deleteCategory(i)"></i>
+                    </div>
+                    <button type="button" class="btn btn-primary" ng-click="ingredientCreateCtrl.addCategory()">Add new Category</button>
+                </div>
+                <div class="form-group">
+                    <label>Nutrients</label>
+                    <div ng-repeat="(i, nutrient) in ingredientCreateCtrl.nutrients track by $index">
+                        <input type="text" class="form-control" placeholder="Enter a nutrient" ng-model="ingredientCreateCtrl.nutrients[i]" required>
+                        <i class="glyphicon glyphicon-remove-circle pull-right" ng-click="ingredientCreateCtrl.deleteNutrient(i)"></i>
+                    </div>
+                    <button type="button" class="btn btn-primary" ng-click="ingredientCreateCtrl.addNutrient()">Add new Nutrient</button>
+                </div>
+                <div class="form-group">
+                    <label>Ingredient photo</label>
+                    <input type="file" file-model="myFile" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <input type="submit" class="btn btn-success" ng-disabled="ingredientForm.$invalid">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

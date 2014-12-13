@@ -142,6 +142,7 @@ exports.update = function(req, res) {
         user.favoriteFood = req.body.favoriteFood;
         user.restrictedFood = req.body.restrictedFood;
         user.badFood = req.body.badFood;
+        user.recipesCreated = req.body.recipesCreated;
         user.save(function(err) {
             if (err) {
                 error.logError(req, res, err);

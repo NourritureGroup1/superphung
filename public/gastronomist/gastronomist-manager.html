@@ -22,6 +22,7 @@
             </tr>
             </tbody>
             <tfoot>
+            <button class="btn btn-success pull-right" ng-click="gmistCtrl.createRecipe()">Create +</button>
             <td>
                 <pagination total-items="gmistCtrl.recipes.length" ng-model="gmistCtrl.currentPage"
                             max-size="gmistCtrl.maxSize" class="pagination-sm" boundary-links="true"

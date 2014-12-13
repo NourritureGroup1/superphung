@@ -12,7 +12,8 @@ function IngredientService($http) {
     var service = {
         getIngredients: getIngredients,
         getIngredientById: getIngredientById,
-        putIngredient: putIngredient
+        putIngredient: putIngredient,
+        deleteIngredient: deleteIngredient
     };
 
     return service;
@@ -27,5 +28,9 @@ function IngredientService($http) {
 
     function putIngredient(ingredient) {
         return $http.put("/ingredient/" + ingredient._id, ingredient);
+    }
+
+    function deleteIngredient(id) {
+        return $http.delete("/ingredient/" + id);
     }
 }

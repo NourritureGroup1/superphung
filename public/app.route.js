@@ -31,6 +31,21 @@ function config($routeProvider) {
             controller: "RecipesCreateCtrl as recipeCreateCtrl",
             resolve: { auth : auth }
         })
+        .when("/ingredients-list", {
+            templateUrl: "ingredients/ingredients-list.html",
+            controller: "IngredientsListCtrl as ingredientsListCtrl",
+            resolve: { auth : auth }
+        })
+        .when("/ingredients/:id", {
+            templateUrl: "ingredients/ingredients-detail.html",
+            controller: "IngredientsDetailCtrl as ingredientsDetailCtrl",
+            resolve : { auth : auth }
+        })
+        .when("/ingredients-create", {
+            templateUrl: "ingredients/ingredients-create.html",
+            controller: "IngredientsCreateCtrl as ingredientCreateCtrl",
+            resolve: { auth : auth }
+        })
         .when("/admin-manager", {
             templateUrl: "admin/admin-manager.html",
             controller: "AdminCtrl as adminCtrl",
