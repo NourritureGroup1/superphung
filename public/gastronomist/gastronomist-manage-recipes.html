@@ -1,0 +1,43 @@
+<h1>Gastronomist Portal</h1>
+<hr>
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <div class="alert alert-danger" ng-bind="gmistMRCtrl.errMessageIng" ng-show="gmistMRCtrl.errMessageIng"></div>
+            <div class="alert alert-success" ng-bind="gmistMRCtrl.successMessageUpdate" ng-show="gmistMRCtrl.successMessageUpdate"></div>
+            <form ng-submit="gmistMRCtrl.submit()">
+                <div class="form-group">
+                    <label>Id</label>
+                    <input type="text" class="form-control" ng-model="gmistMRCtrl.recipe._id">
+                </div>
+                <div class="form-group">
+                    <label>Name</label>
+                    <input type="text" class="form-control" ng-model="gmistMRCtrl.recipe.name">
+                </div>
+                <div class="form-group">
+                    <label>Description</label>
+                    <input type="text" class="form-control" ng-model="gmistMRCtrl.recipe.description">
+                </div>
+                <div class="form-group">
+                    <label>Steps</label>
+                    <div ng-repeat="(i, step) in gmistMRCtrl.recipe.steps track by $index">
+                        <textarea class="form-control" placeholder="Enter a step" ng-model="gmistMRCtrl.recipe.steps[i]" required></textarea>
+                        <i class="glyphicon glyphicon-remove-circle pull-right" ng-click="gmistMRCtrl.deleteStep(i)"></i>
+                    </div>
+                    <button type="button" class="btn btn-primary" ng-click="gmistMRCtrl.addStep()">Add new Step</button>
+                </div>
+                <div class="form-group">
+                    <label>Ingredients</label>
+                    <div ng-repeat="(i, step) in gmistMRCtrl.recipeIngredients track by $index">
+                        <input type="text" class="form-control" placeholder="Enter an ingredient" ng-bind="gmistMRCtrl.recipeIngredients[i].name" ng-model="gmistMRCtrl.recipeIngredients[i]" typeahead="ing as ing.name for ing in gmistMRCtrl.ingredients | filter:{name:$viewValue}" required>
+                        <i class="glyphicon glyphicon-remove-circle pull-right" ng-click="gmistMRCtrl.deleteIngredient(i)"></i>
+                    </div>
+                    <button type="button" class="btn btn-primary" ng-click="gmistMRCtrl.addIngredient()">Add new Ingredient</button>
+                </div>
+                <div class="form-group">
+                    <input type="submit" class="btn btn-success">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

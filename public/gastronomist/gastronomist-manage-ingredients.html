@@ -1,0 +1,42 @@
+<h1>Gastronomist Portal</h1>
+<hr>
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 col-sm-offset-3">
+            <div class="alert alert-success" ng-bind="gmistMICtrl.successMessageUpdate" ng-show="gmistMICtrl.successMessageUpdate"></div>
+            <form ng-submit="gmistMICtrl.submit()">
+                <div class="form-group">
+                    <label>Id</label>
+                    <input type="text" class="form-control" ng-model="gmistMICtrl.ingredient._id">
+                </div>
+                <div class="form-group">
+                    <label>Name</label>
+                    <input type="text" class="form-control" ng-model="gmistMICtrl.ingredient.name">
+                </div>
+                <div class="form-group">
+                    <label>Description</label>
+                    <input type="text" class="form-control" ng-model="gmistMICtrl.ingredient.description">
+                </div>
+                <div class="form-group">
+                    <label>Category</label>
+                    <div ng-repeat="(i, category) in gmistMICtrl.ingredient.category track by $index">
+                        <input type="text" placeholder="Enter a category" ng-model="gmistMICtrl.ingredient.category[i]" required>
+                        <i class="glyphicon glyphicon-remove-circle pull-right" ng-click="gmistMICtrl.deleteCategory(i)"></i>
+                    </div>
+                    <button type="button" class="btn btn-primary" ng-click="gmistMICtrl.addCategory()">Add new Category</button>
+                </div>
+                <div class="form-group">
+                    <label>Nutrients</label>
+                    <div ng-repeat="(i, nutrient) in gmistMICtrl.ingredient.nutrients track by $index">
+                        <input type="text" placeholder="Enter a nutrient" ng-model="gmistMICtrl.ingredient.nutrients[i]" required>
+                        <i class="glyphicon glyphicon-remove-circle pull-right" ng-click="gmistMICtrl.deleteNutrient(i)"></i>
+                    </div>
+                    <button type="button" class="btn btn-primary" ng-click="gmistMICtrl.addNutrient()">Add new Nutrient</button>
+                </div>
+                <div class="form-group">
+                    <input type="submit" class="btn btn-success">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -32,6 +32,12 @@ module.exports = function(passport) {
 
     //passport.use("local-signup", new LocalStrategy(configLocalSignup));
 
+    passport.use("local-login", new LocalStrategy({
+        usernameField: "email",
+        passwordField: "password",
+        passReqToCallback: true
+    }, configLocalLogin));
+
     passport.use(new FacebookStrategy({
         clientID: config.facebook.clientID,
         clientSecret: config.facebook.clientSecret,
@@ -45,7 +51,7 @@ module.exports = function(passport) {
     }, configStrategy));
 
     function configStrategy(token, refreshToken, profile, done) {
-        User.findOne({oauthID: profile.id}, function (err, user) {
+        User.findOne({ oauthID : profile.id }, function (err, user) {
             if (err)
                 return done(err);
             if (!err && user != null)
@@ -54,7 +60,8 @@ module.exports = function(passport) {
                 var _user = new User({
                     oauthID: profile.id,
                     name: profile.displayName,
-                    email: profile.emails[0].value
+                    email: profile.emails[0].value,
+                    role: "consumer"
                 });
                 _user.save(function(err) {
                     if (err)
@@ -67,45 +74,19 @@ module.exports = function(passport) {
     }
 
     function configLocalSignup(req, email, password, done) {
-        //process.nextTick(function() {
-
-            User.findOne( {email : email}, function(err, user) {
-                if (err) {
-                    return done(err);
-                }
-
-                if (user) {
-                    return done(null, false);
-                } else {
-                    var _user = new User();
-
-                    _user.email = email;
-                    _user.password = _user.generateHash(password);
-
-                    _user.save(function(err) {
-                        if (err)
-                            throw err;
-                        return done(null, _user);
-                    });
-                }
-            });
-    }
-
-    /*function configLocalSignup(email, password, done) {
-        //process.nextTick(function() {
-
-        User.findOne( {email : email}, function(err, user) {
+        User.findOne({ email : email }, function(err, user) {
             if (err) {
                 return done(err);
             }
-
             if (user) {
                 return done(null, false);
             } else {
                 var _user = new User();
 
                 _user.email = email;
+                _user.name = req.body.name;
                 _user.password = _user.generateHash(password);
+                _user.role = "consumer";
 
                 _user.save(function(err) {
                     if (err)
@@ -114,5 +95,17 @@ module.exports = function(passport) {
                 });
             }
         });
-    }*/
+    }
+
+    function configLocalLogin(req, email, password, done) {
+        User.findOne({ email : email }, function(err, user) {
+            if (err)
+                return done(err);
+            if (!user)
+                return done(null, false);
+            if (!user.validPassword(password))
+                return done(null, false);
+            return done(null, user);
+        });
+    }
 };

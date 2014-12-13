@@ -15,7 +15,12 @@ function UserService($http) {
         user: {},
 
         session: session,
-        signup: signup
+        isAdmin: isAdmin,
+        isGastronomist: isGastronomist,
+        signup: signup,
+        getAllUsers: getAllUsers,
+        getUserById: getUserById,
+        updateUser: updateUser
     };
 
     return service;
@@ -29,7 +34,32 @@ function UserService($http) {
             });
     }
 
+    function isAdmin() {
+        if (service.user.role == "admin")
+            return true;
+        return false;
+    }
+
+    function isGastronomist() {
+        if (service.user.role == "gastronomist") {
+            return true;
+        }
+        return false;
+    }
+
     function signup(data) {
         return $http.post("/signup", data);
+    }
+
+    function getAllUsers() {
+        return $http.get("/user");
+    }
+
+    function getUserById(id) {
+        return $http.get("/user/" + id);
+    }
+
+    function updateUser(user) {
+        return $http.put("/user/" + user._id, user);
     }
 }

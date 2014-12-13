@@ -16,19 +16,36 @@ module.exports = function(app) {
        // });
     });
 
+    app.post("/login", function(req, res, next) {
+        passport.authenticate("local-login", function(err, user, info) {
+            if (err)
+                return next(err);
+            if (!user)
+                return res.status(400).send("Fail, try again :)");
+            req.logIn(user, function(err) {
+               if (err)
+                   return next(err);
+                return res.status(200).json(user);
+            });
+        })(req, res, next);
+    });
+
     app.post("/signup", function(req, res, next) {
         passport.authenticate("local-signup", function(err, user, info) {
-            if (err) {
+            if (err)
                 return next(err);
-            }
-            if (!user) {
+            if (!user)
                 return res.status(409).send("user exist");
-            }
-            return res.status(201).json(user);
+
+            req.logIn(user, function(err) {
+                if (err)
+                    return next(err);
+                return res.status(201).json(user);
+            });
         })(req, res, next);
     });
     /*app.post('/signup', passport.authenticate('local-signup', {
-        successRedirect : '/', // redirect to the secure profile section
+        successRedirect : '/account', // redirect to the secure profile section
         failureRedirect : '/' // redirect back to the signup page if there is an error
     }));*/
 

@@ -8,10 +8,10 @@ var Schema = mongoose.Schema;
 var UserSchema = new Schema({
     oauthID: Number,        //Facebook Id
     name: String,
-    username: String,
-    //pass: JSON,
+    //username: String,
     email: String,
     password: String,
+    role: String,
     followings: Array,      //username
     likes: Array,           //recipes
     dislikes: Array,        //recipes
@@ -29,7 +29,7 @@ function generateHash(password) {
 }
 
 function validPassword(password) {
-    return bcrypt.compareSync(password, this.local.password);
+    return bcrypt.compareSync(password, this.password);
 }
 
 module.exports = mongoose.model("User", UserSchema);

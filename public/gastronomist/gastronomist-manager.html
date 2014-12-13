@@ -1,0 +1,59 @@
+<h1>Gastronomist Portal</h1>
+<hr>
+<tabset>
+    <tab heading="recipes">
+        <table class="table table-striped table-condensed table-hover">
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name<a ng-click="gmistCtrl.sortNameAsc()"><i class="fa fa-sort-asc"></i></a><a
+                        ng-click="gmistCtrl.sortNameDesc()"><i class="fa fa-sort-desc"></i></a></th>
+                <th>Creator<a ng-click="gmistCtrl.sortCreatorAsc()"><i class="fa fa-sort-asc"></i></a><a
+                        ng-click="gmistCtrl.sortCreatorDesc()"><i class="fa fa-sort-desc"></i></a></th>
+                <th>Description</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="recipe in gmistCtrl.recipesDisplay" ng-click="gmistCtrl.showRecipe(recipe)" style="cursor: pointer">
+                <td>{{recipe._id}}</td>
+                <td>{{recipe.name}}</td>
+                <td>{{recipe.creator}}</td>
+                <td>{{recipe.description}}</td>
+            </tr>
+            </tbody>
+            <tfoot>
+            <td>
+                <pagination total-items="gmistCtrl.recipes.length" ng-model="gmistCtrl.currentPage"
+                            max-size="gmistCtrl.maxSize" class="pagination-sm" boundary-links="true"
+                            ng-change="gmistCtrl.updateRecipes()"></pagination>
+            </td>
+            </tfoot>
+        </table>
+    </tab>
+    <tab heading="ingredients">
+        <table class="table table-striped table-condensed table-hover">
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name<a ng-click="gmistCtrl.sortNameAsc()"><i class="fa fa-sort-asc"></i></a><a
+                        ng-click="gmistCtrl.sortNameDesc()"><i class="fa fa-sort-desc"></i></a></th>
+                <th>Description</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="ingredient in gmistCtrl.ingredientsDisplay" ng-click="gmistCtrl.showIngredient(ingredient)" style="cursor: pointer">
+                <td>{{ingredient._id}}</td>
+                <td>{{ingredient.name}}</td>
+                <td>{{ingredient.description}}</td>
+            </tr>
+            </tbody>
+            <tfoot>
+            <td>
+                <pagination total-items="gmistCtrl.ingredients.length" ng-model="gmistCtrl.currentPage"
+                            max-size="gmistCtrl.maxSize" class="pagination-sm" boundary-links="true"
+                            ng-change="gmistCtrl.updateIngredients()"></pagination>
+            </td>
+            </tfoot>
+        </table>
+    </tab>
+</tabset>

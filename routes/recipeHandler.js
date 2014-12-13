@@ -104,6 +104,8 @@ exports.update = function (req, res) {
             error.logError(req, res, err);
             return res.status(500).send(err);
         }
+        recipe._id = req.body._id;
+        recipe.name = req.body.name;
         recipe.description = req.body.description;
         recipe.steps = req.body.steps;
         recipe.ingredients = req.body.ingredients;

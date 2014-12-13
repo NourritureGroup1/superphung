@@ -27,10 +27,17 @@
     <script src="services/recipes-create.service.js"></script>
     <script src="recipes/recipes-create.controller.js"></script>
     <script src="services/recipes.service.js"></script>
+    <script src="services/ingredients.service.js"></script>
     <script src="recipes/recipes-list.controller.js"></script>
     <script src="recipes/recipes-detail.controller.js"></script>
     <script src="login/login.controller.js"></script>
     <script src="login/signup.controller.js"></script>
+    <script src="services/sort.service.js"></script>
+    <script src="admin/admin-manager.controller.js"></script>
+    <script src="admin/admin-manage-users.controller.js"></script>
+    <script src="gastronomist/gastronomist-manager.controller.js"></script>
+    <script src="gastronomist/gastronomist-manage-recipes.controller.js"></script>
+    <script src="gastronomist/gastronomist-manage-ingredients.controller.js"></script>
 
     <script src="directives/file.directive.js"></script>
     <script src="services/fileUpload.js"></script>
@@ -85,6 +92,8 @@
                         </li>
                         <!--<li><a href="#/recipes-create"><i class="fa fa-cutlery"></i>&nbsp;Recipes</span></a></li>-->
                         <li><a href="#">Ingredients</a></li>
+                        <li ng-show="userCtrl.userService.isLoggedIn && userCtrl.userService.user.role == 'admin'"><a href="#/admin-manager">Users</a></li>
+                        <li ng-show="userCtrl.userService.isLoggedIn && userCtrl.userService.user.role == 'gastronomist'"><a href="#/gastronomist-manager">Manage recipes/ingredients</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right" ng-show="userCtrl.userService.isLoggedIn">
                         <li><a href="/logout">Logout</a></li>

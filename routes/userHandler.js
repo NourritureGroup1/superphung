@@ -132,7 +132,10 @@ exports.update = function(req, res) {
         if (user == null)
             return res.status(204).end();
 
+        user._id = req.body._id;
+        user.name = req.body.name;
         user.email = req.body.email;
+        user.role = req.body.role;
         user.followings = req.body.followings;
         user.likes = req.body.likes;
         user.dislikes = req.body.dislikes;

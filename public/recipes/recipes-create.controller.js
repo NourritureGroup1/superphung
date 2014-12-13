@@ -49,8 +49,8 @@ function RecipesCreateCtrl(recipeCreateService, userService, $scope) {
         console.log(self.ingredients[0]);
 
         for(var i = 0; i < self.ingredients.length; i++) {
-            if (self.ingredients[0]._id) {
-                self.ingredientsId.push(self.ingredients[0]._id);
+            if (self.ingredients[i]._id) {
+                self.ingredientsId.push(self.ingredients[i]._id);
                 self.errMessageIng = "";
             }
             else {

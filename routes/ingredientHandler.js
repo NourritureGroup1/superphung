@@ -86,6 +86,8 @@ exports.update = function(req, res) {
             error.logError(req, res, err);
             return res.status(500).send(err);
         }
+        ingredient._id = req.body._id;
+        ingredient.name = req.body.name;
         ingredient.description = req.body.description;
         ingredient.category = req.body.category;
         ingredient.nutrients = req.body.nutrients;

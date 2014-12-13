@@ -5,9 +5,9 @@
 angular.module("NourritureApp")
     .controller("SignupCtrl", SignupCtrl);
 
-SignupCtrl.$inject = ["$modalInstance", "$http"];
+SignupCtrl.$inject = ["$modalInstance", "$http", "$location"];
 
-function SignupCtrl($modalInstance, $http) {
+function SignupCtrl($modalInstance, $http, $location) {
     var self = this;
 
     self.showFail = "";
@@ -27,19 +27,21 @@ function SignupCtrl($modalInstance, $http) {
         $modalInstance.dismiss("cancel");
     }
 
-    function submit(em, pass) {
+    function submit(em, pass, n) {
         $http.post("/signup", {
             email: em,
-            password: pass
+            password: pass,
+            name: n
         })
             .success(function(data, status, headers, config) {
+                console.log(status);
                 console.log("profile cree");
                 self.showFail = "";
                 self.showSuccess = "Account created";
-                self.cancel();
+                $location.path("/account");
+                self.close();
             })
             .error(function(data, status, headers, config) {
-                console.log("user exist hahahah");
                 self.showFail = "This email is already taken";
                 self.showSuccess = "";
             });

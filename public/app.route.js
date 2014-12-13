@@ -31,6 +31,31 @@ function config($routeProvider) {
             controller: "RecipesCreateCtrl as recipeCreateCtrl",
             resolve: { auth : auth }
         })
+        .when("/admin-manager", {
+            templateUrl: "admin/admin-manager.html",
+            controller: "AdminCtrl as adminCtrl",
+            resolve: { auth : auth , isAdmin : isAdmin}
+        })
+        .when("/admin-manager/users/:id", {
+            templateUrl: "admin/admin-manage-users.html",
+            controller: "AdminManageUsersCtrl as adminMUCtrl",
+            resolve: { auth : auth , isAdmin : isAdmin}
+        })
+        .when("/gastronomist-manager", {
+            templateUrl: "gastronomist/gastronomist-manager.html",
+            controller: "GmistCtrl as gmistCtrl",
+            resolve: { auth : auth , isGastronomist : isGastronomist}
+        })
+        .when("/gastronomist-manager/recipes/:id", {
+            templateUrl: "gastronomist/gastronomist-manage-recipes.html",
+            controller: "GmistManageRecipesCtrl as gmistMRCtrl",
+            resolve: { auth : auth , isGastronomist : isGastronomist}
+        })
+        .when("/gastronomist-manager/ingredients/:id", {
+            templateUrl: "gastronomist/gastronomist-manage-ingredients.html",
+            controller: "GmistManageIngredientsCtrl as gmistMICtrl",
+            resolve: { auth : auth, isGastronomist: isGastronomist}
+        })
         .otherwise({
             redirectTo: "/"
         });
@@ -46,4 +71,22 @@ function auth($q, $location, UserService) {
             $location.replace();
             return $q.reject(err);
         });
+}
+
+isAdmin.$inject = ["$location", "UserService"];
+
+function isAdmin($location, UserService) {
+    if (!UserService.isAdmin()) {
+        $location.path("/");
+        $location.replace();
+    }
+}
+
+isGastronomist.$inject = ["$location", "UserService"];
+
+function isGastronomist($location, UserService) {
+    if (!UserService.isGastronomist()) {
+        $location.path("/");
+        $location.replace();
+    }
 }
