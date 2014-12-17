@@ -88,7 +88,7 @@ public class helpers {
 		    }
 		}
 	 
-    public static String getDatas(Context context,String address, List<NameValuePair> parameters){
+    public static String getDatas(String address, List<NameValuePair> parameters){
     	
     	HttpClient client = new DefaultHttpClient();
     	client = sslClient(client);

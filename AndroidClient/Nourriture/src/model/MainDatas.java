@@ -1,6 +1,8 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import com.superphung.nourriture.R;
 
@@ -30,13 +32,14 @@ public class MainDatas {
 	public TypedArray navMenuIcons;
 	public ArrayList<NavDrawerItem> navDrawerItems;
 	public NavDrawerListAdapter adapter;
+	public Map<String, String> urls = new HashMap<String, String>();
+	public User user;
 	private Context context;
-	//private User user;
 	
 	
 	public void init(Context context_,Bundle savedInstanceState) {
 		context = context_;
-		
+		init_urls();
 		mTitle = ((Activity) context).getTitle();
 		mDrawerTitle = ((Activity) context).getTitle();
 		navMenuTitles = ((Activity) context).getResources().getStringArray(R.array.nav_drawer_items);
@@ -57,6 +60,10 @@ public class MainDatas {
 		}
 	}
 	
+	private void init_urls() {
+		urls.put("login", "https://192.168.0.103:8081/login");
+	}
+	
 	private void getUserMenu() {
 		navMenuIcons = context.getResources()
 				.obtainTypedArray(R.array.nav_drawer_icons);
@@ -65,7 +72,24 @@ public class MainDatas {
 		navDrawerItems = new ArrayList<NavDrawerItem>();
 
 		navDrawerItems.add(new NavDrawerItem(navMenuTitles[0], navMenuIcons.getResourceId(0, -1)));
-		navDrawerItems.add(new NavDrawerItem(navMenuTitles[1], navMenuIcons.getResourceId(1, -1)));
+		navDrawerItems.add(new NavDrawerItem(navMenuTitles[1], navMenuIcons.getResourceId(0, -1)));
+		
+		navMenuIcons.recycle();
+		mDrawerList.setOnItemClickListener(new SlideMenuClickListener());
+		adapter = new NavDrawerListAdapter(context,
+				navDrawerItems);
+		mDrawerList.setAdapter(adapter);
+	}
+	
+	public void getUserMenuConnected() {
+		navMenuIcons = context.getResources()
+				.obtainTypedArray(R.array.nav_drawer_icons);
+		mDrawerLayout = (DrawerLayout) ((Activity) context).findViewById(R.id.drawer_layout);
+		mDrawerList = (ListView) ((Activity) context).findViewById(R.id.list_slidermenu);
+		navDrawerItems = new ArrayList<NavDrawerItem>();
+
+		navDrawerItems.add(new NavDrawerItem(navMenuTitles[2], navMenuIcons.getResourceId(0, -1)));
+		navDrawerItems.add(new NavDrawerItem(navMenuTitles[1], navMenuIcons.getResourceId(0, -1)));
 		
 		navMenuIcons.recycle();
 		mDrawerList.setOnItemClickListener(new SlideMenuClickListener());
@@ -87,7 +111,7 @@ public class MainDatas {
 		Fragment fragment = null;
 		switch (position) {
 			case 0:
-				fragment = new LoginFragment();
+				fragment = new LoginFragment(this);
 				break;
 			default:
 				break;

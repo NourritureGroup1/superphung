@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import model.MainDatas;
 import model.User;
 
 import org.apache.http.NameValuePair;
@@ -12,6 +13,7 @@ import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import com.superphung.nourriture.MainActivity;
 import com.superphung.nourriture.helpers;
 
 import android.app.Fragment;
@@ -25,12 +27,14 @@ public class LoginTask extends AsyncTask<String, String, String> {
 	private String password;
 	private Context context;
 	private User user;
+	private MainDatas mainDatas;
 	
-	public LoginTask(String email_, String password_, Context context_)
+	public LoginTask(String email_, String password_, Context context_, MainDatas mainActivityDatas)
 	{
 		email = email_;
 		password = password_;
 		context = context_;
+		mainDatas = mainActivityDatas;
 	}
 	
 	@Override
@@ -41,9 +45,7 @@ public class LoginTask extends AsyncTask<String, String, String> {
 			  parameters.add(new BasicNameValuePair("email", email));
 			  parameters.add(new BasicNameValuePair("password", password));
 			  String readJSON = null;
-			  readJSON = helpers.getDatas(context,"https://192.168.0.103:8081/login",parameters);
-			  System.out.println("JE READ LE JSON");
-			  System.out.println(readJSON);
+			  readJSON = helpers.getDatas(mainDatas.urls.get("login"),parameters);
 			  if (readJSON == "error")
 				  return "loginFailed";
 		      try{
@@ -72,16 +74,6 @@ public class LoginTask extends AsyncTask<String, String, String> {
 			  toast.show(); 
 			  return ;
 		  }	
-      /*  ((MainActivity)context).setUser(user);
-        new CurrentUserTask(user, context).execute();
-        ((MainActivity)getActivity()).getUserMenu();
-		Fragment fragment = null;
-		fragment = new ProfileFragment();
-		if (fragment != null) {
-			FragmentManager fragmentManager = getFragmentManager();
-			fragmentManager.beginTransaction()
-					.replace(R.id.frame_container, fragment).commit();
-			
-		}*/
+        ((MainActivity)context).loginUser(user);
 	}
 }

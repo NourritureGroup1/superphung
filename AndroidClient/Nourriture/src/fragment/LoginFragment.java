@@ -2,6 +2,8 @@ package fragment;
 
 import java.io.Console;
 
+import model.MainDatas;
+
 import task.LoginTask;
 
 import com.superphung.nourriture.R;
@@ -24,8 +26,11 @@ import android.widget.Toast;
 public class LoginFragment extends Fragment {
 	private Context context;
 	private View rootView;
+	private MainDatas MainActivityDatas;
     
-	public LoginFragment(){}
+	public LoginFragment(MainDatas mainDatas_){
+		MainActivityDatas = mainDatas_;
+	}
 	
 	@Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -64,7 +69,7 @@ public class LoginFragment extends Fragment {
 					  return ;
 				}
 				else
-					new LoginTask(email, password, context).execute();
+					new LoginTask(email, password, context,MainActivityDatas).execute();
 			}
 		});
 		

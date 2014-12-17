@@ -1,8 +1,11 @@
 package com.superphung.nourriture;
 
+import fragment.profileFragment;
 import model.MainDatas;
+import model.User;
 import android.app.Activity;
 import android.app.Fragment;
+import android.app.FragmentManager;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -86,5 +89,20 @@ public class MainActivity extends Activity {
 	public void onConfigurationChanged(Configuration newConfig) {
 		super.onConfigurationChanged(newConfig);
 		MainActivityDatas.mDrawerToggle.onConfigurationChanged(newConfig);
+	}
+
+	public void loginUser(User user_) {
+		MainActivityDatas.user = user_;
+		MainActivityDatas.getUserMenuConnected();
+	    //new CurrentUserTask(user, context).execute();
+        //((MainActivity)getActivity()).getUserMenu();
+		Fragment fragment = null;
+		fragment = new profileFragment(this,MainActivityDatas);
+		if (fragment != null) {
+			FragmentManager fragmentManager = getFragmentManager();
+			fragmentManager.beginTransaction()
+					.replace(R.id.frame_container, fragment).commit();
+			
+		}
 	}
 }

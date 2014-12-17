@@ -49,16 +49,22 @@ public final class R {
         public static final int list_selector=0x7f020004;
     }
     public static final class id {
-        public static final int action_settings=0x7f0b000a;
+        public static final int action_settings=0x7f0b0010;
+        public static final int announces=0x7f0b000c;
         public static final int counter=0x7f0b0005;
         public static final int drawer_layout=0x7f0b0000;
         public static final int email=0x7f0b0006;
         public static final int frame_container=0x7f0b0001;
+        public static final int friends=0x7f0b000d;
+        public static final int hello=0x7f0b000a;
         public static final int icon=0x7f0b0003;
+        public static final int listView1=0x7f0b000f;
         public static final int list_slidermenu=0x7f0b0002;
         public static final int login_button=0x7f0b0008;
+        public static final int name=0x7f0b000b;
         public static final int password=0x7f0b0007;
         public static final int register_button=0x7f0b0009;
+        public static final int sports=0x7f0b000e;
         public static final int title=0x7f0b0004;
     }
     public static final class layout {
@@ -66,6 +72,7 @@ public final class R {
         public static final int drawer_list_item=0x7f030001;
         public static final int fragment_login=0x7f030002;
         public static final int fragment_main=0x7f030003;
+        public static final int fragment_profile=0x7f030004;
     }
     public static final class menu {
         public static final int main=0x7f0a0000;
