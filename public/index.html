@@ -87,20 +87,21 @@
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav">
                         <li><a href="#/account"><i class="fa fa-user"></i>&nbsp;Profile</a></li>
-                        <li class="dropdown">
+                        <!--<li class="dropdown">
                             <a href="#/recipes-list" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-cutlery"></i>&nbsp;Recipes <span class="caret"></span></a>
                             <ul class="dropdown-menu" role="menu">
                                 <li><a href="#/recipes-create">Create recipes</a></li>
                             </ul>
-                        </li>
+                        </li>-->
+                        <li><a href="#/recipes-list"><i class="fa fa-cutlery"></i>&nbsp;Recipes</a></li>
                         <!--<li><a href="#/recipes-create"><i class="fa fa-cutlery"></i>&nbsp;Recipes</span></a></li>-->
-                        <li class="dropdown">
+                        <!--<li class="dropdown">
                             <a href="#/ingredients-list" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-cutlery"></i>&nbsp;Ingredients <span class="caret"></span></a>
                             <ul class="dropdown-menu" role="menu">
                                 <li><a href="#/ingredients-create">Create ingredients</a></li>
                             </ul>
-                        </li>
-                        <!--<li><a href="#">Ingredients</a></li>-->
+                        </li>-->
+                        <li><a href="#/ingredients-list"><i class="fa fa-cutlery"></i>&nbsp;Ingredients</a></li>
                         <li ng-show="userCtrl.userService.isLoggedIn && userCtrl.userService.user.role == 'admin'"><a href="#/admin-manager">Users</a></li>
                         <li ng-show="userCtrl.userService.isLoggedIn && userCtrl.userService.user.role == 'gastronomist'"><a href="#/gastronomist-manager">Manage recipes/ingredients</a></li>
                     </ul>
@@ -108,7 +109,6 @@
                         <li><a href="/logout">Logout</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right" ng-hide="userCtrl.userService.isLoggedIn">
-                        <!--<li><a href="#/login">Login</a></li>-->
                         <li ng-click="userCtrl.openLogin()"><a href="">Login</a></li>
                     </ul>
                 </div>

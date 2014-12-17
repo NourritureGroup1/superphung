@@ -29,7 +29,7 @@ function config($routeProvider) {
         .when("/recipes-create", {
             templateUrl: "recipes/recipes-create.html",
             controller: "RecipesCreateCtrl as recipeCreateCtrl",
-            resolve: { auth : auth }
+            resolve: { auth : auth , isGastronomist : isGastronomist}
         })
         .when("/ingredients-list", {
             templateUrl: "ingredients/ingredients-list.html",
@@ -44,7 +44,7 @@ function config($routeProvider) {
         .when("/ingredients-create", {
             templateUrl: "ingredients/ingredients-create.html",
             controller: "IngredientsCreateCtrl as ingredientCreateCtrl",
-            resolve: { auth : auth }
+            resolve: { auth : auth, isGastronomist: isGastronomist}
         })
         .when("/admin-manager", {
             templateUrl: "admin/admin-manager.html",

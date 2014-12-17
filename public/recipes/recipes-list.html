@@ -1,9 +1,17 @@
 <div class="container">
     <div class="row">
         <div class="col-xs-6 col-xs-offset-3">
+            <div class="pull-right">
+                search box :
+                <input type="text" ng-model="recipesListCtrl.searchText">
+                restricted food :
+                <input type="checkbox" ng-model="recipesListCtrl.restrictedFilter">
+            </div>
+            <br>
+
             <h1>ALL RECIPES</h1>
 
-            <div ng-repeat="recipe in recipesListCtrl.recipesDisplay">
+            <div ng-repeat="recipe in recipesListCtrl.recipesDisplay | filter : recipesListCtrl.searchText">
                 <div class="container-fluid">
                     <div class="media">
                         <a class="pull-left" ng-href="#/recipes/{{recipe._id}}">

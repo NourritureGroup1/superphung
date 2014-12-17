@@ -33,6 +33,7 @@ function GmistCtrl(recipeService, ingredientService, sortService, $location) {
     self.showIngredient = showIngredient;
     self.fetchIngredients = fetchIngredients;
     self.updateIngredients = updateIngredients;
+    self.createIngredient = createIngredient;
 
     self.sortNameAsc = sortNameAsc;
     self.sortNameDesc = sortNameDesc;
@@ -88,6 +89,10 @@ function GmistCtrl(recipeService, ingredientService, sortService, $location) {
         var start = ((self.currentPage - 1) * self.numPerPage),
             end = start + self.numPerPage;
         self.ingredientsDisplay = self.ingredients.slice(start, end);
+    }
+
+    function createIngredient() {
+        $location.path("/ingredients-create");
     }
 
     function sortNameAsc() {

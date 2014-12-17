@@ -68,6 +68,7 @@ exports.create = function (req, res) {
             _ingredient.description = req.body.description;
             _ingredient.category = req.body.category;
             _ingredient.nutrients = req.body.nutrients;
+            _ingredient.imgUrl = "/uploads/" + req.body.imgUrl;
 
             _ingredient.save(function(err) {
                 if (err) {
