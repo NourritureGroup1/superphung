@@ -1,3 +1,5 @@
 /node_modules
 /public/components
 /bower_components
+public/uploads/
+AndroidClient/.metadata/
