@@ -67,7 +67,7 @@ public class MainActivity extends Activity {
     }
     
 
-	private void restartActivity() {
+	public void restartActivity() {
 	    Intent intent = getIntent();
 	    finish();
 	    startActivity(intent);

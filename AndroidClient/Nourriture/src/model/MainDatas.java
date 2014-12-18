@@ -4,9 +4,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.superphung.nourriture.MainActivity;
 import com.superphung.nourriture.R;
 
 import fragment.LoginFragment;
+import fragment.profileFragment;
 
 import adapter.NavDrawerListAdapter;
 import android.app.Activity;
@@ -33,7 +35,7 @@ public class MainDatas {
 	public ArrayList<NavDrawerItem> navDrawerItems;
 	public NavDrawerListAdapter adapter;
 	public Map<String, String> urls = new HashMap<String, String>();
-	public User user;
+	public User user = new User("", "", "", "");
 	private Context context;
 	
 	
@@ -71,8 +73,8 @@ public class MainDatas {
 		mDrawerList = (ListView) ((Activity) context).findViewById(R.id.list_slidermenu);
 		navDrawerItems = new ArrayList<NavDrawerItem>();
 
-		navDrawerItems.add(new NavDrawerItem(navMenuTitles[0], navMenuIcons.getResourceId(0, -1)));
-		navDrawerItems.add(new NavDrawerItem(navMenuTitles[1], navMenuIcons.getResourceId(0, -1)));
+		navDrawerItems.add(new NavDrawerItem(navMenuTitles[0], navMenuIcons.getResourceId(1, -1)));
+		navDrawerItems.add(new NavDrawerItem(navMenuTitles[1], navMenuIcons.getResourceId(3, -1)));
 		
 		navMenuIcons.recycle();
 		mDrawerList.setOnItemClickListener(new SlideMenuClickListener());
@@ -89,7 +91,7 @@ public class MainDatas {
 		navDrawerItems = new ArrayList<NavDrawerItem>();
 
 		navDrawerItems.add(new NavDrawerItem(navMenuTitles[2], navMenuIcons.getResourceId(0, -1)));
-		navDrawerItems.add(new NavDrawerItem(navMenuTitles[1], navMenuIcons.getResourceId(0, -1)));
+		navDrawerItems.add(new NavDrawerItem(navMenuTitles[3], navMenuIcons.getResourceId(2, -1)));
 		
 		navMenuIcons.recycle();
 		mDrawerList.setOnItemClickListener(new SlideMenuClickListener());
@@ -109,12 +111,27 @@ public class MainDatas {
 	
 	public void displayView(int position) {
 		Fragment fragment = null;
-		switch (position) {
-			case 0:
-				fragment = new LoginFragment(this);
-				break;
-			default:
-				break;
+		if (user.getConnected() == true) {
+			switch (position) {
+				case 0:
+					fragment = new profileFragment(context, this);
+					break;
+				case 1:
+					((MainActivity) context).restartActivity();
+					fragment = new LoginFragment(this);
+					break;
+				default:
+					break;
+			}			
+		}
+		else {
+			switch (position) {
+				case 0:
+					fragment = new LoginFragment(this);
+					break;
+				default:
+					break;
+			}			
 		}
 		if (fragment != null) {
 			FragmentManager fragmentManager = ((Activity) context).getFragmentManager();

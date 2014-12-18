@@ -74,6 +74,7 @@ public class LoginTask extends AsyncTask<String, String, String> {
 			  toast.show(); 
 			  return ;
 		  }	
+		user.setConnected(true);
         ((MainActivity)context).loginUser(user);
 	}
 }

@@ -35,8 +35,12 @@ public class profileFragment extends Fragment {
             Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_profile, container, false);
 		context = getActivity();
-		TextView name = (TextView)rootView.findViewById(R.id.name);
-		name.setText(MainActivityDatas.user.getName());
+		TextView name = (TextView)rootView.findViewById(R.id.profileof);
+		TextView email = (TextView)rootView.findViewById(R.id.email);
+		TextView role = (TextView)rootView.findViewById(R.id.role);
+		name.setText("Profle of "+MainActivityDatas.user.getName());
+		email.setText("Email: "+MainActivityDatas.user.getEmail());
+		role.setText("Role: "+MainActivityDatas.user.getRole());
         return rootView;
     }
 }
