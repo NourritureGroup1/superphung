@@ -109,7 +109,11 @@ public class helpers {
     				builder.append(line);
     	  			  System.out.println(line);
     			}
-    		} else {
+    		} 
+    		else if (statusCode == 204) {
+    			return "empty";
+    		}
+    		else {
     			Log.e(MainActivity.class.toString(),"Failed to get JSON object");
     			return "error";
     		}

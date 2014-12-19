@@ -60,14 +60,6 @@
                 android:layout_weight="0.52"
                 android:text="Restricted food" />
 
-            <Button
-                android:id="@+id/sports"
-                style="?android:attr/buttonStyleSmall"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.32"
-                android:text="Personnal info" />
-
         </LinearLayout>
 
     </LinearLayout>
