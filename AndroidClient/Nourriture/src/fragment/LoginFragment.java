@@ -38,21 +38,21 @@ public class LoginFragment extends Fragment {
         rootView = inflater.inflate(R.layout.fragment_login, container, false);
 		context = getActivity();
 		Button loginButton = (Button)rootView.findViewById(R.id.login_button);
-		/*TextView registerButton = (TextView)rootView.findViewById(R.id.register_button);
+		TextView registerButton = (TextView)rootView.findViewById(R.id.register_button);
 		
 		registerButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View arg0) {
 				
 				Fragment fragment = null;
-				fragment = new RegisterFragment();
+				fragment = new RegisterFragment(MainActivityDatas);
 				if (fragment != null) {
 					FragmentManager fragmentManager = getFragmentManager();
 					fragmentManager.beginTransaction()
 							.replace(R.id.frame_container, fragment).commit();
 				}
 			}
-		});*/
+		});
 		
 		loginButton.setOnClickListener(new OnClickListener() {
 			

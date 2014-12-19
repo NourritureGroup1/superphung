@@ -72,6 +72,7 @@
             android:layout_height="wrap_content"
             android:clickable="true"
             android:text="@string/register"
+            android:textColor="@color/blue"
             android:textAppearance="?android:attr/textAppearanceMedium" />
     </LinearLayout>
     <ImageView

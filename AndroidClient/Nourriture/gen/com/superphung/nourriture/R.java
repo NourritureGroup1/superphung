@@ -20,6 +20,7 @@ public final class R {
     public static final class attr {
     }
     public static final class color {
+        public static final int blue=0x7f050009;
         public static final int button_color=0x7f050006;
         public static final int counter_text_bg=0x7f050004;
         public static final int counter_text_color=0x7f050005;
