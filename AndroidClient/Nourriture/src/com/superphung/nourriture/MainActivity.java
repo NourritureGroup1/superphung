@@ -1,6 +1,6 @@
 package com.superphung.nourriture;
 
-import fragment.profileFragment;
+import fragment.ProfileFragment;
 import model.MainDatas;
 import model.User;
 import android.app.Activity;
@@ -97,7 +97,7 @@ public class MainActivity extends Activity {
 	    //new CurrentUserTask(user, context).execute();
         //((MainActivity)getActivity()).getUserMenu();
 		Fragment fragment = null;
-		fragment = new profileFragment(this,MainActivityDatas);
+		fragment = new ProfileFragment(this,MainActivityDatas);
 		if (fragment != null) {
 			FragmentManager fragmentManager = getFragmentManager();
 			fragmentManager.beginTransaction()

@@ -23,16 +23,18 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.widget.Toast;
 
-public class LoginTask extends AsyncTask<String, String, String> {
+public class RegisterTask extends AsyncTask<String, String, String> {
 	private String email;
+	private String name;
 	private String password;
 	private Context context;
 	private User user;
 	private MainDatas mainDatas;
 	
-	public LoginTask(String email_, String password_, Context context_, MainDatas mainActivityDatas)
+	public RegisterTask(String email_, String name_, String password_, Context context_, MainDatas mainActivityDatas)
 	{
 		email = email_;
+		name = name_;
 		password = password_;
 		context = context_;
 		mainDatas = mainActivityDatas;
@@ -44,7 +46,7 @@ public class LoginTask extends AsyncTask<String, String, String> {
 		//showing a dialog to tell the user we are authenticating him
 		mainDatas.progress = new ProgressDialog(context);
 		mainDatas.progress.setTitle("Wait a moment");
-		mainDatas.progress.setMessage("Authentication in progress...");
+		mainDatas.progress.setMessage("Registration in progress...");
 		mainDatas.progress.show();
 	}
 	
@@ -54,11 +56,12 @@ public class LoginTask extends AsyncTask<String, String, String> {
 		  {
 			  List<NameValuePair> parameters = new ArrayList<NameValuePair>(2);
 			  parameters.add(new BasicNameValuePair("email", email));
+			  parameters.add(new BasicNameValuePair("name", name));
 			  parameters.add(new BasicNameValuePair("password", password));
 			  String readJSON = null;
-			  readJSON = helpers.getDatas(mainDatas.urls.get("login"),parameters);
+			  readJSON = helpers.getDatas(mainDatas.urls.get("signup"),parameters);
 			  if (readJSON == "error")
-				  return "loginFailed";
+				  return "userExist";
 		      try{
 		            JSONObject datas = new JSONObject(readJSON);
 		            user = new User(datas.get("name").toString(),datas.get("role").toString(),email, password);
@@ -74,9 +77,9 @@ public class LoginTask extends AsyncTask<String, String, String> {
 	@Override
 	protected void onPostExecute(String result) {
 		mainDatas.progress.dismiss();
-		if (result.equals("loginFailed"))
+		if (result.equals("userExist"))
 		  {
-			  Toast toast = Toast.makeText(context, "Cannot find the user with the password/username you typed", Toast.LENGTH_SHORT);
+			  Toast toast = Toast.makeText(context, "This email is already taken", Toast.LENGTH_SHORT);
 			  toast.show(); 
 			  return ;
 		  }			

@@ -8,12 +8,14 @@ import com.superphung.nourriture.MainActivity;
 import com.superphung.nourriture.R;
 
 import fragment.LoginFragment;
-import fragment.profileFragment;
+import fragment.RegisterFragment;
+import fragment.ProfileFragment;
 
 import adapter.NavDrawerListAdapter;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.os.Bundle;
@@ -37,6 +39,7 @@ public class MainDatas {
 	public Map<String, String> urls = new HashMap<String, String>();
 	public User user = new User("", "", "", "");
 	private Context context;
+	public ProgressDialog progress; 
 	
 	
 	public void init(Context context_,Bundle savedInstanceState) {
@@ -64,6 +67,7 @@ public class MainDatas {
 	
 	private void init_urls() {
 		urls.put("login", "https://192.168.0.103:8081/login");
+		urls.put("signup", "https://192.168.0.103:8081/signup");
 	}
 	
 	private void getUserMenu() {
@@ -114,7 +118,7 @@ public class MainDatas {
 		if (user.getConnected() == true) {
 			switch (position) {
 				case 0:
-					fragment = new profileFragment(context, this);
+					fragment = new ProfileFragment(context, this);
 					break;
 				case 1:
 					((MainActivity) context).restartActivity();
@@ -128,6 +132,9 @@ public class MainDatas {
 			switch (position) {
 				case 0:
 					fragment = new LoginFragment(this);
+					break;
+				case 1:
+					fragment = new RegisterFragment(this);
 					break;
 				default:
 					break;

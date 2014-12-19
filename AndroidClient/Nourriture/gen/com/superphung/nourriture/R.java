@@ -42,36 +42,42 @@ public final class R {
         public static final int activity_vertical_margin=0x7f060001;
     }
     public static final class drawable {
-        public static final int gradient_bg=0x7f020000;
-        public static final int gradient_bg_hover=0x7f020001;
-        public static final int ic_home=0x7f020002;
-        public static final int ic_launcher=0x7f020003;
-        public static final int like=0x7f020004;
-        public static final int list_selector=0x7f020005;
-        public static final int profile=0x7f020006;
-        public static final int restricted=0x7f020007;
-        public static final int sign_in=0x7f020008;
-        public static final int sign_out=0x7f020009;
-        public static final int sign_up=0x7f02000a;
+        public static final int buttonshape=0x7f020000;
+        public static final int gradient_bg=0x7f020001;
+        public static final int gradient_bg_hover=0x7f020002;
+        public static final int ic_home=0x7f020003;
+        public static final int ic_launcher=0x7f020004;
+        public static final int like=0x7f020005;
+        public static final int list_selector=0x7f020006;
+        public static final int logo=0x7f020007;
+        public static final int profile=0x7f020008;
+        public static final int restricted=0x7f020009;
+        public static final int rounded_edit_text=0x7f02000a;
+        public static final int sign_in=0x7f02000b;
+        public static final int sign_out=0x7f02000c;
+        public static final int sign_up=0x7f02000d;
     }
     public static final class id {
-        public static final int action_settings=0x7f0b0011;
-        public static final int announces=0x7f0b000d;
-        public static final int avatar=0x7f0b000b;
+        public static final int action_settings=0x7f0b0014;
+        public static final int announces=0x7f0b000e;
+        public static final int avatar=0x7f0b000c;
         public static final int counter=0x7f0b0005;
         public static final int drawer_layout=0x7f0b0000;
         public static final int email=0x7f0b0006;
         public static final int frame_container=0x7f0b0001;
-        public static final int friends=0x7f0b000e;
+        public static final int friends=0x7f0b000f;
         public static final int icon=0x7f0b0003;
-        public static final int listView1=0x7f0b0010;
+        public static final int imageView1=0x7f0b000a;
+        public static final int listView1=0x7f0b0011;
         public static final int list_slidermenu=0x7f0b0002;
         public static final int login_button=0x7f0b0008;
+        public static final int name=0x7f0b0012;
         public static final int password=0x7f0b0007;
-        public static final int profileof=0x7f0b000a;
+        public static final int profileof=0x7f0b000b;
         public static final int register_button=0x7f0b0009;
-        public static final int role=0x7f0b000c;
-        public static final int sports=0x7f0b000f;
+        public static final int role=0x7f0b000d;
+        public static final int signup_button=0x7f0b0013;
+        public static final int sports=0x7f0b0010;
         public static final int title=0x7f0b0004;
     }
     public static final class layout {
@@ -80,6 +86,7 @@ public final class R {
         public static final int fragment_login=0x7f030002;
         public static final int fragment_main=0x7f030003;
         public static final int fragment_profile=0x7f030004;
+        public static final int fragment_register=0x7f030005;
     }
     public static final class menu {
         public static final int main=0x7f0a0000;
@@ -90,13 +97,15 @@ public final class R {
     public static final class string {
         public static final int action_settings=0x7f070002;
         public static final int app_name=0x7f070000;
-        public static final int back=0x7f070005;
-        public static final int email=0x7f070009;
+        public static final int back=0x7f070006;
+        public static final int email=0x7f07000b;
         public static final int hello_world=0x7f070001;
-        public static final int home=0x7f070007;
-        public static final int login=0x7f070006;
+        public static final int home=0x7f070008;
+        public static final int login=0x7f070007;
+        public static final int name=0x7f070005;
         public static final int password=0x7f070004;
-        public static final int register=0x7f070008;
+        public static final int register=0x7f070009;
+        public static final int signup=0x7f07000a;
         public static final int username=0x7f070003;
     }
     public static final class style {

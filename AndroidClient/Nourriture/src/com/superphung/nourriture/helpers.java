@@ -100,13 +100,14 @@ public class helpers {
     		HttpResponse response = client.execute(httpGet);
     		StatusLine statusLine = response.getStatusLine();
     		int statusCode = statusLine.getStatusCode();
-    		if(statusCode == 200){
+    		if(statusCode == 200 || statusCode == 201){
     			HttpEntity entity = response.getEntity();
     			InputStream content = entity.getContent();
     			BufferedReader reader = new BufferedReader(new InputStreamReader(content));
     			String line;
     			while((line = reader.readLine()) != null){
     				builder.append(line);
+    	  			  System.out.println(line);
     			}
     		} else {
     			Log.e(MainActivity.class.toString(),"Failed to get JSON object");

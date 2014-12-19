@@ -19,13 +19,13 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class profileFragment extends Fragment {
+public class ProfileFragment extends Fragment {
 
 	private Context context;
 	private View rootView;
 	private MainDatas MainActivityDatas;
 	
-	public profileFragment(Context context_,MainDatas mainDatas_){
+	public ProfileFragment(Context context_,MainDatas mainDatas_){
 		MainActivityDatas = mainDatas_;
 		context = context_;
 	}
