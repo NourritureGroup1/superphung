@@ -1,0 +1,6 @@
+INDEX VERSION 1.126+C:\Users\ramani\Documents\superphung\AndroidClient\Nourriture\.metadata\.plugins\org.eclipse.jdt.core
+3309318967.index
+1211751649.index
+3249763258.index
+3330124055.index
+848856923.index

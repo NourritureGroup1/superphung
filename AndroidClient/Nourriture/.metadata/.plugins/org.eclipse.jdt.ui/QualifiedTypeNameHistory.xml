@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="android.R"/>
+<fullyQualifiedTypeName name="android.support.v4.app.Fragment"/>
+<fullyQualifiedTypeName name="model.MainDatas"/>
+<fullyQualifiedTypeName name="fragment.ProfileFragment"/>
+<fullyQualifiedTypeName name="android.support.v4.app.FragmentManager"/>
+<fullyQualifiedTypeName name="android.app.FragmentManager"/>
+<fullyQualifiedTypeName name="com.google.android.gms.auth.GoogleAuthUtil"/>
+<fullyQualifiedTypeName name="com.google.android.gms.auth.UserRecoverableAuthException"/>
+<fullyQualifiedTypeName name="com.google.android.gms.auth.GoogleAuthException"/>
+<fullyQualifiedTypeName name="com.superphung.nourriture.helpers"/>
+<fullyQualifiedTypeName name="org.apache.http.client.methods.HttpGet"/>
+<fullyQualifiedTypeName name="task.getGoogleUser"/>
+<fullyQualifiedTypeName name="task.getGoogleUserTask"/>
+<fullyQualifiedTypeName name="org.json.JSONArray"/>
+<fullyQualifiedTypeName name="task.revokeAccessGoogleTask"/>
+<fullyQualifiedTypeName name="com.superphung.nourriture.MainActivity"/>
+<fullyQualifiedTypeName name="com.google.android.gms.common.api.ResultCallback"/>
+<fullyQualifiedTypeName name="android.util.Log"/>
+<fullyQualifiedTypeName name="com.google.android.gms.common.api.Status"/>
+<fullyQualifiedTypeName name="model.User"/>
+<fullyQualifiedTypeName name="java.lang.System"/>
+</qualifiedTypeNameHistroy>

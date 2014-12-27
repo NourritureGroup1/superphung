@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="25dp"
+        android:paddingRight="25dp"
+        android:orientation="vertical" >
+        <EditText
+            android:id="@+id/email"
+            android:state_focused="true"
+            android:hint="@string/email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rounded_edit_text"
+            android:padding="8dp"
+            android:ems="10" />
+        <EditText
+            android:id="@+id/password"
+            android:state_focused="true"
+            android:hint="@string/password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rounded_edit_text"
+            android:padding="8dp"
+            android:layout_marginTop="8dp"
+            android:ems="10"
+            android:inputType="textPassword" >
+            <requestFocus />
+        </EditText>
+	</LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="25dp"
+        android:paddingLeft="25dp"
+        android:paddingRight="25dp"
+        android:orientation="vertical" >
+
+        <Button
+            android:layout_gravity="right"
+            android:id="@+id/login_button"
+            android:layout_width="112dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/buttonshape"
+            android:shadowColor="#A86060"
+            android:shadowDx="0"
+            android:shadowDy="0"
+            android:shadowRadius="5"
+            android:text="@string/login"
+            android:textColor="#FFFFFF"
+            android:textSize="30sp" />
+    <com.google.android.gms.common.SignInButton
+        android:id="@+id/btn_sign_in"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"/>
+        <Button 
+               android:id="@+id/btn_fb"
+               android:background="@drawable/layers_fb_button_bg"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:padding="10dp"
+               android:layout_margin="4dp"
+               android:text="@string/signfb"
+           />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="25dp"
+        android:paddingLeft="25dp"
+        android:paddingRight="25dp"
+        android:orientation="vertical" >
+        <TextView
+            android:id="@+id/register_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:text="@string/register"
+            android:textColor="@color/blue"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+    </LinearLayout>
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_alignParentBottom = "true"
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:src="@drawable/logo" />
+
+
+  </LinearLayout>
+
+</LinearLayout>

@@ -109,6 +109,9 @@ exports.create = function(req, res) {
             if (req.body.favoriteFood) _user.favoriteFood = req.body.favoriteFood;
             if (req.body.restrictedFood) _user.restrictedFood = req.body.restrictedFood;
             if (req.body.badFood) _user.badFood = req.body.badFood;
+            if (req.body.name) _user.name = req.body.name;
+            if (req.body.oauthID) _user.oauthID = req.body.oauthID;
+            if (req.body.role) _user.role = req.body.role;
 
             _user.save(function(err) {
                 if (err) {
