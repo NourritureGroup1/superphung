@@ -33,4 +33,14 @@
         android:visibility="invisible"
         android:max="100" />
 
+    <Button
+        android:id="@+id/addRestrictedIngredient"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/buttonshape"
+        android:text="Add a restricted ingredient" />
+
 </RelativeLayout>

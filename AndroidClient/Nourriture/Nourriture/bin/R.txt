@@ -133,7 +133,8 @@ int drawable rounded_edit_text 0x7f020035
 int drawable sign_in 0x7f020036
 int drawable sign_out 0x7f020037
 int drawable sign_up 0x7f020038
-int id action_settings 0x7f070032
+int id action_settings 0x7f070033
+int id addRestrictedIngredient 0x7f070030
 int id adjust_height 0x7f070002
 int id adjust_width 0x7f070001
 int id announces 0x7f070029
@@ -158,7 +159,7 @@ int id holo_dark 0x7f070007
 int id holo_light 0x7f070008
 int id hybrid 0x7f070006
 int id icon 0x7f07001a
-int id image 0x7f070030
+int id image 0x7f070031
 int id imageView1 0x7f070023
 int id like_recipes 0x7f070027
 int id list_slidermenu 0x7f070019
@@ -180,7 +181,7 @@ int id satellite 0x7f070004
 int id selectionDetails 0x7f07000d
 int id signup_button 0x7f07002b
 int id strict_sandbox 0x7f07000b
-int id t_bg 0x7f070031
+int id t_bg 0x7f070032
 int id terrain 0x7f070005
 int id title 0x7f07001b
 int id wrap_content 0x7f07000f

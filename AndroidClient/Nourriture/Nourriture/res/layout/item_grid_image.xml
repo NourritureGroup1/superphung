@@ -10,24 +10,27 @@
         android:id="@+id/image"
         android:layout_width="100dp"
         android:layout_height="100dp"
+        android:visibility="gone"
         android:layout_marginRight="10dp" >
     </ImageView>
+
+    <ProgressBar
+        android:id="@+id/progress"
+        android:visibility="visible"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:indeterminate="false"
+        android:max="100" />
 
     <TextView
         android:id="@+id/name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:textSize="15sp"
         android:layout_below="@id/image"
+        android:layout_marginTop="5dp"
         android:gravity="center"
-         >
+        android:textSize="15sp" >
     </TextView>
-                <ProgressBar
-                    android:id="@+id/progress"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="bottom"
-                    android:indeterminate="false"
-                    android:max="100" />
+
 </LinearLayout>

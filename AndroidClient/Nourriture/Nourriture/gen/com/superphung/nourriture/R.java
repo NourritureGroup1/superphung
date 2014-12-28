@@ -507,7 +507,8 @@ containing a value of this type.
         public static final int sign_up=0x7f020038;
     }
     public static final class id {
-        public static final int action_settings=0x7f070032;
+        public static final int action_settings=0x7f070033;
+        public static final int addRestrictedIngredient=0x7f070030;
         public static final int adjust_height=0x7f070002;
         public static final int adjust_width=0x7f070001;
         public static final int announces=0x7f070029;
@@ -532,7 +533,7 @@ containing a value of this type.
         public static final int holo_light=0x7f070008;
         public static final int hybrid=0x7f070006;
         public static final int icon=0x7f07001a;
-        public static final int image=0x7f070030;
+        public static final int image=0x7f070031;
         public static final int imageView1=0x7f070023;
         public static final int like_recipes=0x7f070027;
         public static final int list_slidermenu=0x7f070019;
@@ -554,7 +555,7 @@ containing a value of this type.
         public static final int selectionDetails=0x7f07000d;
         public static final int signup_button=0x7f07002b;
         public static final int strict_sandbox=0x7f07000b;
-        public static final int t_bg=0x7f070031;
+        public static final int t_bg=0x7f070032;
         public static final int terrain=0x7f070005;
         public static final int title=0x7f07001b;
         public static final int wrap_content=0x7f07000f;
