@@ -29,7 +29,6 @@ import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListene
 import com.superphung.nourriture.R;
 import com.superphung.nourriture.helpers;
 
-import adapter.IngredientAutocompleteAdapter;
 import adapter.RestrictedFoodAdapter;
 import adapter.Holder.ViewHolder;
 import android.annotation.SuppressLint;
@@ -55,6 +54,7 @@ import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -65,7 +65,7 @@ public class RestrictedFoodFragment extends Fragment {
 	private View rootView;
 	private ImageLoader imageLoader;
 	private MainDatas MainActivityDatas;
-	private IngredientAutocompleteAdapter adapteur_autocomplete;
+	private RestrictedFoodAdapter adapteur_autocomplete;
 	private List<Ingredient> list_autocomplete;
 
 	public RestrictedFoodFragment(MainDatas MainActivityDatas_)
@@ -88,13 +88,33 @@ public class RestrictedFoodFragment extends Fragment {
 		ImageLoaderConfiguration config=configBuilder.build();
 		imageLoader.init(config);
 		new WorkerRestrictedFood(context, rootView, imageLoader, MainActivityDatas).execute();
-		list_autocomplete = new ArrayList<Ingredient>();
-		adapteur_autocomplete = new IngredientAutocompleteAdapter(context, 0, 0, list_autocomplete);
-		adapteur_autocomplete.setImageLoader(imageLoader);
+		RadioButton addRestrictedFood = (RadioButton)rootView.findViewById(R.id.add);
+		RadioButton refreshRestrictedFood = (RadioButton)rootView.findViewById(R.id.refresh);
+		
+		addRestrictedFood.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				new WorkerIngredientFood(context, rootView,imageLoader, MainActivityDatas,"add_restircted_food").execute();
+			}
+		});
+		
+		refreshRestrictedFood.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				new WorkerRestrictedFood(context, rootView, imageLoader, MainActivityDatas).execute();
+			}
+		});
+		
+		//Button addRestrictedIngredient = (Button) rootView.findViewById(R.id.addRestrictedIngredient);
+		/*list_autocomplete = new ArrayList<Ingredient>();
+		adapteur_autocomplete = new RestrictedFoodAdapter(context, 0, 0, list_autocomplete);
+		adapteur_autocomplete.setImageLoader(imageLoader);*/
 		
 		//final AutoCompleteTextView input = new AutoCompleteTextView(context);
 	//	input.setAdapter(adapteur_autocomplete);
-		new WorkerIngredientFood(context, rootView, MainActivityDatas,adapteur_autocomplete).execute();
+		//new WorkerIngredientFood(context, rootView, MainActivityDatas,adapteur_autocomplete).execute();
 		//gallery.setAdapter(adapteur_autocomplete);
 		
 		

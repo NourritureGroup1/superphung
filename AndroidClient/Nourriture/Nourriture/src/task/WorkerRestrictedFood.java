@@ -60,13 +60,13 @@ public class WorkerRestrictedFood extends AsyncTask<String, Void, String> {
 
 	@Override
 	protected void onPostExecute(String result) {
+		progress.dismiss(); 
 		if (result.equals("error"))
 		{
 			Toast toast = Toast.makeText(context, "no internet connection available", Toast.LENGTH_SHORT);
 			toast.show();
 			return ;
 		}
-		progress.dismiss(); 
 		gallery = (GridView) rootView.findViewById(R.id.gridview);
 		if (gallery != null) {
 			gallery.setOnItemClickListener(new OnItemClickListener() {
