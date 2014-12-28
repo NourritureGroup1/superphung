@@ -16,11 +16,11 @@
 
     <ProgressBar
         android:id="@+id/progress"
-        android:visibility="visible"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         android:indeterminate="false"
+        android:visibility="gone"
         android:max="100" />
 
     <TextView

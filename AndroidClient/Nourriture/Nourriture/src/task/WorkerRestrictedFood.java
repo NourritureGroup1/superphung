@@ -90,7 +90,8 @@ public class WorkerRestrictedFood extends AsyncTask<String, Void, String> {
 	            	}*/
 				}
 			});
-			adapteur = new RestrictedFoodAdapter(context, CustomListViewValuesArr, imageLoader);
+			adapteur = new RestrictedFoodAdapter(context, 0, 0, CustomListViewValuesArr);
+			adapteur.setImageLoader(imageLoader);
 			gallery.setAdapter(adapteur);
 			adapteur.notifyDataSetChanged();
 		}

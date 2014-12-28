@@ -1,6 +1,7 @@
 package adapter;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import model.Ingredient;
 import adapter.Holder.ViewHolder;
@@ -9,7 +10,10 @@ import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -21,23 +25,37 @@ import com.nostra13.universalimageloader.core.listener.ImageLoadingProgressListe
 import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
 import com.superphung.nourriture.R;
 
-public class RestrictedFoodAdapter extends BaseAdapter {
+public class RestrictedFoodAdapter extends ArrayAdapter<Ingredient> implements Filterable {
 	private Context context;
-	private ArrayList<Ingredient> CustomListViewValuesArr = new ArrayList<Ingredient>();
+	private List<Ingredient> CustomListViewValuesArr = new ArrayList<Ingredient>();
 	@SuppressWarnings("unused")
 	private ViewHolder holder;  
 	private DisplayImageOptions options;
 	private ImageLoader imageLoader;
 
-	public RestrictedFoodAdapter(Context c, ArrayList<Ingredient> CustomListViewValuesArr_,ImageLoader imageLoader_) {
+
+	public RestrictedFoodAdapter(Context context_, int resource,
+			int textViewResourceId, List<Ingredient> objects) {
+		super(context_, resource, textViewResourceId, objects);
+		// TODO Auto-generated constructor stub
+		context = context_;
+		CustomListViewValuesArr = objects;
+		//imageLoader = imageLoader_;
+	}
+	
+	public void setImageLoader(ImageLoader imageLoader_) {
+		imageLoader = imageLoader_;
+	}
+	
+	/*public RestrictedFoodAdapter(Context c, ArrayList<Ingredient> CustomListViewValuesArr_,ImageLoader imageLoader_) {
 		context = c;
 		CustomListViewValuesArr = CustomListViewValuesArr_;
 		imageLoader = imageLoader_;
-	}
+	}*/
 	public int getCount() {
 		return CustomListViewValuesArr.size();
 	}
-	public Object getItem(int position) {
+	public Ingredient getItem(int position) {
 		return CustomListViewValuesArr.get(position);
 	}
 	public long getItemId(int position) {

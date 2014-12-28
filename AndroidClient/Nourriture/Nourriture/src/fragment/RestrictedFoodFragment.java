@@ -16,6 +16,7 @@ import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import task.WorkerIngredientFood;
 import task.WorkerRestrictedFood;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -28,6 +29,7 @@ import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListene
 import com.superphung.nourriture.R;
 import com.superphung.nourriture.helpers;
 
+import adapter.IngredientAutocompleteAdapter;
 import adapter.RestrictedFoodAdapter;
 import adapter.Holder.ViewHolder;
 import android.annotation.SuppressLint;
@@ -46,6 +48,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AutoCompleteTextView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -62,6 +65,8 @@ public class RestrictedFoodFragment extends Fragment {
 	private View rootView;
 	private ImageLoader imageLoader;
 	private MainDatas MainActivityDatas;
+	private IngredientAutocompleteAdapter adapteur_autocomplete;
+	private List<Ingredient> list_autocomplete;
 
 	public RestrictedFoodFragment(MainDatas MainActivityDatas_)
 	{
@@ -83,36 +88,17 @@ public class RestrictedFoodFragment extends Fragment {
 		ImageLoaderConfiguration config=configBuilder.build();
 		imageLoader.init(config);
 		new WorkerRestrictedFood(context, rootView, imageLoader, MainActivityDatas).execute();
-		Button addRestrictedIngredient = (Button) rootView.findViewById(R.id.addRestrictedIngredient);
+		list_autocomplete = new ArrayList<Ingredient>();
+		adapteur_autocomplete = new IngredientAutocompleteAdapter(context, 0, 0, list_autocomplete);
+		adapteur_autocomplete.setImageLoader(imageLoader);
 		
-		addRestrictedIngredient.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				AlertDialog.Builder alert = new AlertDialog.Builder(context);
+		//final AutoCompleteTextView input = new AutoCompleteTextView(context);
+	//	input.setAdapter(adapteur_autocomplete);
+		new WorkerIngredientFood(context, rootView, MainActivityDatas,adapteur_autocomplete).execute();
+		//gallery.setAdapter(adapteur_autocomplete);
+		
+		
 
-				alert.setTitle("Add new restricted ingredient");
-
-				// Set an EditText view to get user input 
-				final EditText input = new EditText(context);
-				alert.setView(input);
-
-				alert.setPositiveButton("Add", new DialogInterface.OnClickListener() {
-				public void onClick(DialogInterface dialog, int whichButton) {
-				  //String value = input.getText();
-				  // Do something with value!
-				  }
-				});
-
-				alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-				  public void onClick(DialogInterface dialog, int whichButton) {
-				    // Canceled.
-				  }
-				});
-
-				alert.show();
-			}
-		});
 		return rootView;
 	}
 }
