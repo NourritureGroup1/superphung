@@ -43,34 +43,32 @@
             android:layout_height="wrap_content" >
 
             <Button
-                android:id="@+id/announces"
-            	android:layout_gravity="right"
-	            android:layout_width="112dp"
-	            android:layout_height="wrap_content"
-	            android:background="@drawable/buttonshape"
-	            android:shadowColor="#A86060"
-	            android:shadowDx="0"
-	            android:shadowDy="0"
-	            android:shadowRadius="5"
-	            android:layout_marginLeft="20dp"
-	            android:textColor="#FFFFFF"
-	            android:textSize="20sp"
-                android:text="Likes recipes" />
+                android:id="@+id/like_recipes"
+                android:layout_width="100sp"
+                android:layout_height="100sp"
+                android:background="@drawable/circular_button_likes"
+                android:gravity="center"
+                android:text="Likes recipes"
+                android:textColor="#fff" />
 
             <Button
-                android:id="@+id/friends"
+                android:id="@+id/rfood"
+                android:layout_width="100sp"
+                android:layout_height="100sp"
+                android:background="@drawable/circular_button_restricted"
+                android:gravity="center"
+                android:text="Restricted food"
+                android:textColor="#fff" />
+
+            <Button
+                android:id="@+id/announces"
             	android:layout_gravity="right"
-	            android:layout_width="112dp"
-	            android:layout_height="wrap_content"
-	            android:background="@drawable/buttonshape"
-	            android:shadowColor="#A86060"
-	            android:shadowDx="0"
-	            android:shadowDy="0"
-	            android:shadowRadius="5"
-	            android:layout_marginLeft="20dp"
-	            android:textColor="#FFFFFF"
-	            android:textSize="20sp"
-                android:text="Restricted food" />
+	            android:background="@drawable/circular_button_likes"
+				android:layout_width="100sp"
+				android:layout_height="100sp"
+				android:gravity="center"
+				android:text="Likes recipes"
+				android:textColor="#fff"/>
 
         </LinearLayout>
 
@@ -80,10 +78,5 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical" >
-	    <ListView
-	        android:id="@+id/listView1"
-	        android:layout_width="match_parent"
-	        android:layout_height="wrap_content" >
-	    </ListView>
     </LinearLayout>
 </LinearLayout>

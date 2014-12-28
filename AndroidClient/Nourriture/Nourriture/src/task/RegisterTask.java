@@ -68,7 +68,7 @@ public class RegisterTask extends AsyncTask<String, String, String> {
 		            JSONObject datas = new JSONObject(readJSON);
 		            System.out.println(readJSON);
 		         //   user = new User(datas.get("name").toString(),datas.get("role").toString(),email, password);
-		            user = new User(datas.get("name").toString(),datas.get("role").toString(),datas.get("email").toString(), "");
+		            user = new User(datas.get("_id").toString(),datas.get("name").toString(),datas.get("role").toString(),datas.get("email").toString(), "");
 		            return "success";
 		        } catch(Exception e){e.printStackTrace();}
 		        finally{}

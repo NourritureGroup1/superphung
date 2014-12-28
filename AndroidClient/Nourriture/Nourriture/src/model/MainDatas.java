@@ -51,11 +51,12 @@ public class MainDatas {
 	public ArrayList<NavDrawerItem> navDrawerItems;
 	public NavDrawerListAdapter adapter;
 	public Map<String, Map<String, String>> urls = new HashMap<String, Map<String, String>>();
-	public User user = new User("", "", "", "");
+	public User user = new User("", "", "", "", "");
 	private Context context;
 	public ProgressDialog progress;
 	public GoogleApiClient mGoogleApiClient;
-	
+
+	public static final String URL_API = "https://192.168.0.103:8081";
 	
 	public void init(Context context_,Bundle savedInstanceState) {
 		context = context_;
@@ -86,11 +87,11 @@ public class MainDatas {
 		Map<String, String> url_request_get = new HashMap<String, String>();
 		Map<String, String> url_request_delete = new HashMap<String, String>();
 		
-		url_request_post.put("login", "https://192.168.0.103:8081/login");
-		url_request_post.put("user", "https://192.168.0.103:8081/user"); 
-		url_request_post.put("signup", "https://192.168.0.103:8081/signup"); 
+		url_request_post.put("login", URL_API+"/login");
+		url_request_post.put("user", URL_API+"/user"); 
+		url_request_post.put("signup", URL_API+"/signup"); 
 		
-		url_request_get.put("user", "https://192.168.0.103:8081/user"); 
+		url_request_get.put("user", "/user"); 
 		
 		urls.put("POST", url_request_post);
 		urls.put("PUT", url_request_put);

@@ -46,6 +46,7 @@ public class MainActivity extends Activity {
 		getActionBar().setHomeButtonEnabled(true);
 		getActionBar().setDisplayShowHomeEnabled(false);
 		setContentView(R.layout.activity_main);
+		MainActivityDatas = new MainDatas();
 		MainActivityDatas.init(this,savedInstanceState);
     }
 
@@ -139,6 +140,7 @@ public class MainActivity extends Activity {
 			FragmentManager fragmentManager = getFragmentManager();
 			fragmentManager.beginTransaction()
 					.replace(R.id.frame_container, fragment).commit();
+			setTitle(getResources().getStringArray(R.array.nav_drawer_items)[2]);
 			
 		}
 	}

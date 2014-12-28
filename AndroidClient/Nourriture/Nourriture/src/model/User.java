@@ -5,26 +5,33 @@ public class User {
 	private String name;
 	private String password;
 	private String authId;
+	private String id;
 	private String role;
 	private boolean connected = false;
 	private String type;
 	
-	public User(String name_, String role_,
+	public User(String id_,String name_, String role_,
 			String email_, String password_) {
 		name = name_;
 		email = email_;
 		role = role_;
 		password = password_;
 		type = "regular";
+		id = id_;
 	}
 	
-	public User(String name_, String role_,
+	public User(String id_,String name_, String role_,
 			String email_, String authId_, String type_) {
 		name = name_;
 		email = email_;
 		role = role_;
 		authId = authId_;
 		type = type_;
+		id = id_;
+	}
+	
+	public String getId() {
+		return id;
 	}
 	
 	public String getType() {

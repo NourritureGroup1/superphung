@@ -22,6 +22,7 @@
         <item >Register</item>
         <item >My profile</item>
         <item >Sign out</item>
+        <item >My restricted food</item>
     </string-array>
     
     <!-- Nav Drawer List Item Icons -->

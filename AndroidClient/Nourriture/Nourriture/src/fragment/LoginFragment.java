@@ -107,6 +107,7 @@ ConnectionCallbacks, OnConnectionFailedListener {
 			FragmentManager fragmentManager = getFragmentManager();
 			fragmentManager.beginTransaction()
 					.replace(R.id.frame_container, fragment).commit();
+			((Activity) context).setTitle(((Activity) context).getResources().getStringArray(R.array.nav_drawer_items)[1]);
 		}
 	}
 	

@@ -61,7 +61,7 @@ public class LoginTask extends AsyncTask<String, String, String> {
 				  return readJSON;
 		      try{
 		            JSONObject datas = new JSONObject(readJSON);
-		            user = new User(datas.get("name").toString(),datas.get("role").toString(),email, password);
+		            user = new User(datas.get("_id").toString(),datas.get("name").toString(),datas.get("role").toString(),email, password);
 		            return "success";
 		        } catch(Exception e){e.printStackTrace();}
 		        finally{}
@@ -74,7 +74,7 @@ public class LoginTask extends AsyncTask<String, String, String> {
 	@Override
 	protected void onPostExecute(String result) {
 		mainDatas.progress.dismiss();
-		if (result.equals("loginFailed"))
+		if (helpers.isNumeric(result))
 		  {
 			  Toast toast = Toast.makeText(context, "Cannot find the user with the password/username you typed", Toast.LENGTH_SHORT);
 			  toast.show(); 
