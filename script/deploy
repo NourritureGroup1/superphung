@@ -8,6 +8,7 @@ ssh $1 -t -t << EOF
 	git clone https://github.com/NourritureGroup1/superphung.git nodeRepo
 	cd nodeRepo
 	npm install --production
+	bower install
 	eval 'forever list | grep app.js && forever restart app.js' || forever start app.js
 	exit
 EOF
