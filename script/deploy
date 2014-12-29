@@ -6,8 +6,8 @@ ssh-add -L
 ssh $1 -t -t << EOF
 	test -d nodeRepo && rm -rf nodeRepo
 	git clone https://github.com/NourritureGroup1/superphung.git nodeRepo
-	git checkout webapp
 	cd nodeRepo
+	git checkout webapp
 	npm install --production
 	bower install
 	eval 'forever list | grep app.js && forever restart app.js' || forever start app.js
