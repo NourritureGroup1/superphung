@@ -6,6 +6,7 @@ ssh-add -L
 ssh $1 -t -t << EOF
 	test -d nodeRepo && rm -rf nodeRepo
 	git clone https://github.com/NourritureGroup1/superphung.git nodeRepo
+	git checkout webapp
 	cd nodeRepo
 	npm install --production
 	bower install
