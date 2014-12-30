@@ -39,10 +39,10 @@ public class getGoogleUserTask extends AsyncTask<String, String, String> {
 	protected  void onPreExecute()
 	{
 		//showing a dialog to tell the user we are authenticating him
-		mainDatas.progress = new ProgressDialog(context);
+	/*	mainDatas.progress = new ProgressDialog(context);
 		mainDatas.progress.setTitle("Wait a moment");
 		mainDatas.progress.setMessage("Authentication in progress...");
-		mainDatas.progress.show();
+		mainDatas.progress.show();*/
 	}
 	
 	@Override
@@ -51,7 +51,9 @@ public class getGoogleUserTask extends AsyncTask<String, String, String> {
 		  {
 			  List<NameValuePair> parameters = new ArrayList<NameValuePair>(2);
 			  String readJSON = null;
-				System.out.println("je vais faire un get google user3 "+mainDatas.urls.get("GET").toString()+" et:"+mainDatas.urls.get("GET").get("user"));
+				//System.out.println("je vais faire un get google user3 "+mainDatas.urls.get("GET").toString()+" et:"+mainDatas.urls.get("GET").get("user"));
+			  System.out.println(mainDatas.urls.get("GET").get("user"));
+			  System.out.println(mainDatas.urls.get("GET").get("user").toString());
 			  readJSON = helpers.getDatas(mainDatas.urls.get("GET").get("user"),parameters,"GET");
 				System.out.println("je vais faire un get google user4");
 				System.out.println(readJSON);
@@ -72,7 +74,7 @@ public class getGoogleUserTask extends AsyncTask<String, String, String> {
 	
 	@Override
 	protected void onPostExecute(String result) {
-		mainDatas.progress.dismiss();
+		//mainDatas.progress.dismiss();
 		if (result.equals("loginFailed"))
 		  {
 			  Toast toast = Toast.makeText(context, "Cannot find the user with the password/username you typed", Toast.LENGTH_SHORT);

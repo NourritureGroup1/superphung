@@ -1,12 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-<fullyQualifiedTypeName name="android.app.FragmentManager"/>
-<fullyQualifiedTypeName name="com.google.android.gms.auth.GoogleAuthUtil"/>
-<fullyQualifiedTypeName name="com.google.android.gms.auth.UserRecoverableAuthException"/>
-<fullyQualifiedTypeName name="com.google.android.gms.auth.GoogleAuthException"/>
-<fullyQualifiedTypeName name="org.apache.http.client.methods.HttpGet"/>
-<fullyQualifiedTypeName name="task.getGoogleUser"/>
-<fullyQualifiedTypeName name="task.getGoogleUserTask"/>
 <fullyQualifiedTypeName name="task.revokeAccessGoogleTask"/>
 <fullyQualifiedTypeName name="com.google.android.gms.common.api.ResultCallback"/>
 <fullyQualifiedTypeName name="com.google.android.gms.common.api.Status"/>
@@ -36,7 +29,6 @@
 <fullyQualifiedTypeName name="model.AuthImageDownloader"/>
 <fullyQualifiedTypeName name="com.nostra13.universalimageloader.core.ImageLoaderConfiguration.Builder"/>
 <fullyQualifiedTypeName name="fragment.RestrictedFoodFragment"/>
-<fullyQualifiedTypeName name="android.content.Context"/>
 <fullyQualifiedTypeName name="task.WorkerRestrictedFood"/>
 <fullyQualifiedTypeName name="android.widget.Button"/>
 <fullyQualifiedTypeName name="android.app.AlertDialog"/>
@@ -55,9 +47,17 @@
 <fullyQualifiedTypeName name="com.superphung.nourriture.MainActivity"/>
 <fullyQualifiedTypeName name="com.superphung.nourriture.R.id"/>
 <fullyQualifiedTypeName name="android.widget.RadioButton"/>
-<fullyQualifiedTypeName name="android.view.View.OnClickListener"/>
 <fullyQualifiedTypeName name="model.MainDatas"/>
 <fullyQualifiedTypeName name="java.util.Iterator"/>
 <fullyQualifiedTypeName name="model.Ingredient"/>
+<fullyQualifiedTypeName name="com.facebook.Session"/>
+<fullyQualifiedTypeName name="com.facebook.SessionState"/>
+<fullyQualifiedTypeName name="android.view.View.OnClickListener"/>
+<fullyQualifiedTypeName name="com.facebook.widget.LoginButton"/>
+<fullyQualifiedTypeName name="java.util.Arrays"/>
+<fullyQualifiedTypeName name="model.AuthentificationFacebook"/>
+<fullyQualifiedTypeName name="model.Authentification"/>
+<fullyQualifiedTypeName name="android.content.Context"/>
+<fullyQualifiedTypeName name="model.AuthentificationGoogle"/>
 <fullyQualifiedTypeName name="java.lang.System"/>
 </qualifiedTypeNameHistroy>

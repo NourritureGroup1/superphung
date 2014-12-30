@@ -2,11 +2,16 @@ package fragment;
 
 import java.io.Console;
 import java.io.InputStream;
+import java.util.Arrays;
 
+import model.AuthentificationGoogle;
 import model.MainDatas;
 
 import task.LoginTask;
 
+import com.facebook.Session;
+import com.facebook.SessionState;
+import com.facebook.widget.LoginButton;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.common.SignInButton;
@@ -42,8 +47,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class LoginFragment extends Fragment implements OnClickListener,
-ConnectionCallbacks, OnConnectionFailedListener {
+public class LoginFragment extends Fragment implements OnClickListener {
 	private Context context;
 	private View rootView;
 	private MainDatas MainActivityDatas;
@@ -58,24 +62,36 @@ ConnectionCallbacks, OnConnectionFailedListener {
 	{
         rootView = inflater.inflate(R.layout.fragment_login, container, false);
 		context = getActivity();
-	//	int resultCode = GooglePlayServicesUtil.isGooglePlayServicesAvailable(context);
+		int resultCode = GooglePlayServicesUtil.isGooglePlayServicesAvailable(context);
 		
 		Button loginButton = (Button)rootView.findViewById(R.id.login_button);
 		TextView registerButton = (TextView)rootView.findViewById(R.id.register_button);
 		
 		
 		//if (resultCode != ConnectionResult.SUCCESS) {
-			SignInButton btnSignIn = (SignInButton)rootView.findViewById(R.id.btn_sign_in_google);
-			((MainActivity)context).mGoogleApiClient = new GoogleApiClient.Builder(context)
-			.addConnectionCallbacks(this)
-	        .addOnConnectionFailedListener(this).addApi(Plus.API, Plus.PlusOptions.builder().build())
-	        .addScope(Plus.SCOPE_PLUS_LOGIN).build();
-			btnSignIn.setOnClickListener(this);
+			final SignInButton btnSignIn = (SignInButton)rootView.findViewById(R.id.btn_sign_in_google);
+			final LoginFragment currentClass = this;
+			btnSignIn.setOnClickListener(new OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					/*((MainActivity)context).mGoogleApiClient = new GoogleApiClient.Builder(context)
+					.addConnectionCallbacks(currentClass)
+			        .addOnConnectionFailedListener(currentClass).addApi(Plus.API, Plus.PlusOptions.builder().build())
+			        .addScope(Plus.SCOPE_PLUS_LOGIN).build();
+					((MainActivity)context).mGoogleApiClient.connect();*/
+					//((MainActivity)context).auth = new AuthentificationGoogle(context);
+					System.out.println("j'ai cliqué ici");
+					((MainActivity)context).auth.proceedAuthentication();
+					System.out.println("j'ai cliqué ici");
+				}
+			});
 		//}
 		
 		loginButton.setOnClickListener(this);
 		registerButton.setOnClickListener(this);
-		
+		LoginButton authButton = (LoginButton) rootView.findViewById(R.id.authButton);
+		authButton.setReadPermissions(Arrays.asList("email "));
         return rootView;
     }
 
@@ -87,18 +103,11 @@ ConnectionCallbacks, OnConnectionFailedListener {
     public void onClick(View v) {
         if (v.getId() == R.id.login_button)
             normalAuth();
-        else if (v.getId() == R.id.btn_sign_in_google)
-        	signInWithGplus();
+       // else if (v.getId() == R.id.btn_sign_in_google)
+      //  	signInWithGplus();
         else if (v.getId() == R.id.register_button)
             registration();
     }
-    
-	private void signInWithGplus() {
-	    if (!((MainActivity)context).mGoogleApiClient.isConnecting()) {
-	    	((MainActivity)context).mSignInClicked = true;
-	        resolveSignInError();
-	    }
-	}
 
 	private void registration() {				
 		Fragment fragment = null;
@@ -125,84 +134,22 @@ ConnectionCallbacks, OnConnectionFailedListener {
 	}
 	
 	
-	
-	/*google authentication*/
-	
-	@Override
-	public void onConnectionFailed(ConnectionResult result) {
-	    if (!result.hasResolution()) {
-	        GooglePlayServicesUtil.getErrorDialog(result.getErrorCode(), (Activity) context,
-	                0).show();
-	        return;
+
+
+	/*fb connect*/
+	private void onSessionStateChange(Session session, SessionState state, Exception exception) {
+	    if (state.isOpened()) {
+	        Log.i("nourriture", "Logged in...");
+	        //((MainActivity)context).auth = new AuthentificationFacebook();
+	    } else if (state.isClosed()) {
+	        Log.i("nourriture", "Logged out...");
 	    }
-	    if (!((MainActivity)context).mIntentInProgress) {
-	        // Store the ConnectionResult for later usage
-	    	((MainActivity)context).mConnectionResult = result;
-	        if (((MainActivity)context).mSignInClicked) {
-	            // The user has already clicked 'sign-in' so we attempt to
-	            // resolve all
-	            // errors until the user is signed in, or they cancel.
-	            resolveSignInError();
-	        }
-	    }
-	 
 	}
-	 
+	
 	@Override
 	public void onActivityResult(int requestCode, int responseCode,
 	        Intent intent) {
-	    if (requestCode == ((MainActivity)context).RC_SIGN_IN) {
-	        if (responseCode != Activity.RESULT_OK) {
-	        	((MainActivity)context).mSignInClicked = false;
-	        }
-	        ((MainActivity)context).mIntentInProgress = false;
-	       /* if (!((MainActivity)context).mGoogleApiClient.isConnecting()) {
-	        	((MainActivity)context).mGoogleApiClient.connect();
-	        }*/
-	    }
-	}
-	 
-	@Override
-	public void onConnected(Bundle arg0) {
-		((MainActivity)context).mSignInClicked = false;
-	    Toast.makeText(context, "User is connected!", Toast.LENGTH_LONG).show();
-	    MainActivityDatas.mGoogleApiClient = ((MainActivity)context).mGoogleApiClient;
-	    MainActivityDatas.init_datas_google();
-	    // Get user's information
-	  //  getProfileInformation();
-	 
-	    // Update the UI after signin
-	//    updateUI(true);
-	 
-	}
-	 
-	@Override
-	public void onConnectionSuspended(int arg0) {
-		//((MainActivity)context).mGoogleApiClient.connect();
-	   // updateUI(false);
-	}
-	 
-	/**
-	 * Updating the UI, showing/hiding buttons and profile layout
-	 * */
-	private void updateUI(boolean isSignedIn) {
-	    if (isSignedIn) {
-	    } else {
-	    }
-	}
-	 
-	/**
-	 * Method to resolve any signin errors
-	 * */
-	private void resolveSignInError() {
-	    if (((MainActivity)context).mConnectionResult.hasResolution()) {
-	        try {
-	        	((MainActivity)context).mIntentInProgress = true;
-	        	((MainActivity)context).mConnectionResult.startResolutionForResult((Activity) context, ((MainActivity)context).RC_SIGN_IN);
-	        } catch (SendIntentException e) {
-	        	((MainActivity)context).mIntentInProgress = false;
-	            //((MainActivity)context).mGoogleApiClient.connect();
-	        }
-	    }
+		((MainActivity) context).setactivityresult(requestCode,responseCode,intent);
+		//context.auth.performactivityresult(requestCode, responseCode, intent);
 	}
 }

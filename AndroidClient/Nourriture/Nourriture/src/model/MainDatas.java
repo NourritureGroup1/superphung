@@ -56,7 +56,7 @@ public class MainDatas {
 	public ProgressDialog progress;
 	public GoogleApiClient mGoogleApiClient;
 
-	public static final String URL_API = "https://192.168.0.103:8081";
+	public static final String URL_API = "https://54.64.212.101";
 	
 	public void init(Context context_,Bundle savedInstanceState) {
 		context = context_;
@@ -198,7 +198,7 @@ public class MainDatas {
 				parameters.add(new BasicNameValuePair("role", "consumer"));
 				//new RegisterTask(parameters, context, this, "google").execute();
 				System.out.println("je vais faire un get google user");
-				new getGoogleUserTask(context, this).execute();
+				//new getGoogleUserTask(context, this).execute();
 	        } else {
 	            Toast.makeText(context.getApplicationContext(),
 	                    "Person information is null", Toast.LENGTH_LONG).show();

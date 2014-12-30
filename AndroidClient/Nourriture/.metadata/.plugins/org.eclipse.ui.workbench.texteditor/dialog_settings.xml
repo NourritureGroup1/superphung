@@ -2,19 +2,19 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="listAllIngredients" key="selection"/>
+		<item value="" key="selection"/>
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
-			<item value="CustomListViewValuesArr"/>
-			<item value="adapter"/>
-			<item value="user"/>
-			<item value="enterdi"/>
-			<item value="getUserMenuC"/>
-			<item value="getUser"/>
-			<item value="connect()"/>
+			<item value="mconnec"/>
+			<item value="new Au"/>
+			<item value="start"/>
+			<item value="init_"/>
+			<item value="resolve"/>
+			<item value="init"/>
+			<item value="signi"/>
 			<item value="onstart"/>
 		</list>
 		<list key="replacehistory">

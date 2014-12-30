@@ -1,6 +1,8 @@
 package com.superphung.nourriture;
 
 
+import com.facebook.Session;
+import com.facebook.SessionState;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -9,6 +11,8 @@ import com.google.android.gms.common.api.Status;
 import com.google.android.gms.plus.Plus;
 
 import fragment.ProfileFragment;
+import model.Authentification;
+import model.AuthentificationGoogle;
 import model.MainDatas;
 import model.User;
 import android.app.Activity;
@@ -29,15 +33,10 @@ import android.widget.Toast;
 public class MainActivity extends Activity {
 	private MainDatas MainActivityDatas = new MainDatas();
 	public GoogleApiClient mGoogleApiClient;
-	public boolean mIntentInProgress;
-	public boolean mSignInClicked;
-	public ConnectionResult mConnectionResult;
-	public SignInButton btnSignIn;
-	public static final int RC_SIGN_IN = 0;
-	public static final String TAG = "MainActivity";
-	public static final int PROFILE_PIC_SIZE = 400;
 	public ImageView imgProfilePic;
 	public boolean googleplayAvailable = true;
+	public Authentification auth;
+	//public Authentification auth_google;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,8 +45,9 @@ public class MainActivity extends Activity {
 		getActionBar().setHomeButtonEnabled(true);
 		getActionBar().setDisplayShowHomeEnabled(false);
 		setContentView(R.layout.activity_main);
-		MainActivityDatas = new MainDatas();
 		MainActivityDatas.init(this,savedInstanceState);
+		auth = new AuthentificationGoogle(this,MainActivityDatas);
+		auth.init();
     }
 
 	@Override
@@ -148,13 +148,18 @@ public class MainActivity extends Activity {
 
 	public void onStart() {
 	    super.onStart();
-	    mGoogleApiClient.connect();
+	  //  auth = auth_google;
+	    auth.start();
 	}
 	 
 	public void onStop() {
 	  super.onStop();
-	    if (mGoogleApiClient.isConnected()) {
-	    	mGoogleApiClient.disconnect();
-	    }
+	 // if (auth != null)
+		  auth.finish();
+	}
+
+	public void setactivityresult(int requestCode, int responseCode,
+	        Intent intent) {
+		auth.performactivityresult(requestCode, responseCode, intent);
 	}
 }
