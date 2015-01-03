@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-<fullyQualifiedTypeName name="task.revokeAccessGoogleTask"/>
-<fullyQualifiedTypeName name="com.google.android.gms.common.api.ResultCallback"/>
-<fullyQualifiedTypeName name="com.google.android.gms.common.api.Status"/>
 <fullyQualifiedTypeName name="com.touchmenotapps.widget.radialmenu.menu.v1.RadialMenuWidget"/>
 <fullyQualifiedTypeName name="com.touchmenotapps.widget.radialmenu.menu.v2.RadialMenuItem"/>
 <fullyQualifiedTypeName name="com.touchmenotapps.widget.radialmenu.menu.v1.RadialMenuItem"/>
@@ -59,5 +56,8 @@
 <fullyQualifiedTypeName name="model.Authentification"/>
 <fullyQualifiedTypeName name="android.content.Context"/>
 <fullyQualifiedTypeName name="model.AuthentificationGoogle"/>
+<fullyQualifiedTypeName name="com.google.android.gms.common.api.GoogleApiClient.ConnectionCallbacks"/>
+<fullyQualifiedTypeName name="com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListener"/>
 <fullyQualifiedTypeName name="java.lang.System"/>
+<fullyQualifiedTypeName name="java.io.Console"/>
 </qualifiedTypeNameHistroy>

@@ -5,6 +5,7 @@ import java.io.InputStream;
 import java.util.Arrays;
 
 import model.AuthentificationGoogle;
+import model.AuthentificationLocale;
 import model.MainDatas;
 
 import task.LoginTask;
@@ -81,9 +82,12 @@ public class LoginFragment extends Fragment implements OnClickListener {
 			        .addScope(Plus.SCOPE_PLUS_LOGIN).build();
 					((MainActivity)context).mGoogleApiClient.connect();*/
 					//((MainActivity)context).auth = new AuthentificationGoogle(context);
-					System.out.println("j'ai cliqué ici");
+					//System.out.println("j'ai cliqué ici");
+					((MainActivity)context).auth = new AuthentificationGoogle(context, MainActivityDatas);
+					((MainActivity)context).auth.init();
+					((MainActivity)context).auth.start();
 					((MainActivity)context).auth.proceedAuthentication();
-					System.out.println("j'ai cliqué ici");
+					//System.out.println("j'ai cliqué ici");
 				}
 			});
 		//}
@@ -129,8 +133,11 @@ public class LoginFragment extends Fragment implements OnClickListener {
 			  toast.show(); 
 			  return ;
 		}
-		else
-			new LoginTask(email, password, context,MainActivityDatas).execute();
+		else {
+			((MainActivity) context).auth = new AuthentificationLocale(context, MainActivityDatas, email, password);
+			((MainActivity) context).auth.proceedAuthentication();
+		}
+		new LoginTask(email, password, context,MainActivityDatas).execute();
 	}
 	
 	

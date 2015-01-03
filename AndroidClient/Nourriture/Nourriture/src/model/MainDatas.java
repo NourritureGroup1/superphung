@@ -56,7 +56,9 @@ public class MainDatas {
 	public ProgressDialog progress;
 	public GoogleApiClient mGoogleApiClient;
 
-	public static final String URL_API = "https://54.64.212.101";
+	public String API_URL = "https://54.64.212.101";	
+	//public String API_URL = "https://124.126.173.182";
+
 	
 	public void init(Context context_,Bundle savedInstanceState) {
 		context = context_;
@@ -87,11 +89,12 @@ public class MainDatas {
 		Map<String, String> url_request_get = new HashMap<String, String>();
 		Map<String, String> url_request_delete = new HashMap<String, String>();
 		
-		url_request_post.put("login", URL_API+"/login");
-		url_request_post.put("user", URL_API+"/user"); 
-		url_request_post.put("signup", URL_API+"/signup"); 
+		url_request_post.put("login", API_URL+"/login");
+		url_request_post.put("user", API_URL+"/user"); 
+		url_request_post.put("signup", API_URL+"/signup"); 
+		url_request_post.put("signin_oauth", API_URL+"/user/social"); 
 		
-		url_request_get.put("user", "/user"); 
+		url_request_get.put("user", API_URL+"/user"); 
 		
 		urls.put("POST", url_request_post);
 		urls.put("PUT", url_request_put);
@@ -197,7 +200,6 @@ public class MainDatas {
 			    parameters.add(new BasicNameValuePair("name", personName));
 				parameters.add(new BasicNameValuePair("role", "consumer"));
 				//new RegisterTask(parameters, context, this, "google").execute();
-				System.out.println("je vais faire un get google user");
 				//new getGoogleUserTask(context, this).execute();
 	        } else {
 	            Toast.makeText(context.getApplicationContext(),

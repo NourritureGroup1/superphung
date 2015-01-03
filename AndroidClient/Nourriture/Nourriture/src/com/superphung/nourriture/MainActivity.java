@@ -46,8 +46,8 @@ public class MainActivity extends Activity {
 		getActionBar().setDisplayShowHomeEnabled(false);
 		setContentView(R.layout.activity_main);
 		MainActivityDatas.init(this,savedInstanceState);
-		auth = new AuthentificationGoogle(this,MainActivityDatas);
-		auth.init();
+		//auth = new AuthentificationGoogle(this,MainActivityDatas);
+		//auth.init();
     }
 
 	@Override
@@ -149,12 +149,13 @@ public class MainActivity extends Activity {
 	public void onStart() {
 	    super.onStart();
 	  //  auth = auth_google;
+	   if (auth != null)
 	    auth.start();
 	}
 	 
 	public void onStop() {
 	  super.onStop();
-	 // if (auth != null)
+	  if (auth != null)
 		  auth.finish();
 	}
 

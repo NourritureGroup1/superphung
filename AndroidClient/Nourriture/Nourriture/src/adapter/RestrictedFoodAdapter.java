@@ -111,7 +111,7 @@ public class RestrictedFoodAdapter extends ArrayAdapter<Ingredient> implements F
 						holder.progressBar.setProgress(Math.round(100.0f * current / total));
 					}
 				}
-						);
+				);
 			}
 			else
 			{

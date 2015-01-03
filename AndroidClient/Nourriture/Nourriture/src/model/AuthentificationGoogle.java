@@ -1,5 +1,6 @@
 package model;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,8 +16,12 @@ import android.os.Bundle;
 import android.view.View.OnClickListener;
 import android.widget.Toast;
 
+import com.google.android.gms.auth.GoogleAuthException;
+import com.google.android.gms.auth.GoogleAuthUtil;
+import com.google.android.gms.auth.UserRecoverableAuthException;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
+import com.google.android.gms.common.Scopes;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.GoogleApiClient.ConnectionCallbacks;
@@ -26,12 +31,15 @@ import com.google.android.gms.plus.model.people.Person;
 import com.superphung.nourriture.MainActivity;
 
 public class AuthentificationGoogle extends Authentification implements ConnectionCallbacks, OnConnectionFailedListener {
-	private GoogleApiClient mGoogleApiClient;
-	private Context context;
-	private ConnectionResult mConnectionResult;
+	private static final int RC_SIGN_IN = 0;
 	private static final String TAG = "MainActivity";
 	private static final int PROFILE_PIC_SIZE = 400;
+	private GoogleApiClient mGoogleApiClient;
+	private Context context;
 	private MainDatas MainActivityDatas;
+	private boolean mIntentInProgress;
+	private boolean mSignInClicked;
+	private ConnectionResult mConnectionResult;
 	
 	public AuthentificationGoogle(Context context_,MainDatas MainActivityDatas_) {
 		type = "google";
@@ -42,7 +50,7 @@ public class AuthentificationGoogle extends Authentification implements Connecti
 	}
 	
 	public void init() {
-		mGoogleApiClient = new GoogleApiClient.Builder(context)
+		 mGoogleApiClient = new GoogleApiClient.Builder(context)
         .addConnectionCallbacks(this)
         .addOnConnectionFailedListener(this).addApi(Plus.API)
         .addScope(Plus.SCOPE_PLUS_LOGIN).build();
@@ -151,13 +159,26 @@ public class AuthentificationGoogle extends Authentification implements Connecti
             Person currentPerson = Plus.PeopleApi.getCurrentPerson(mGoogleApiClient);
             String personName = currentPerson.getDisplayName();
             String email = Plus.AccountApi.getAccountName(mGoogleApiClient);
+           /* try {
+				String token = GoogleAuthUtil.getToken(context, email, Scopes.PLUS_LOGIN);
+			} catch (UserRecoverableAuthException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (GoogleAuthException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}*/
 			List<NameValuePair> parameters = new ArrayList<NameValuePair>(2);
 			parameters.add(new BasicNameValuePair("email", email));
 		    parameters.add(new BasicNameValuePair("name", personName));
-			parameters.add(new BasicNameValuePair("role", "consumer"));
+			//parameters.add(new BasicNameValuePair("oauthID", "consumer"));
 			//new RegisterTask(parameters, context, this, "google").execute();
-			System.out.println("je vais faire un get google user");
-			new getGoogleUserTask(context,MainActivityDatas).execute();
+			System.out.println(email);
+			System.out.println(personName);
+			new getGoogleUserTask(context,MainActivityDatas,parameters).execute();
         } else {
             Toast.makeText(context.getApplicationContext(),
                     "Person information is null", Toast.LENGTH_LONG).show();
