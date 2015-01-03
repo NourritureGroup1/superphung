@@ -88,7 +88,7 @@ exports.getBadFood = function(req, res) {
 
 exports.create = function(req, res) {
     //test si user already exists
-    User.findOne({ username: req.body.username }, function(err, user) {
+    User.findOne({ email: req.body.email }, function(err, user) {
         if (err) {
             error.logError(req, res, err);
             return res.status(500).send(err);
@@ -119,6 +119,33 @@ exports.create = function(req, res) {
                     return res.status(500).end(err);
                 }
                 res.status(201).json(_user);
+            });
+        }
+    });
+};
+
+exports.createSocial = function(req, res) {
+    User.findOne({ oauthID: req.body.oauthID, email: req.body.email }, function(err, user) {
+        if (err) {
+            error.logError(req, res, err);
+            return res.status(500).send(err);
+        }
+        else if (user) {
+            res.status(200).json(user);
+        }
+        else {
+            var _user = new User({
+                oauthID: req.body.oauthID,
+                email: req.body.email,
+                name: req.body.name,
+                role: "consumer"
+            });
+            _user.save(function(err) {
+                if (err) {
+                    error.logError(req, res, err);
+                    return res.status(500).end(err);
+                }
+                res.status(200).json(_user);
             });
         }
     });
