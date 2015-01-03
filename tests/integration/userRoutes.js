@@ -1,7 +1,7 @@
 /**
  * Created by Eric on 10/11/2014.
  */
-
+/*
 var request = require("supertest");
 var expect = require("chai").expect;
 
@@ -11,9 +11,9 @@ describe("REST API /user ::", function() {
 
     var log = console.log;
 
-    /*beforeEach(function() {
-      console.log = function(){};
-    });*/
+    //beforeEach(function() {
+    //  console.log = function(){};
+    //});
 
     var userTest = {
         username : "lolibar",
@@ -194,3 +194,4 @@ describe("REST API /user ::", function() {
     });
 
 });
+    */
