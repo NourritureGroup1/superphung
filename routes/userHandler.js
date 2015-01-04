@@ -131,7 +131,7 @@ exports.createSocial = function(req, res) {
             return res.status(500).send(err);
         }
         else if (user) {
-            res.status(200).json(user);
+            return res.status(200).json(user);
         }
         else {
             var _user = new User({
