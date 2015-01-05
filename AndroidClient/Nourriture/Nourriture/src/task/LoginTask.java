@@ -1,6 +1,5 @@
 package task;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,20 +7,16 @@ import model.MainDatas;
 import model.User;
 
 import org.apache.http.NameValuePair;
-import org.apache.http.client.ClientProtocolException;
 import org.apache.http.message.BasicNameValuePair;
-import org.json.JSONArray;
 import org.json.JSONObject;
 
-import com.superphung.nourriture.MainActivity;
-import com.superphung.nourriture.helpers;
-
-import android.app.Fragment;
-import android.app.FragmentManager;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.widget.Toast;
+
+import com.superphung.nourriture.MainActivity;
+import com.superphung.nourriture.helpers;
 
 public class LoginTask extends AsyncTask<String, String, String> {
 	private String email;

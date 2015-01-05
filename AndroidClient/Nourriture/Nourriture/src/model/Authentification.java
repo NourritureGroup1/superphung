@@ -1,6 +1,7 @@
 package model;
 
 import android.content.Intent;
+import android.os.Bundle;
 
 import com.google.android.gms.common.SignInButton;
 
@@ -21,4 +22,8 @@ public abstract class Authentification  {
 	public abstract void start();
 	public abstract void init();
 	public abstract void performactivityresult(int requestCode, int responseCode, Intent intent);
+	public abstract void onPause();
+	public abstract void onDestroy();
+	public abstract void onSaveInstanceState(Bundle outState);
+	public abstract void onResume();
 }

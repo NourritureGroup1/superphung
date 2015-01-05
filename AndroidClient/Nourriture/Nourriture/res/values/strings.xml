@@ -15,7 +15,7 @@
     <string name="btn_logout_from_google">Logout from Google</string>
     <string name="btn_revoke_access">Revoke Access</string>
     <string name="signfb">Sign in with facebook</string>
-    <string name="facebook_app_id">753253091423783</string>
+    <string name="facebook_app_id">1531140737166099</string>
     <string name="title_facebook_login">Nourriture fb login</string>
 
     <!-- Nav Drawer Menu Items -->

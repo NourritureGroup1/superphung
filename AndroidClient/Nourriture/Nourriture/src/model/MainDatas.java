@@ -2,27 +2,7 @@ package model;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-
-import org.apache.http.NameValuePair;
-import org.apache.http.message.BasicNameValuePair;
-
-import task.RegisterTask;
-import task.getGoogleUserTask;
-
-import com.google.android.gms.auth.GoogleAuthUtil;
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.common.api.ResultCallback;
-import com.google.android.gms.common.api.Status;
-import com.google.android.gms.plus.Plus;
-import com.google.android.gms.plus.model.people.Person;
-import com.superphung.nourriture.MainActivity;
-import com.superphung.nourriture.R;
-
-import fragment.LoginFragment;
-import fragment.RegisterFragment;
-import fragment.ProfileFragment;
 
 import adapter.NavDrawerListAdapter;
 import android.app.Activity;
@@ -38,7 +18,13 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
+
+import com.superphung.nourriture.MainActivity;
+import com.superphung.nourriture.R;
+
+import fragment.LoginFragment;
+import fragment.ProfileFragment;
+import fragment.RegisterFragment;
 
 public class MainDatas {
 	public DrawerLayout mDrawerLayout;
@@ -54,7 +40,6 @@ public class MainDatas {
 	public User user = new User("", "", "", "", "");
 	private Context context;
 	public ProgressDialog progress;
-	public GoogleApiClient mGoogleApiClient;
 
 	public String API_URL = "https://54.64.212.101";	
 	//public String API_URL = "https://192.168.0.103";
