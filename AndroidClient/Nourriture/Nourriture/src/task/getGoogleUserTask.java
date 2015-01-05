@@ -27,6 +27,7 @@ public class getGoogleUserTask extends AsyncTask<String, String, String> {
 	private User user;
 	private MainDatas mainDatas;
 	private List<NameValuePair>parameters;
+	private ProgressDialog progress;
 
 	public getGoogleUserTask(Context context_, MainDatas mainActivityDatas,List<NameValuePair>params_)
 	{
@@ -39,10 +40,10 @@ public class getGoogleUserTask extends AsyncTask<String, String, String> {
 	protected  void onPreExecute()
 	{
 		//showing a dialog to tell the user we are authenticating him
-		mainDatas.progress = new ProgressDialog(context);
-		mainDatas.progress.setTitle("Wait a moment");
-		mainDatas.progress.setMessage("Authentication in progress...");
-		mainDatas.progress.show();
+		progress = new ProgressDialog(context);
+		progress.setTitle("Wait a moment");
+		progress.setMessage("Authentication in progress...");
+		progress.show();
 	}
 
 	@Override
@@ -78,7 +79,7 @@ public class getGoogleUserTask extends AsyncTask<String, String, String> {
 
 	@Override
 	protected void onPostExecute(String result) {
-		mainDatas.progress.dismiss();
+		progress.dismiss();
 		if (result.equals("loginFailed") || result.equals("404") || result.equals("409"))
 		{
 			Toast toast = Toast.makeText(context, "Cannot find the user with the password/username you typed", Toast.LENGTH_SHORT);

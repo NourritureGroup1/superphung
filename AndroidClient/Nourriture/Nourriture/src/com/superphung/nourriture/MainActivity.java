@@ -1,5 +1,7 @@
 package com.superphung.nourriture;
 
+import com.google.android.gms.analytics.GoogleAnalytics;
+
 import model.Authentification;
 import model.MainDatas;
 import model.User;
@@ -27,6 +29,7 @@ public class MainActivity extends Activity {
 		getActionBar().setHomeButtonEnabled(true);
 		getActionBar().setDisplayShowHomeEnabled(false);
 		setContentView(R.layout.activity_main);
+		((MyApplication) getApplication()).getTracker(MyApplication.TrackerName.APP_TRACKER);
 		MainActivityDatas.init(this,savedInstanceState);
 	}
 
@@ -111,10 +114,12 @@ public class MainActivity extends Activity {
 		super.onStart();
 		if (auth != null)
 			auth.start();
+		GoogleAnalytics.getInstance(this).reportActivityStart(this);
 	}
 
 	public void onStop() {
 		super.onStop();
+		GoogleAnalytics.getInstance(this).reportActivityStop(this);
 	}
 
 	@Override

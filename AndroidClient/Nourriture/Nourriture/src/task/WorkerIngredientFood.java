@@ -7,13 +7,8 @@ import model.Ingredient;
 import model.MainDatas;
 
 import org.apache.http.NameValuePair;
-import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
 import org.json.JSONObject;
-
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.superphung.nourriture.R;
-import com.superphung.nourriture.helpers;
 
 import adapter.RestrictedFoodAdapter;
 import android.app.ProgressDialog;
@@ -21,21 +16,25 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
 import android.widget.Toast;
-import android.widget.AdapterView.OnItemClickListener;
+
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.superphung.nourriture.R;
+import com.superphung.nourriture.helpers;
 
 public class WorkerIngredientFood extends AsyncTask<String, Void, String> {
 	private ProgressDialog progress;
 	private Context context;
 	private ArrayList<Ingredient> listAllIngredients;
 	private RestrictedFoodAdapter adapteur;
-	public static final String URL_API = "https://192.168.0.103:8081";
+	public static final String URL_API = "https://54.64.212.101";
 	private MainDatas MainActivityDatas;
 	private ImageLoader imageLoader;
 	private String type;
 	private View rootview;
-	
+
 	public WorkerIngredientFood(Context c_, View rootView_,ImageLoader imageLoader_, MainDatas MainActivityDatas_, String type_) {
 		context = c_;
 		MainActivityDatas = MainActivityDatas_;
@@ -44,7 +43,7 @@ public class WorkerIngredientFood extends AsyncTask<String, Void, String> {
 		rootview = rootView_;
 		imageLoader = imageLoader_;
 	}
-	
+
 	@Override
 	protected void onPreExecute() {
 		progress = new ProgressDialog(context);
@@ -52,7 +51,7 @@ public class WorkerIngredientFood extends AsyncTask<String, Void, String> {
 		progress.setMessage("Wait while loading...");
 		progress.show();
 	}
-	
+
 
 	@Override
 	protected String doInBackground(String... params) {
@@ -101,8 +100,8 @@ public class WorkerIngredientFood extends AsyncTask<String, Void, String> {
 
 	@Override
 	protected void onProgressUpdate(Void... values) {}
-	
-	
+
+
 	public String loadMore()
 	{
 		if (helpers.haveNetworkConnection(context))
@@ -124,7 +123,7 @@ public class WorkerIngredientFood extends AsyncTask<String, Void, String> {
 				{
 					JSONObject curr = jsonArrayUserRestrictedFood.getJSONObject(i);
 					Ingredient tmp = new Ingredient(curr.getString("_id"),curr.getString("imgUrl"),curr.getString("description"),curr.getString("name"),null,null);	
-					
+
 					for(int index=0;index < listAllIngredients.size();++index) {
 						if (!tmp.getId().equals(listAllIngredients.get(index).getId())) {
 							System.out.println("je compare le "+tmp.getName()+"et le "+listAllIngredients.get(index).getName());

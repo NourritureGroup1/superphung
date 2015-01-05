@@ -159,26 +159,14 @@ public class AuthentificationGoogle extends Authentification implements Connecti
 	}
 
 	@Override
-	public void onPause() {
-		// TODO Auto-generated method stub
-		
-	}
+	public void onPause() {}
 
 	@Override
-	public void onDestroy() {
-		// TODO Auto-generated method stub
-		
-	}
+	public void onDestroy() {}
 
 	@Override
-	public void onSaveInstanceState(Bundle outState) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void onSaveInstanceState(Bundle outState) {}
 
 	@Override
-	public void onResume() {
-		// TODO Auto-generated method stub
-		
-	}
+	public void onResume() {}
 }

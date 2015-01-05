@@ -7,13 +7,8 @@ import model.Ingredient;
 import model.MainDatas;
 
 import org.apache.http.NameValuePair;
-import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
 import org.json.JSONObject;
-
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.superphung.nourriture.R;
-import com.superphung.nourriture.helpers;
 
 import adapter.RestrictedFoodAdapter;
 import android.app.ProgressDialog;
@@ -21,9 +16,13 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
 import android.widget.Toast;
-import android.widget.AdapterView.OnItemClickListener;
+
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.superphung.nourriture.R;
+import com.superphung.nourriture.helpers;
 
 public class WorkerRestrictedFood extends AsyncTask<String, Void, String> {
 	private ProgressDialog progress;
@@ -33,9 +32,9 @@ public class WorkerRestrictedFood extends AsyncTask<String, Void, String> {
 	private ImageLoader imageLoader;
 	private ArrayList<Ingredient> CustomListViewValuesArr;
 	private RestrictedFoodAdapter adapteur;
-	public static final String URL_API = "https://192.168.0.103:8081";
+	public static final String URL_API = "https://54.64.212.101";
 	private MainDatas MainActivityDatas;
-	
+
 	public WorkerRestrictedFood(Context c_, View rootView_, ImageLoader imageLoader_, MainDatas MainActivityDatas_) {
 		context = c_;
 		rootView = rootView_;
@@ -43,7 +42,7 @@ public class WorkerRestrictedFood extends AsyncTask<String, Void, String> {
 		MainActivityDatas = MainActivityDatas_;
 		CustomListViewValuesArr = new ArrayList<Ingredient>();
 	}
-	
+
 	@Override
 	protected void onPreExecute() {
 		progress = new ProgressDialog(context);
@@ -51,7 +50,7 @@ public class WorkerRestrictedFood extends AsyncTask<String, Void, String> {
 		progress.setMessage("Wait while loading...");
 		progress.show();
 	}
-	
+
 
 	@Override
 	protected String doInBackground(String... params) {
@@ -61,6 +60,7 @@ public class WorkerRestrictedFood extends AsyncTask<String, Void, String> {
 	@Override
 	protected void onPostExecute(String result) {
 		progress.dismiss(); 
+		System.out.println("result =>"+result);
 		if (result.equals("error"))
 		{
 			Toast toast = Toast.makeText(context, "no internet connection available", Toast.LENGTH_SHORT);
@@ -99,15 +99,19 @@ public class WorkerRestrictedFood extends AsyncTask<String, Void, String> {
 
 	@Override
 	protected void onProgressUpdate(Void... values) {}
-	
-	
+
+
 	public String loadMore()
 	{
+		System.out.println("je load 1");
 		if (helpers.haveNetworkConnection(context))
 		{
+			System.out.println("je load 2");
 			List<NameValuePair> parameters = new ArrayList<NameValuePair>(2);
 			String readJSON = helpers.getDatas(URL_API+"/user/"+MainActivityDatas.user.getId()+"/rfood",parameters, "GET");
+			System.out.println("je load 3");
 			try{
+				System.out.println(readJSON);
 				JSONArray jsonArray = new JSONArray(readJSON);
 				for(int i=0;i<jsonArray.length();i++)
 				{
