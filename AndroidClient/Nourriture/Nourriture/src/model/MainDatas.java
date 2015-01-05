@@ -57,7 +57,7 @@ public class MainDatas {
 	public GoogleApiClient mGoogleApiClient;
 
 	public String API_URL = "https://54.64.212.101";	
-	//public String API_URL = "https://124.126.173.182";
+	//public String API_URL = "https://192.168.0.103";
 
 	
 	public void init(Context context_,Bundle savedInstanceState) {
@@ -185,28 +185,5 @@ public class MainDatas {
 		} else {
 			Log.e("MainActivity", "Error in creating fragment");
 		}
-	}
-
-	public void init_datas_google() {
-	    try {
-	        if (Plus.PeopleApi.getCurrentPerson(mGoogleApiClient) != null) {
-	            Person currentPerson = Plus.PeopleApi.getCurrentPerson(mGoogleApiClient);
-	            String personName = currentPerson.getDisplayName();
-	            String email = Plus.AccountApi.getAccountName(mGoogleApiClient);
-	           // String accountID = GoogleAuthUtil.getAccountId(context, email);
-	          //  String accountID = "123";
-				List<NameValuePair> parameters = new ArrayList<NameValuePair>(2);
-				parameters.add(new BasicNameValuePair("email", email));
-			    parameters.add(new BasicNameValuePair("name", personName));
-				parameters.add(new BasicNameValuePair("role", "consumer"));
-				//new RegisterTask(parameters, context, this, "google").execute();
-				//new getGoogleUserTask(context, this).execute();
-	        } else {
-	            Toast.makeText(context.getApplicationContext(),
-	                    "Person information is null", Toast.LENGTH_LONG).show();
-	        }
-	    } catch (Exception e) {
-	        e.printStackTrace();
-	    }
 	}
 }

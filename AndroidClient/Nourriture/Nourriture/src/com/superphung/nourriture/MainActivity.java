@@ -32,11 +32,7 @@ import android.widget.Toast;
 
 public class MainActivity extends Activity {
 	private MainDatas MainActivityDatas = new MainDatas();
-	public GoogleApiClient mGoogleApiClient;
-	public ImageView imgProfilePic;
-	public boolean googleplayAvailable = true;
 	public Authentification auth;
-	//public Authentification auth_google;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,8 +42,6 @@ public class MainActivity extends Activity {
 		getActionBar().setDisplayShowHomeEnabled(false);
 		setContentView(R.layout.activity_main);
 		MainActivityDatas.init(this,savedInstanceState);
-		//auth = new AuthentificationGoogle(this,MainActivityDatas);
-		//auth.init();
     }
 
 	@Override
@@ -88,24 +82,7 @@ public class MainActivity extends Activity {
     
 
 	public void restartActivity() {
-		if (MainActivityDatas.user.getType() == "google") {
-	      /*  if (mGoogleApiClient.isConnected()) {
-	            Plus.AccountApi.clearDefaultAccount(mGoogleApiClient);
-	            mGoogleApiClient.disconnect();
-	            mGoogleApiClient.connect();
-	        }*/
-	        if (mGoogleApiClient.isConnected()) {
-	            Plus.AccountApi.clearDefaultAccount(mGoogleApiClient);
-	            Plus.AccountApi.revokeAccessAndDisconnect(mGoogleApiClient)
-	                    .setResultCallback(new ResultCallback<Status>() {
-	                        @Override
-	                        public void onResult(Status arg0) {
-	                            mGoogleApiClient.connect();
-	                        }
-	 
-	                    });
-	        }
-		}
+		auth.finish();
 	    Intent intent = getIntent();
 	    finish();
 	    startActivity(intent);
@@ -148,7 +125,6 @@ public class MainActivity extends Activity {
 
 	public void onStart() {
 	    super.onStart();
-	  //  auth = auth_google;
 	   if (auth != null)
 	    auth.start();
 	}
@@ -158,8 +134,9 @@ public class MainActivity extends Activity {
 	  if (auth != null)
 		  auth.finish();
 	}
-
-	public void setactivityresult(int requestCode, int responseCode,
+	
+	@Override
+	public void onActivityResult(int requestCode, int responseCode,
 	        Intent intent) {
 		auth.performactivityresult(requestCode, responseCode, intent);
 	}

@@ -82,11 +82,15 @@ public class LoginFragment extends Fragment implements OnClickListener {
 			        .addScope(Plus.SCOPE_PLUS_LOGIN).build();
 					((MainActivity)context).mGoogleApiClient.connect();*/
 					//((MainActivity)context).auth = new AuthentificationGoogle(context);
-					//System.out.println("j'ai cliqué ici");
+					System.out.println("je cree un authgoogle");
 					((MainActivity)context).auth = new AuthentificationGoogle(context, MainActivityDatas);
+					System.out.println("je vais faire un init google");
 					((MainActivity)context).auth.init();
+					System.out.println("je fais un start google");
 					((MainActivity)context).auth.start();
+					System.out.println("je fais un proceedauth google");
 					((MainActivity)context).auth.proceedAuthentication();
+					System.out.println("j'ai fini ce onclick");
 					//System.out.println("j'ai cliqué ici");
 				}
 			});
@@ -151,12 +155,5 @@ public class LoginFragment extends Fragment implements OnClickListener {
 	    } else if (state.isClosed()) {
 	        Log.i("nourriture", "Logged out...");
 	    }
-	}
-	
-	@Override
-	public void onActivityResult(int requestCode, int responseCode,
-	        Intent intent) {
-		((MainActivity) context).setactivityresult(requestCode,responseCode,intent);
-		//context.auth.performactivityresult(requestCode, responseCode, intent);
 	}
 }
