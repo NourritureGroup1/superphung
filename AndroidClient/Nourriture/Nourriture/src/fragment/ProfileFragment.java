@@ -13,7 +13,11 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
+import com.superphung.nourriture.MyApplication;
 import com.superphung.nourriture.R;
+import com.superphung.nourriture.MyApplication.TrackerName;
 
 public class ProfileFragment extends Fragment implements OnClickListener {
 	private Context context;
@@ -56,5 +60,15 @@ public class ProfileFragment extends Fragment implements OnClickListener {
 			.replace(R.id.frame_container, fragment).commit();
 			((Activity) context).setTitle(((Activity) context).getResources().getStringArray(R.array.nav_drawer_items)[4]);
 		}
+	}
+	
+	@Override
+	public void onStart() {
+		// TODO Auto-generated method stub
+		super.onStart();
+		Tracker t = ((MyApplication) getActivity().getApplication()).getTracker(
+			    TrackerName.APP_TRACKER);
+			t.setScreenName("Current user profile Fragment");
+			t.send(new HitBuilders.AppViewBuilder().build());
 	}
 }

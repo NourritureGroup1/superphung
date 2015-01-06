@@ -21,10 +21,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.facebook.widget.LoginButton;
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.common.SignInButton;
 import com.superphung.nourriture.MainActivity;
+import com.superphung.nourriture.MyApplication;
+import com.superphung.nourriture.MyApplication.TrackerName;
 import com.superphung.nourriture.R;
 import com.superphung.nourriture.helpers;
 
@@ -122,5 +126,15 @@ public class LoginFragment extends Fragment implements OnClickListener {
 	private void facebookAuth() {
 		((MainActivity)context).auth = new AuthentificationFacebook(context, savedInstanceState, MainActivityDatas);
 		((MainActivity)context).auth.init();
+	}
+	
+	@Override
+	public void onStart() {
+		// TODO Auto-generated method stub
+		super.onStart();
+		Tracker t = ((MyApplication) getActivity().getApplication()).getTracker(
+			    TrackerName.APP_TRACKER);
+			t.setScreenName("Login Fragment");
+			t.send(new HitBuilders.AppViewBuilder().build());
 	}
 }

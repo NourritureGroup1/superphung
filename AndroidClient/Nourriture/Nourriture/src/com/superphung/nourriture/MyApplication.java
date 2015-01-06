@@ -26,7 +26,7 @@ public class MyApplication extends Application {
 		super();
 	}
 
-	synchronized Tracker getTracker(TrackerName trackerId) {
+	public synchronized Tracker getTracker(TrackerName trackerId) {
 		if (!mTrackers.containsKey(trackerId)) {
 			GoogleAnalytics analytics = GoogleAnalytics.getInstance(this);
 			Tracker t = analytics.newTracker(R.xml.app_tracker);

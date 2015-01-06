@@ -114,12 +114,12 @@ public class MainActivity extends Activity {
 		super.onStart();
 		if (auth != null)
 			auth.start();
-		GoogleAnalytics.getInstance(this).reportActivityStart(this);
+		//GoogleAnalytics.getInstance(this).reportActivityStart(this);
 	}
 
 	public void onStop() {
 		super.onStop();
-		GoogleAnalytics.getInstance(this).reportActivityStop(this);
+		//GoogleAnalytics.getInstance(this).reportActivityStop(this);
 	}
 
 	@Override
