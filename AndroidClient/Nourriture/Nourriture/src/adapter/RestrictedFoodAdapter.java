@@ -7,8 +7,10 @@ import model.Ingredient;
 import adapter.Holder.ViewHolder;
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Filterable;
@@ -30,6 +32,7 @@ public class RestrictedFoodAdapter extends ArrayAdapter<Ingredient> implements F
 	private ViewHolder holder;  
 	private DisplayImageOptions options;
 	private ImageLoader imageLoader;
+	private boolean checked;
 
 
 	public RestrictedFoodAdapter(Context context_, int resource,
@@ -38,6 +41,7 @@ public class RestrictedFoodAdapter extends ArrayAdapter<Ingredient> implements F
 		// TODO Auto-generated constructor stub
 		context = context_;
 		CustomListViewValuesArr = objects;
+		checked = false;
 		//imageLoader = imageLoader_;
 	}
 	
@@ -69,6 +73,7 @@ public class RestrictedFoodAdapter extends ArrayAdapter<Ingredient> implements F
 			holder = new ViewHolder();
 			assert view != null;
 			holder.img = (ImageView) view.findViewById(R.id.image);
+			holder.indicator = (ImageView) view.findViewById(R.id.checkindicator);
 			holder.name = (TextView) view.findViewById(R.id.name);
 			holder.progressBar = (ProgressBar) view.findViewById(R.id.progress);
 			view.setTag(holder);
@@ -79,11 +84,12 @@ public class RestrictedFoodAdapter extends ArrayAdapter<Ingredient> implements F
 		{
 			holder.progressBar.setVisibility(View.GONE);
 			holder.img.setVisibility(View.VISIBLE);    	
-			holder.img.setImageBitmap(CustomListViewValuesArr.get(position).getImg()); 	
+			holder.indicator.setVisibility(View.VISIBLE);    	
+			holder.img.setImageBitmap(CustomListViewValuesArr.get(position).getImg()); 
+			holder.indicator.setBackground(context.getResources().getDrawable(R.drawable.uncheckbox));		
 		}
 		else
 		{
-			holder.img.setVisibility(View.VISIBLE);
 			if (CustomListViewValuesArr.get(position).getImg() == null)
 			{
 				imageLoader.displayImage(CustomListViewValuesArr.get(position).getImgUrl(), holder.img, options, new SimpleImageLoadingListener() {
@@ -99,8 +105,11 @@ public class RestrictedFoodAdapter extends ArrayAdapter<Ingredient> implements F
 					}
 					@Override
 					public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
-						holder.progressBar.setVisibility(View.GONE);
 						CustomListViewValuesArr.get(position).setImg(loadedImage);
+						holder.indicator.setBackground(context.getResources().getDrawable(R.drawable.uncheckbox));		
+						holder.progressBar.setVisibility(View.GONE);
+						holder.img.setVisibility(View.VISIBLE);
+						holder.indicator.setVisibility(View.VISIBLE);   
 					}
 				}, new ImageLoadingProgressListener() {
 					@Override
@@ -114,10 +123,25 @@ public class RestrictedFoodAdapter extends ArrayAdapter<Ingredient> implements F
 			else
 			{
 				holder.progressBar.setVisibility(View.GONE);
+				holder.indicator.setVisibility(View.VISIBLE);   
 				holder.img.setImageBitmap(CustomListViewValuesArr.get(position).getImg());
 			}
 		}
 		holder.name.setText(CustomListViewValuesArr.get(position).getName());
+		holder.img.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				if (checked) {
+					holder.indicator.setBackground(context.getResources().getDrawable(R.drawable.uncheckbox));					
+					checked = false;
+				}
+				else {
+					holder.indicator.setBackground(context.getResources().getDrawable(R.drawable.checkbox));					
+					checked = true;
+				}
+			}
+		});
 		return view;
 	}
 }

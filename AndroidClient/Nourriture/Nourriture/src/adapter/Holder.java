@@ -9,7 +9,8 @@ public class Holder {
 	public static class ViewHolder {            
 	    public TextView name;            
 	    public TextView description;                
-	    public ImageView img;
+	    public ImageView img;      
+	    public ImageView indicator;
 	    public GridView grid;
 	    //public ExpandableHeightGridView gridhi;
 	    public ProgressBar progressBar;  

@@ -34,7 +34,7 @@
         android:layout_centerHorizontal="true"
         android:indeterminate="false"
         android:visibility="invisible"
-        android:max="100" />
+        android:max="100" />z
     <RadioGroup
         android:id="@+id/radiogroup"
         android:layout_width="fill_parent"
