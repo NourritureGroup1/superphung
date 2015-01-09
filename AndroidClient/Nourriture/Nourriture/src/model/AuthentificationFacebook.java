@@ -27,24 +27,27 @@ public class AuthentificationFacebook extends Authentification {
 	private Context context;
 	private Bundle savedInstanceState;
 	private MainDatas MainActivityDatas;
+	private boolean authenticationProgress;
 
 	private Session.StatusCallback callback = new Session.StatusCallback() {
 		@Override
 		public void call(Session session, SessionState state, Exception exception) {
-			onSessionStateChange(session, state, exception);
+			if (!authenticationProgress)
+				onSessionStateChange(session, state, exception);
 		}
 	};
 
 	private void onSessionStateChange(Session session, SessionState state, Exception exception) {
 		if (state.isOpened()) {
 			if (isConnected == false) {
-				Log.i(TAG, "Logged in...");
-				System.out.println("logged in babe !");
 				Request.newMeRequest(session, new Request.GraphUserCallback() {
 					// callback after Graph API response with user object
 					@Override
 					public void onCompleted(GraphUser user, Response response) {
 						if (user != null) {
+							authenticationProgress = false;
+							Log.i(TAG, "1: Logged in...");
+							System.out.println("1: logged in babe !");
 							List<NameValuePair> parameters = new ArrayList<NameValuePair>(2);
 							parameters.add(new BasicNameValuePair("email", user.asMap().get("email").toString()));
 							parameters.add(new BasicNameValuePair("name", user.getName()));
@@ -56,8 +59,9 @@ public class AuthentificationFacebook extends Authentification {
 				}).executeAsync();
 			}
 		} else if (state.isClosed()) {
-			Log.i(TAG, "Logged out...");
-			System.out.println("logged out babe !");
+			Log.i(TAG, "2: Logged out...");
+			System.out.println("2: logged out babe !");
+			authenticationProgress = false;
 		}
 	}
 
@@ -68,6 +72,7 @@ public class AuthentificationFacebook extends Authentification {
 		context = context_;
 		savedInstanceState = savedInstanceState_;
 		MainActivityDatas = MainActivityDatas_;
+		authenticationProgress = false;
 	}
 
 	public String getType() {
@@ -102,6 +107,9 @@ public class AuthentificationFacebook extends Authentification {
 
 	@Override
 	public void init() {
+		Log.i(TAG, "TEST: Logged out...");
+		System.out.println("TEST: logged out babe !");
+		authenticationProgress = true;
 		uiHelper = new UiLifecycleHelper((Activity) context, callback);
 		uiHelper.onCreate(savedInstanceState);
 	}
@@ -139,5 +147,11 @@ public class AuthentificationFacebook extends Authentification {
 			onSessionStateChange(session, session.getState(), null);
 		}
 		uiHelper.onResume();
+	}
+
+	@Override
+	public boolean isAuthenticationInProgress() {
+		// TODO Auto-generated method stub
+		return authenticationProgress;
 	}
 }

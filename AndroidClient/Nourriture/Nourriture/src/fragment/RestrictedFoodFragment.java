@@ -96,9 +96,9 @@ public class RestrictedFoodFragment extends Fragment {
 	@Override
 	public void onStart() {
 		super.onStart();
-		Tracker t = ((MyApplication) getActivity().getApplication()).getTracker(
+		/*Tracker t = ((MyApplication) getActivity().getApplication()).getTracker(
 			    TrackerName.APP_TRACKER);
 			t.setScreenName("Restricted food Fragment");
-			t.send(new HitBuilders.AppViewBuilder().build());
+			t.send(new HitBuilders.AppViewBuilder().build());*/
 	}
 }

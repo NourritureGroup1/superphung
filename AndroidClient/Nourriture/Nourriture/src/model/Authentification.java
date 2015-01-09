@@ -26,4 +26,5 @@ public abstract class Authentification  {
 	public abstract void onDestroy();
 	public abstract void onSaveInstanceState(Bundle outState);
 	public abstract void onResume();
+	public abstract boolean isAuthenticationInProgress();
 }

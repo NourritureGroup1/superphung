@@ -103,21 +103,20 @@ public class WorkerRestrictedFood extends AsyncTask<String, Void, String> {
 
 	public String loadMore()
 	{
-		System.out.println("je load 1");
 		if (helpers.haveNetworkConnection(context))
 		{
-			System.out.println("je load 2");
 			List<NameValuePair> parameters = new ArrayList<NameValuePair>(2);
 			String readJSON = helpers.getDatas(URL_API+"/user/"+MainActivityDatas.user.getId()+"/rfood",parameters, "GET");
-			System.out.println("je load 3");
 			try{
 				System.out.println(readJSON);
-				JSONArray jsonArray = new JSONArray(readJSON);
-				for(int i=0;i<jsonArray.length();i++)
-				{
-					JSONObject curr = jsonArray.getJSONObject(i);
-					Ingredient tmp = new Ingredient(curr.getString("_id"),curr.getString("imgUrl"),curr.getString("description"),curr.getString("name"),null,null);	
-					CustomListViewValuesArr.add(tmp);				
+				if (!helpers.isNumeric(readJSON)) {
+					JSONArray jsonArray = new JSONArray(readJSON);
+					for(int i=0;i<jsonArray.length();i++)
+					{
+						JSONObject curr = jsonArray.getJSONObject(i);
+						Ingredient tmp = new Ingredient(curr.getString("_id"),curr.getString("imgUrl"),curr.getString("description"),curr.getString("name"),null,null);	
+						CustomListViewValuesArr.add(tmp);				
+					}
 				}
 			} catch(Exception e){e.printStackTrace();}
 			finally{System.out.println("Success");}

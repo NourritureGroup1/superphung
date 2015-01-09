@@ -117,21 +117,23 @@ public class WorkerIngredientFood extends AsyncTask<String, Void, String> {
 					Ingredient tmp = new Ingredient(curr.getString("_id"),curr.getString("imgUrl"),curr.getString("description"),curr.getString("name"),null,null);	
 					listAllIngredients.add(tmp);				
 				}
-				JSONArray jsonArrayUserRestrictedFood = new JSONArray(readJSONUserRestrictedFood);
-				ArrayList<Ingredient> listAllIngredientsTmp = new ArrayList<Ingredient>();
-				for(int i=0;i<jsonArrayUserRestrictedFood.length();i++)
-				{
-					JSONObject curr = jsonArrayUserRestrictedFood.getJSONObject(i);
-					Ingredient tmp = new Ingredient(curr.getString("_id"),curr.getString("imgUrl"),curr.getString("description"),curr.getString("name"),null,null);	
+				if (!helpers.isNumeric(readJSONUserRestrictedFood)) {
+					JSONArray jsonArrayUserRestrictedFood = new JSONArray(readJSONUserRestrictedFood);
+					ArrayList<Ingredient> listAllIngredientsTmp = new ArrayList<Ingredient>();
+					for(int i=0;i<jsonArrayUserRestrictedFood.length();i++)
+					{
+						JSONObject curr = jsonArrayUserRestrictedFood.getJSONObject(i);
+						Ingredient tmp = new Ingredient(curr.getString("_id"),curr.getString("imgUrl"),curr.getString("description"),curr.getString("name"),null,null);	
 
-					for(int index=0;index < listAllIngredients.size();++index) {
-						if (!tmp.getId().equals(listAllIngredients.get(index).getId())) {
-							System.out.println("je compare le "+tmp.getName()+"et le "+listAllIngredients.get(index).getName());
-							listAllIngredientsTmp.add(listAllIngredients.get(index));
+						for(int index=0;index < listAllIngredients.size();++index) {
+							if (!tmp.getId().equals(listAllIngredients.get(index).getId())) {
+								System.out.println("je compare le "+tmp.getName()+"et le "+listAllIngredients.get(index).getName());
+								listAllIngredientsTmp.add(listAllIngredients.get(index));
+							}
 						}
 					}
+					listAllIngredients = listAllIngredientsTmp;
 				}
-				listAllIngredients = listAllIngredientsTmp;
 			} catch(Exception e){e.printStackTrace();}
 			finally{System.out.println("Success");}
 		}

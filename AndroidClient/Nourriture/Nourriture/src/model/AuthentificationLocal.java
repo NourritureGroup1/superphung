@@ -24,6 +24,7 @@ public class AuthentificationLocal extends Authentification {
 	private String password;
 	private User user;
 	private String type;
+	private boolean authenticationProgress;
 
 	public AuthentificationLocal(Context context_,MainDatas MainActivityDatas_, String email_, String password_) {
 		type = "local";
@@ -33,6 +34,7 @@ public class AuthentificationLocal extends Authentification {
 		MainActivityDatas = MainActivityDatas_;
 		email = email_;
 		password = password_;
+		authenticationProgress = false;
 	}
 
 	public void init() {}
@@ -48,6 +50,7 @@ public class AuthentificationLocal extends Authentification {
 	}
 
 	public  void proceedAuthentication() {
+		authenticationProgress = true;
 		new loginLocale().execute();
 	}
 
@@ -100,6 +103,7 @@ public class AuthentificationLocal extends Authentification {
 		@Override
 		protected void onPostExecute(String result) {
 			progress.dismiss();
+			authenticationProgress = false;
 			if (helpers.isNumeric(result))
 			{
 				Toast toast = Toast.makeText(context, "Cannot find the user with the password/username you typed", Toast.LENGTH_SHORT);
@@ -129,5 +133,11 @@ public class AuthentificationLocal extends Authentification {
 
 	@Override
 	public void onResume() {}
+
+	@Override
+	public boolean isAuthenticationInProgress() {
+		// TODO Auto-generated method stub
+		return authenticationProgress;
+	}
 }
 

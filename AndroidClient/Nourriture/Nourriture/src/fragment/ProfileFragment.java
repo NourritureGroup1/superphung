@@ -66,9 +66,9 @@ public class ProfileFragment extends Fragment implements OnClickListener {
 	public void onStart() {
 		// TODO Auto-generated method stub
 		super.onStart();
-		Tracker t = ((MyApplication) getActivity().getApplication()).getTracker(
+		/*Tracker t = ((MyApplication) getActivity().getApplication()).getTracker(
 			    TrackerName.APP_TRACKER);
 			t.setScreenName("Current user profile Fragment");
-			t.send(new HitBuilders.AppViewBuilder().build());
+			t.send(new HitBuilders.AppViewBuilder().build());*/
 	}
 }

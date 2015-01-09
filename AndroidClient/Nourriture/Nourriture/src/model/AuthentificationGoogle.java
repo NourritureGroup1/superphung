@@ -11,6 +11,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentSender.SendIntentException;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.widget.Toast;
 
@@ -29,6 +30,7 @@ public class AuthentificationGoogle extends Authentification implements Connecti
 	private MainDatas MainActivityDatas;
 	private boolean mIntentInProgress;
 	private ConnectionResult mConnectionResult;
+	private boolean authenticationProgress;
 
 	public AuthentificationGoogle(Context context_,MainDatas MainActivityDatas_) {
 		type = "google";
@@ -36,6 +38,7 @@ public class AuthentificationGoogle extends Authentification implements Connecti
 		user = null;
 		context = context_;
 		MainActivityDatas = MainActivityDatas_;
+		authenticationProgress = false;
 	}
 
 	public void init() {
@@ -56,6 +59,7 @@ public class AuthentificationGoogle extends Authentification implements Connecti
 	}
 
 	public  void proceedAuthentication() {
+		authenticationProgress = true;
 		signInWithGplus();
 	}
 
@@ -92,7 +96,17 @@ public class AuthentificationGoogle extends Authentification implements Connecti
 			List<NameValuePair> parameters = new ArrayList<NameValuePair>(2);
 			parameters.add(new BasicNameValuePair("email", email));
 			parameters.add(new BasicNameValuePair("name", personName));
-			new getGoogleUserTask(context,MainActivityDatas,parameters).execute();
+			AsyncTask<String, String, String> googleUser = new getGoogleUserTask(context,MainActivityDatas,parameters);
+			googleUser.execute();
+			authenticationProgress = false;
+			/*try {
+				//googleUser.wait();
+				authenticationProgress = false;
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				authenticationProgress = false;
+			}*/
 		} else {
 			Toast.makeText(context.getApplicationContext(),
 					"Person information is null", Toast.LENGTH_LONG).show();
@@ -169,4 +183,10 @@ public class AuthentificationGoogle extends Authentification implements Connecti
 
 	@Override
 	public void onResume() {}
+
+	@Override
+	public boolean isAuthenticationInProgress() {
+		// TODO Auto-generated method stub
+		return authenticationProgress;
+	}
 }

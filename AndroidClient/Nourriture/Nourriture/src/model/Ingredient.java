@@ -12,7 +12,7 @@ public class Ingredient {
     private List<String> nutrients;
     private String imgUrl;
     private Bitmap img;
-	public static final String URL_API = "https://192.168.0.103:8081";
+	public static final String URL_API = "https://54.64.212.101";//"https://192.168.0.103:8081";
 
     
     public Ingredient(String id_, String imgUrl_, String description_, String name_, List<String> category_, List<String> nutrients_) {

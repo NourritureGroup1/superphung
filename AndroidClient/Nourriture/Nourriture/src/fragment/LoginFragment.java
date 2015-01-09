@@ -70,6 +70,7 @@ public class LoginFragment extends Fragment implements OnClickListener {
 	 * */
 	@Override
 	public void onClick(View v) {
+		System.out.println("JE COMPTE LE NB DE CLICK §");
 		if (v.getId() == R.id.login_button)
 			normalAuth();
 		else if (v.getId() == R.id.btn_sign_in_google)
@@ -92,6 +93,9 @@ public class LoginFragment extends Fragment implements OnClickListener {
 	}
 
 	private void normalAuth() {
+		if (((MainActivity) context).auth != null)
+			if (((MainActivity) context).auth.isAuthenticationInProgress())
+				return ;
 		String email = ((EditText)rootView.findViewById(R.id.email)).getText().toString();
 		String password = ((EditText)rootView.findViewById(R.id.password)).getText().toString();
 		email = email.replace(" ", "");
@@ -104,12 +108,12 @@ public class LoginFragment extends Fragment implements OnClickListener {
 			((MainActivity) context).auth = new AuthentificationLocal(context, MainActivityDatas, email, password);
 			((MainActivity) context).auth.proceedAuthentication();
 		}
-		//new LoginTask(email, password, context,MainActivityDatas).execute();
-		((MainActivity)context).auth = new AuthentificationLocal(context, MainActivityDatas, email, password);
-		((MainActivity)context).auth.proceedAuthentication();
 	}
 
 	private void googleAuth() {
+		if (((MainActivity) context).auth != null)
+			if (((MainActivity) context).auth.isAuthenticationInProgress())
+				return ;
 		int resultCode = GooglePlayServicesUtil.isGooglePlayServicesAvailable(context);
 		if (resultCode == ConnectionResult.SUCCESS) {
 			((MainActivity)context).auth = new AuthentificationGoogle(context, MainActivityDatas);
@@ -124,6 +128,9 @@ public class LoginFragment extends Fragment implements OnClickListener {
 	}
 	
 	private void facebookAuth() {
+		if (((MainActivity) context).auth != null)
+			if (((MainActivity) context).auth.isAuthenticationInProgress())
+				return ;
 		((MainActivity)context).auth = new AuthentificationFacebook(context, savedInstanceState, MainActivityDatas);
 		((MainActivity)context).auth.init();
 	}
@@ -132,9 +139,9 @@ public class LoginFragment extends Fragment implements OnClickListener {
 	public void onStart() {
 		// TODO Auto-generated method stub
 		super.onStart();
-		Tracker t = ((MyApplication) getActivity().getApplication()).getTracker(
+		/*Tracker t = ((MyApplication) getActivity().getApplication()).getTracker(
 			    TrackerName.APP_TRACKER);
 			t.setScreenName("Login Fragment");
-			t.send(new HitBuilders.AppViewBuilder().build());
+			t.send(new HitBuilders.AppViewBuilder().build());*/
 	}
 }
