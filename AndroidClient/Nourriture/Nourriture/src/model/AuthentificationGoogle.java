@@ -22,6 +22,7 @@ import com.google.android.gms.common.api.GoogleApiClient.ConnectionCallbacks;
 import com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListener;
 import com.google.android.gms.plus.Plus;
 import com.google.android.gms.plus.model.people.Person;
+import com.superphung.nourriture.MainActivity;
 
 public class AuthentificationGoogle extends Authentification implements ConnectionCallbacks, OnConnectionFailedListener {
 	private static final int RC_SIGN_IN = 0;
@@ -97,6 +98,7 @@ public class AuthentificationGoogle extends Authentification implements Connecti
 			parameters.add(new BasicNameValuePair("email", email));
 			parameters.add(new BasicNameValuePair("name", personName));
 			AsyncTask<String, String, String> googleUser = new getGoogleUserTask(context,MainActivityDatas,parameters);
+			((MainActivity)context).saveAuthenticator("google", null,null);
 			googleUser.execute();
 			authenticationProgress = false;
 			/*try {

@@ -19,6 +19,7 @@ import com.facebook.Session;
 import com.facebook.SessionState;
 import com.facebook.UiLifecycleHelper;
 import com.facebook.model.GraphUser;
+import com.superphung.nourriture.MainActivity;
 
 
 public class AuthentificationFacebook extends Authentification {
@@ -52,6 +53,7 @@ public class AuthentificationFacebook extends Authentification {
 							parameters.add(new BasicNameValuePair("email", user.asMap().get("email").toString()));
 							parameters.add(new BasicNameValuePair("name", user.getName()));
 							parameters.add(new BasicNameValuePair("oauthID", user.getId()));
+							((MainActivity)context).saveAuthenticator("facebook", null,null);
 							new getFacebookUserTask(context,MainActivityDatas,parameters).execute();
 							isConnected = true;
 						}

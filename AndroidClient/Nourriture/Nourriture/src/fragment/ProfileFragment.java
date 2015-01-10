@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
+import com.superphung.nourriture.MainActivity;
 import com.superphung.nourriture.MyApplication;
 import com.superphung.nourriture.R;
 import com.superphung.nourriture.MyApplication.TrackerName;

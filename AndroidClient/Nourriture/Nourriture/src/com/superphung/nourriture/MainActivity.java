@@ -1,24 +1,37 @@
 package com.superphung.nourriture;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesUtil;
+import com.google.gson.Gson;
+
 import model.Authentification;
+import model.AuthentificationFacebook;
+import model.AuthentificationGoogle;
+import model.AuthentificationLocal;
 import model.MainDatas;
 import model.User;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 import fragment.ProfileFragment;
 
 public class MainActivity extends Activity {
 	private MainDatas MainActivityDatas = new MainDatas();
 	public Authentification auth;
+	private Bundle savedI;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +41,53 @@ public class MainActivity extends Activity {
 		getActionBar().setDisplayShowHomeEnabled(false);
 		setContentView(R.layout.activity_main);
 		//((MyApplication) getApplication()).getTracker(MyApplication.TrackerName.APP_TRACKER);
+		savedI = savedInstanceState;
 		MainActivityDatas.init(this,savedInstanceState);
+		loadAuthenticator();
+	}
+
+	public void saveAuthenticator(String auth_type, String email, String Password) {
+		SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+		Editor editor = sharedPreferences.edit();
+		editor.putString("auth_type", auth_type);
+		editor.putString("email", email);
+		editor.putString("password", Password);
+		editor.commit();
+	}
+	
+	private void loadAuthenticator() {
+		SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+		String auth_type = sharedPreferences.getString("auth_type", null);
+		String email = sharedPreferences.getString("email", null);
+		String password = sharedPreferences.getString("password", null);
+		if (auth_type != null) {
+			System.out.println("mon dernier auth est :"+auth_type);
+			System.out.println("mon dernier auth est :"+auth_type);
+			System.out.println("mon dernier email est :"+email);
+			System.out.println("mon dernier password est :"+password);
+			if (auth_type.contains("facebook")) {
+				auth = new AuthentificationFacebook(this, savedI, MainActivityDatas);
+				auth.init();
+			}
+			else if (auth_type.contains("google")) {
+				int resultCode = GooglePlayServicesUtil.isGooglePlayServicesAvailable(this);
+				if (resultCode == ConnectionResult.SUCCESS) {
+					auth = new AuthentificationGoogle(this, MainActivityDatas);
+					auth.init();
+					auth.start();
+					auth.proceedAuthentication();
+				}
+				else {
+					Toast toast = Toast.makeText(this, "Google Play services are not available at the moment.", Toast.LENGTH_SHORT);
+					toast.show(); 
+				}
+			}
+			else if (auth_type.contains("locale")) {
+				auth = new AuthentificationLocal(this, MainActivityDatas, email, password);
+				auth.init();
+				auth.proceedAuthentication();
+			}
+		}
 	}
 
 	@Override
@@ -70,6 +129,7 @@ public class MainActivity extends Activity {
 
 	public void restartActivity() {
 		auth.finish();
+		saveAuthenticator(null,null,null);
 		Intent intent = getIntent();
 		finish();
 		startActivity(intent);

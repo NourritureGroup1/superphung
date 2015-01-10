@@ -14,6 +14,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.widget.Toast;
 
+import com.facebook.Session;
 import com.superphung.nourriture.MainActivity;
 import com.superphung.nourriture.helpers;
 
@@ -78,13 +79,19 @@ public class AuthentificationLocal extends Authentification {
 
 		@Override
 		protected String doInBackground(String... params) {
+			System.out.println("je test ma co");
 			if (helpers.haveNetworkConnection(context))
 			{
+				System.out.println("je test ma co2");
 				List<NameValuePair> parameters = new ArrayList<NameValuePair>(2);
 				parameters.add(new BasicNameValuePair("email", email));
 				parameters.add(new BasicNameValuePair("password", password));
 				String readJSON = null;
+				System.out.println("je test ma co3");
 				readJSON = helpers.getDatas(MainActivityDatas.urls.get("POST").get("login"),parameters,"POST");
+				System.out.println(readJSON);
+				System.out.println("je test ma co4");
+				
 				if (helpers.isNumeric(readJSON))
 					return readJSON;
 				try{
@@ -118,6 +125,8 @@ public class AuthentificationLocal extends Authentification {
 			}	
 			user.setConnected(true);
 			isConnected = true;
+			System.out.println("le mail est : "+email);
+			((MainActivity)context).saveAuthenticator("locale",email,password);
 			((MainActivity)context).loginUser(user);
 		}
 	}
@@ -126,7 +135,12 @@ public class AuthentificationLocal extends Authentification {
 	public void onPause() {}
 
 	@Override
-	public void onDestroy() {}
+	public void onDestroy() {
+		if (Session.getActiveSession() != null) {
+		    Session.getActiveSession().closeAndClearTokenInformation();
+		}
+		Session.setActiveSession(null);
+	}
 
 	@Override
 	public void onSaveInstanceState(Bundle outState) {}
