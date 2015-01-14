@@ -195,6 +195,6 @@ exports.delete = function(req, res, next) {
 
 function stringToArray(str) {
     if (typeof str === 'string')
-        return JSON.parse(str);
+        return str.split(',');
     return str;
 }
