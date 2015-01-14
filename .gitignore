@@ -1,3 +1,5 @@
 /node_modules
 /public/components
 /bower_components
+/HTML5Application/nbproject/private/
+/nbproject/private/

@@ -2,7 +2,7 @@
 <hr>
 <div class="container">
     <div class="row">
-        <div class="col-md-6 col-sm-offset-3">
+        <div class="col-md-6 col-sm-offset-2">
             <div class="alert alert-success" ng-bind="gmistMICtrl.successMessageUpdate" ng-show="gmistMICtrl.successMessageUpdate"></div>
             <form ng-submit="gmistMICtrl.submit()">
                 <div class="form-group">
@@ -20,7 +20,7 @@
                 <div class="form-group">
                     <label>Category</label>
                     <div ng-repeat="(i, category) in gmistMICtrl.ingredient.category track by $index">
-                        <input type="text" placeholder="Enter a category" ng-model="gmistMICtrl.ingredient.category[i]" required>
+                        <input class="form-control" type="text" placeholder="Enter a category" ng-model="gmistMICtrl.ingredient.category[i]" required>
                         <i class="glyphicon glyphicon-remove-circle pull-right" ng-click="gmistMICtrl.deleteCategory(i)"></i>
                     </div>
                     <button type="button" class="btn btn-primary" ng-click="gmistMICtrl.addCategory()">Add new Category</button>
@@ -28,7 +28,7 @@
                 <div class="form-group">
                     <label>Nutrients</label>
                     <div ng-repeat="(i, nutrient) in gmistMICtrl.ingredient.nutrients track by $index">
-                        <input type="text" placeholder="Enter a nutrient" ng-model="gmistMICtrl.ingredient.nutrients[i]" required>
+                        <input class="form-control" type="text" placeholder="Enter a nutrient" ng-model="gmistMICtrl.ingredient.nutrients[i]" required>
                         <i class="glyphicon glyphicon-remove-circle pull-right" ng-click="gmistMICtrl.deleteNutrient(i)"></i>
                     </div>
                     <button type="button" class="btn btn-primary" ng-click="gmistMICtrl.addNutrient()">Add new Nutrient</button>

@@ -1,24 +1,64 @@
-<div class="container">
+<div>
     <div class="row">
-        <div class="col-xs-6 col-xs-offset-3">
-            <div class="pull-right">
-                search box :
+        <div>
+            <div>
+                Search box :
                 <input type="text" ng-model="recipesListCtrl.searchText">
-                restricted food :
+                &nbsp;Restricted food :
                 <input type="checkbox" ng-model="recipesListCtrl.restrictedFilter">
             </div>
             <br>
-
+                
             <h1>ALL RECIPES</h1>
+                
+                
+            <div class="row">
+                <div class="col-md-12"> 
+                    
+                    <div class="panel">
+                        <div class="panel-body cancel-margin-bottom">
+                            <!--/stories-->
+                            <div class="row">    
+                                <br>
+                                <div ng-repeat="recipe in recipesListCtrl.recipesDisplay | filter : recipesListCtrl.searchText">
+                                
+                                    <div class="col-md-2 col-sm-3 text-center">
+                                        
+                                        <a class="pull-left" ng-href="#/recipes/{{recipe._id}}">
+                            <img style="width:100px;height:100px" class="img-circle" ng-src="{{recipe.imgUrl}}" width="120px" height="120px" alt="recipe"/>
+                        </a>
 
-            <div ng-repeat="recipe in recipesListCtrl.recipesDisplay | filter : recipesListCtrl.searchText">
+                                    </div>
+                                            
+                                    <div class="col-md-10 col-sm-9">
+                                        <h3 class="media-heading">{{ recipe.name }}</h3>
+                                        <div class="row">
+                                            <div class="col-xs-9">
+                                                <h4><span class="label label-default">{{ recipe.description }}</span></h4><h4>
+                                                    <small style="font-family:courier,'new courier';" class="text-muted">2 hours ago  • <a href="#" class="text-muted">Read More</a></small>
+                                                </h4></div>
+                                            <div class="col-xs-3"></div>
+                                        </div>
+                                        <br><br>
+                                    </div>
+                                    <hr>   
+                                </div>
+                            </div> 
+                            <!--/stories--> 
+                        </div>
+                    </div>   
+                </div><!--/col-12-->
+            </div>
+                                
+                                
+<!--            <div ng-repeat="recipe in recipesListCtrl.recipesDisplay | filter : recipesListCtrl.searchText">
                 <div class="container-fluid">
                     <div class="media">
                         <a class="pull-left" ng-href="#/recipes/{{recipe._id}}">
-                            <img class="media-object" ng-src="{{recipe.imgUrl}}" width="120px" height="120px"
+                            <img class="media-object ingredient-icon" ng-src="{{recipe.imgUrl}}" width="120px" height="120px"
                                  alt="recipe">
                         </a>
-
+                            
                         <div class="media-body">
                             <h4 class="media-heading">{{ recipe.name }}</h4>
                             {{ recipe.description }}
@@ -26,11 +66,13 @@
                     </div>
                 </div>
                 <br>
+            </div>-->
+            <div class="navigation-bar">
+                <pagination total-items="recipesListCtrl.recipes.length" ng-model="recipesListCtrl.currentPage"
+                            max-size="recipesListCtrl.maxSize" class="pagination-sm" boundary-links="true"
+                            ng-change="recipesListCtrl.updateRecipes()"></pagination>
             </div>
-            <pagination total-items="recipesListCtrl.recipes.length" ng-model="recipesListCtrl.currentPage"
-                        max-size="recipesListCtrl.maxSize" class="pagination-sm" boundary-links="true"
-                        ng-change="recipesListCtrl.updateRecipes()"></pagination>
         </div>
     </div>
-
+        
 </div>
