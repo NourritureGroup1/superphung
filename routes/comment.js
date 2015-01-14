@@ -5,7 +5,7 @@
 var comment = require("./commentHandler");
 
 module.exports = function (app) {
-    app.post("/commentByRecipe", moment.getByRecipe);
-    app.post("/commentByCreator", moment.getByCreator);
+    app.post("/commentByRecipe", comment.getByRecipe);
+    app.post("/commentByCreator", comment.getByCreator);
     app.post("/comment", comment.create);
 };
