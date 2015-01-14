@@ -82,8 +82,8 @@ exports.create = function (req, res) {
         _recipe.name = req.body.name;
         _recipe.creator = req.body.creator;
         _recipe.description = req.body.description;
-        _recipe.steps = req.body.steps;
-        _recipe.ingredients = req.body.ingredients;
+        _recipe.steps = stringToArray(req.body.steps);
+        _recipe.ingredients = stringToArray(req.body.ingredients);
         _recipe.creationDate = req.body.creationDate;
         _recipe.imgUrl = "/uploads/" + req.body.imgUrl;
         //_recipe.imgUrl = req.files.name;
@@ -107,8 +107,8 @@ exports.update = function (req, res) {
         recipe._id = req.body._id;
         recipe.name = req.body.name;
         recipe.description = req.body.description;
-        recipe.steps = req.body.steps;
-        recipe.ingredients = req.body.ingredients;
+        recipe.steps = stringToArray(req.body.steps);
+        recipe.ingredients = stringToArray(req.body.ingredients);
         recipe.creationDate = req.body.creationDate;
         recipe.save(function(err) {
             if (err) {
@@ -164,3 +164,9 @@ exports.upload = function (req, res) {
     //res.status(200).json(req.files);
 
 };
+
+function stringToArray(str) {
+    if (typeof str === 'string')
+        return JSON.parse(str);
+    return str;
+}

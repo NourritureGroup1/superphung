@@ -66,8 +66,8 @@ exports.create = function (req, res) {
 
             _ingredient.name = req.body.name;
             _ingredient.description = req.body.description;
-            _ingredient.category = req.body.category;
-            _ingredient.nutrients = req.body.nutrients;
+            _ingredient.category = stringToArray(req.body.category);
+            _ingredient.nutrients = stringToArray(req.body.nutrients);
             _ingredient.imgUrl = "/uploads/" + req.body.imgUrl;
 
             _ingredient.save(function(err) {
@@ -90,8 +90,8 @@ exports.update = function(req, res) {
         ingredient._id = req.body._id;
         ingredient.name = req.body.name;
         ingredient.description = req.body.description;
-        ingredient.category = req.body.category;
-        ingredient.nutrients = req.body.nutrients;
+        ingredient.category = stringToArray(req.body.category);
+        ingredient.nutrients = stringToArray(req.body.nutrients);
         ingredient.save(function(err) {
             if (err) {
                 error.logError(req, res, err);
@@ -127,3 +127,9 @@ exports.upload = function(req, res) {
         });
     });
 };
+
+function stringToArray(str) {
+    if (typeof str === 'string')
+        return JSON.parse(str);
+    return str;
+}
