@@ -1,5 +1,12 @@
 /node_modules
 /public/components
 /bower_components
+<<<<<<< HEAD
 /HTML5Application/nbproject/private/
 /nbproject/private/
+=======
+public/uploads/
+AndroidClient/.metadata/
+AndroidClient/Nourriture/.metadata/
+AndroidClient/Nourriture/SbcInitiative/
+>>>>>>> origin/webapp

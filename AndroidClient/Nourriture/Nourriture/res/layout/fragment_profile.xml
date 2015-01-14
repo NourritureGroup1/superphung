@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="50dip"
+    android:background="@color/grey_color"
+    android:orientation="vertical" >
+
+    <ScrollView
+        android:id="@+id/scrollView1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/profileof"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:textAlignment="center" />
+
+            <ImageView
+                android:id="@+id/avatar"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_gravity="center_horizontal"
+                android:src="@drawable/profile" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal" >
+
+                <TextView
+                    android:id="@+id/email"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginRight="10dip" />
+
+                <TextView
+                    android:id="@+id/role"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center" >
+
+                <Button
+                    android:id="@+id/like_recipes"
+                    android:layout_width="100sp"
+                    android:layout_height="100sp"
+                    android:background="@drawable/circular_button_likes"
+                    android:gravity="center"
+                    android:text="Likes recipes"
+                    android:textColor="#fff" />
+
+                <Button
+                    android:id="@+id/rfood"
+                    android:layout_width="100sp"
+                    android:layout_height="100sp"
+                    android:background="@drawable/circular_button_restricted"
+                    android:gravity="center"
+                    android:text="Restricted food"
+                    android:textColor="#fff" />
+
+                <Button
+                    android:id="@+id/announces"
+                    android:layout_width="100sp"
+                    android:layout_height="100sp"
+                    android:layout_gravity="right"
+                    android:background="@drawable/circular_button_likes"
+                    android:gravity="center"
+                    android:text="Likes recipes"
+                    android:textColor="#fff" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>
