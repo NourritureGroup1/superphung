@@ -166,13 +166,13 @@ exports.update = function(req, res) {
         user.name = req.body.name;
         user.email = req.body.email;
         user.role = req.body.role;
-        user.followings = req.body.followings;
-        user.likes = req.body.likes;
-        user.dislikes = req.body.dislikes;
-        user.favoriteFood = req.body.favoriteFood;
-        user.restrictedFood = req.body.restrictedFood;
-        user.badFood = req.body.badFood;
-        user.recipesCreated = req.body.recipesCreated;
+        user.followings = stringToArray(req.body.followings);
+        user.likes = stringToArray(req.body.likes);
+        user.dislikes = stringToArray(req.body.dislikes);
+        user.favoriteFood = stringToArray(req.body.favoriteFood);
+        user.restrictedFood = stringToArray(req.body.restrictedFood);
+        user.badFood = stringToArray(req.body.badFood);
+        user.recipesCreated = stringToArray(req.body.recipesCreated);
         user.save(function(err) {
             if (err) {
                 error.logError(req, res, err);
@@ -192,3 +192,9 @@ exports.delete = function(req, res, next) {
         res.status(200).json({ message: "Successfully deleted" });
     });
 };
+
+function stringToArray(str) {
+    if (typeof str === 'string')
+        return str.split(',');
+    return str;
+}
