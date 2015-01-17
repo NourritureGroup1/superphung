@@ -2,29 +2,34 @@
 <hr>
 <table class="table table-striped table-condensed table-hover">
     <thead>
-    <tr>
-        <th>Id</th>
-        <th>Name<a ng-click="adminCtrl.sortNameAsc()"><i class="fa fa-sort-asc"></i></a><a
-                ng-click="adminCtrl.sortNameDesc()"><i class="fa fa-sort-desc"></i></a></th>
-        <th>Email</th>
-        <th>Role<a ng-click="adminCtrl.sortRoleAsc()"><i class="fa fa-sort-asc"></i></a><a
-                ng-click="adminCtrl.sortRoleDesc()"><i class="fa fa-sort-desc"></i></a></th>
-    </tr>
+        <tr>
+            <th>Id</th>
+            <th>Name<a ng-click="adminCtrl.sortNameAsc()"><i class="fa fa-sort-asc"></i></a><a
+                    ng-click="adminCtrl.sortNameDesc()"><i class="fa fa-sort-desc"></i></a></th>
+            <th>Email</th>
+            <th>Role<a ng-click="adminCtrl.sortRoleAsc()"><i class="fa fa-sort-asc"></i></a><a
+                    ng-click="adminCtrl.sortRoleDesc()"><i class="fa fa-sort-desc"></i></a></th>
+        </tr>
     </thead>
     <tbody>
-    <tr ng-repeat="user in adminCtrl.usersDisplay" ng-click="adminCtrl.showUser(user)" style="cursor: pointer">
-        <td>{{user._id}}</td>
-        <td>{{user.name}}</td>
-        <td>{{user.email}}</td>
-        <td>{{user.role}}</td>
-    </tr>
+        <tr ng-repeat="user in adminCtrl.usersDisplay" ng-click="adminCtrl.showUser(user)" style="cursor: pointer">
+            <td>{{user._id}}</td>
+            <td>{{user.name}}</td>
+            <td>{{user.email}}</td>
+            <td>{{user.role}}</td>
+        </tr>
     </tbody>
     <tfoot>
-    <td>
-        <pagination total-items="adminCtrl.users.length" ng-model="adminCtrl.currentPage"
-                    max-size="adminCtrl.maxSize" class="pagination-sm" boundary-links="true"
-                    ng-change="adminCtrl.updateUsers()"></pagination>
-    </td>
-    </tfoot>
-
+        <tr>
+            <td colspan="4">
+                
+            </td>
+        </tr>
+    <td colspan="4" class="navigation-bar">
+    <pagination total-items="adminCtrl.users.length" ng-model="adminCtrl.currentPage"
+                max-size="adminCtrl.maxSize" class="pagination-sm" boundary-links="true"
+                ng-change="adminCtrl.updateUsers()"></pagination>
+</td>
+</tfoot>
+    
 </table>

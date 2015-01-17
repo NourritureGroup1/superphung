@@ -1,7 +1,7 @@
 <h1>Gastronomist Portal</h1>
 <hr>
 <tabset>
-    <tab heading="recipes">
+    <tab heading="Recipes">
         <table class="table table-striped table-condensed table-hover">
             <thead>
             <tr>
@@ -22,16 +22,21 @@
             </tr>
             </tbody>
             <tfoot>
-            <button class="btn btn-success pull-right" ng-click="gmistCtrl.createRecipe()">Create +</button>
-            <td>
+            <tr>
+            <td colspan="4">
+                <button class="btn btn-success" ng-click="gmistCtrl.createRecipe()">Add a new recipe</button>
+            </td>
+            </tr>     
+            <td colspan="4" class="navigation-bar">
                 <pagination total-items="gmistCtrl.recipes.length" ng-model="gmistCtrl.currentPage"
-                            max-size="gmistCtrl.maxSize" class="pagination-sm" boundary-links="true"
+                            max-size="gmistCtrl.maxSize" class="pagination-sm navigation-ul" boundary-links="true"
                             ng-change="gmistCtrl.updateRecipes()"></pagination>
             </td>
+   
             </tfoot>
         </table>
     </tab>
-    <tab heading="ingredients">
+    <tab heading="Ingredients">
         <table class="table table-striped table-condensed table-hover">
             <thead>
             <tr>
@@ -49,10 +54,15 @@
             </tr>
             </tbody>
             <tfoot>
-            <button class="btn btn-success pull-right" ng-click="gmistCtrl.createIngredient()">Create +</button>
-            <td>
+            
+            <tr>
+            <td colspan="4">
+                <button class="btn btn-success" ng-click="gmistCtrl.createIngredient()">Add a new ingredient</button>
+            </td>
+            </tr>   
+            <td colspan="4" class="navigation-bar">
                 <pagination total-items="gmistCtrl.ingredients.length" ng-model="gmistCtrl.currentPage"
-                            max-size="gmistCtrl.maxSize" class="pagination-sm" boundary-links="true"
+                            max-size="gmistCtrl.maxSize" class="pagination-sm navigation-ul" boundary-links="true"
                             ng-change="gmistCtrl.updateIngredients()"></pagination>
             </td>
             </tfoot>

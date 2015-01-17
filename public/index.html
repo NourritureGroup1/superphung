@@ -2,14 +2,16 @@
 <html>
 <head lang="en">
     <meta charset="UTF-8">
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1">-->
     <title></title>
-    <!--<link rel="stylesheet" href="css/bootstrap.css" />-->
+<!--    <link rel="stylesheet" href="css/bootstrap.css" />-->
     <link rel="stylesheet" href="components/bootstrap/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/font-awesome-4.2.0/css/font-awesome.css"/>
+<!--    <link rel="stylesheet" href="css/font-awesome-4.2.0/css/font-awesome.css"/>-->
     <link rel="stylesheet" href="css/social-buttons.css">
     <link rel="stylesheet" href="css/style.css">
+<!--    <link rel="stylesheet" href="css/tuto.css">-->
 
-    <!--<script src="scripts/vendors/angular.js"></script>
+<!--    <script src="scripts/vendors/angular.js"></script>
     <script src="scripts/vendors/angular-route.js"></script>-->
 
     <script src="components/angular/angular.min.js"></script>
@@ -46,89 +48,145 @@
     <script src="services/fileUpload.js"></script>
 </head>
 <body ng-app="NourritureApp">
+     <div ng-controller="UserCtrl as userCtrl">
+<header class="navbar navbar-bright navbar-fixed-top" role="banner">
+  <div class="container">
+    <div class="navbar-header">
+      <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a href="/#/" class="navbar-brand">Home</a>
+    </div>
+    <nav class="collapse navbar-collapse" role="navigation">
+      <ul class="nav navbar-nav">
+        <li>
+          <a href="#/account">&nbsp;Profile</a>
+        </li>
+        <li>
+          <a href="#/recipes-list">&nbsp;Recipes</a>
+        </li>
+        <li>
+          <a href="#/ingredients-list">&nbsp;Ingredients</a>
+        </li>
+        <li ng-show="userCtrl.userService.isLoggedIn && userCtrl.userService.user.role == 'admin'">
+            <a href="#/admin-manager">Users</a>
+        </li>
+        <li ng-show="userCtrl.userService.isLoggedIn && userCtrl.userService.user.role == 'gastronomist'">
+            <a href="#/gastronomist-manager">Manage recipes/ingredients</a>
+        </li>
+      </ul>
+        <ul class="nav navbar-nav navbar-right" ng-show="userCtrl.userService.isLoggedIn">
+            <li><a href="/logout">Logout</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right" ng-hide="userCtrl.userService.isLoggedIn">
+            <li ng-click="userCtrl.openLogin()"><a href="">Login</a></li>
+        </ul>
+    </nav>
+  </div>
+</header>
 
-    <!--
-    <div ng-controller="MainCtrl as mainCtrl">
-        <span ng-hide="mainCtrl.userService.isLoggedIn">
-            <a href="#/login">Login</a>
-        </span>
-
-        <span ng-show="mainCtrl.userService.isLoggedIn">
-            <a href="#/account">my account</a>
-            <a href="/logout">logout</a>
-        </span>
-    </div> -->
-
-    <div class="container" ng-controller="UserCtrl as userCtrl">
-
-        <!-- Login with fb or google -->
-        <!--<span ng-hide="userCtrl.userService.isLoggedIn || userCtrl.userService.spinner">
-            <a href="#">Login</a><br>
-            <a href="/auth/facebook" ng-click="userCtrl.userService.spinner = true">Login via facebook</a>
-            <a href="/auth/google" ng-click="userCtrl.userService.spinner = true">Login via google</a>
-        </span> -->
-
-        <!-- Spinner loading
-        <i class="fa fa-spinner fa-spin fa-5x" ng-show="!userCtrl.userService.isLoggedIn && userCtrl.userService.spinner" style="position: absolute;top: 40%;left: 50%"></i>-->
-
-        <!-- Nav bar -->
-        <!--<nav class="navbar navbar-default" role="navigation" ng-show="userCtrl.userService.isLoggedIn">-->
-        <nav class="navbar navbar-default" role="navigation">
-            <div class="container-fluid">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="#">Nourriture</a>
-                </div>
-
-                <div class="collapse navbar-collapse">
-                    <ul class="nav navbar-nav">
-                        <li><a href="#/account"><i class="fa fa-user"></i>&nbsp;Profile</a></li>
-                        <!--<li class="dropdown">
-                            <a href="#/recipes-list" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-cutlery"></i>&nbsp;Recipes <span class="caret"></span></a>
-                            <ul class="dropdown-menu" role="menu">
-                                <li><a href="#/recipes-create">Create recipes</a></li>
-                            </ul>
-                        </li>-->
-                        <li><a href="#/recipes-list"><i class="fa fa-cutlery"></i>&nbsp;Recipes</a></li>
-                        <!--<li><a href="#/recipes-create"><i class="fa fa-cutlery"></i>&nbsp;Recipes</span></a></li>-->
-                        <!--<li class="dropdown">
-                            <a href="#/ingredients-list" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-cutlery"></i>&nbsp;Ingredients <span class="caret"></span></a>
-                            <ul class="dropdown-menu" role="menu">
-                                <li><a href="#/ingredients-create">Create ingredients</a></li>
-                            </ul>
-                        </li>-->
-                        <li><a href="#/ingredients-list"><i class="fa fa-cutlery"></i>&nbsp;Ingredients</a></li>
-                        <li ng-show="userCtrl.userService.isLoggedIn && userCtrl.userService.user.role == 'admin'"><a href="#/admin-manager">Users</a></li>
-                        <li ng-show="userCtrl.userService.isLoggedIn && userCtrl.userService.user.role == 'gastronomist'"><a href="#/gastronomist-manager">Manage recipes/ingredients</a></li>
-                    </ul>
-                    <ul class="nav navbar-nav navbar-right" ng-show="userCtrl.userService.isLoggedIn">
-                        <li><a href="/logout">Logout</a></li>
-                    </ul>
-                    <ul class="nav navbar-nav navbar-right" ng-hide="userCtrl.userService.isLoggedIn">
-                        <li ng-click="userCtrl.openLogin()"><a href="">Login</a></li>
-                    </ul>
-                </div>
+<div id="masthead">  
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <h1 style="padding-bottom: 33px;text-align: center">Nourriture
+          <p class="lead"></p>
+        </h1>
+      </div>
+<!--      <div class="col-md-5">
+        <div class="well well-lg"> 
+          <div class="row">
+            <div class="col-sm-12">
+              
+			
             </div>
-        </nav>
-
-        <div class="jumbotron" ng-show="userCtrl.showWelcome()" style="background-color: #ffffff">
-            <h1 style="text-align: center">Welcome to Nourriture platform</h1>
-            <img src="uploads/welcome_banner.jpg" style="width: 100%">
+          </div>
         </div>
+      </div>-->
+    </div> 
+  </div><!-- /cont -->
+  
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="top-spacer"> </div>
+      </div>
+    </div> 
+  </div><!-- /cont -->
+  
+</div>
 
-        <!-- Fragments of views -->
-        <div ng-view></div>
 
+<div class="container">
+  <div class="row">
+    
+    <div class="col-md-12"> 
+      
+      <div class="panel">
+        <div class="panel-body">  
+            <div ng-show="userCtrl.showWelcome()">
+                <h1 style="text-align: center; color: inherit">Welcome to Nourriture platform</h1>
+                <img class="indexbanner" src="http://img1.ndsstatic.com/wallpapers/87a9fe4eb19262c0eeb771c127bb6d65_large.jpeg">
+            </div>
+            <div ng-view></div>
+        </div>
+          
+      </div>
+                                                                                       
+	                                                
+                                                      
+   	</div><!--/col-12-->
+  </div>
 
-    </div> <!-- ./container -->
+</div>
+                                                
+<!--                                                                                
+<hr>
 
-    <!--<script src="scripts/vendors/jquery.js"></script>
-    <script src="scripts/vendors/bootstrap.js"></script>-->
+<div class="container" id="footer">
+  <div class="row">
+    <div class="col col-sm-12">
+      
+      <h1>Follow Us</h1>
+      <div class="btn-group">
+       <a class="btn btn-twitter btn-lg" href="#"><i class="icon-twitter icon-large"></i> Twitter</a>
+	   <a class="btn btn-facebook btn-lg" href="#"><i class="icon-facebook icon-large"></i> Facebook</a>
+	   <a class="btn btn-google-plus btn-lg" href="#"><i class="icon-google-plus icon-large"></i> Google+</a>
+      </div>
+      
+    </div>
+  </div>
+</div>
+
+<hr>
+
+<hr>
+
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-6">
+        <ul class="list-inline">
+          <li><i class="icon-facebook icon-2x"></i></li>
+          <li><i class="icon-twitter icon-2x"></i></li>
+          <li><i class="icon-google-plus icon-2x"></i></li>
+          <li><i class="icon-pinterest icon-2x"></i></li>
+        </ul>
+        
+      </div>
+      <div class="col-sm-6">
+          <p class="pull-right">Built with <i class="icon-heart-empty"></i> at <a href="http://www.bootply.com">Bootply</a></p>      
+      </div>
+    </div>
+  </div
+</footer>-->
+
+     </div>
     <script src="components/jquery/dist/jquery.min.js"></script>
     <script src="components/bootstrap/dist/js/bootstrap.min.js"></script>
+
 </body>
 </html>
