@@ -27,7 +27,6 @@ public class AuthentificationFacebook extends Authentification {
 	private UiLifecycleHelper uiHelper;
 	private Context context;
 	private Bundle savedInstanceState;
-	private MainDatas MainActivityDatas;
 	private boolean authenticationProgress;
 
 	private Session.StatusCallback callback = new Session.StatusCallback() {
@@ -54,7 +53,7 @@ public class AuthentificationFacebook extends Authentification {
 							parameters.add(new BasicNameValuePair("name", user.getName()));
 							parameters.add(new BasicNameValuePair("oauthID", user.getId()));
 							((MainActivity)context).saveAuthenticator("facebook", null,null);
-							new getFacebookUserTask(context,MainActivityDatas,parameters).execute();
+							new getFacebookUserTask(context,parameters).execute();
 							isConnected = true;
 						}
 					}
@@ -67,13 +66,12 @@ public class AuthentificationFacebook extends Authentification {
 		}
 	}
 
-	public AuthentificationFacebook(Context context_,Bundle savedInstanceState_, MainDatas MainActivityDatas_) {
+	public AuthentificationFacebook(Context context_,Bundle savedInstanceState_) {
 		type = "facebook";
 		isConnected = false;
 		user = null;
 		context = context_;
 		savedInstanceState = savedInstanceState_;
-		MainActivityDatas = MainActivityDatas_;
 		authenticationProgress = false;
 	}
 

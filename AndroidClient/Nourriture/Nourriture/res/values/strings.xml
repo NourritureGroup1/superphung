@@ -25,6 +25,10 @@
         <item >My profile</item>
         <item >Sign out</item>
         <item >My restricted food</item>
+        <item >Edit my profile</item>
+        <item >Browse Ingredients</item>
+        <item >Browse Users</item>
+        <item >My moments</item>
     </string-array>
     
     <!-- Nav Drawer List Item Icons -->
@@ -35,5 +39,6 @@
         <item>@drawable/sign_out</item>
         <item>@drawable/sign_up</item>
         <item>@drawable/ic_launcher</item>
+        <item>@drawable/ingredient</item>
     </array>
 </resources>

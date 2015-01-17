@@ -21,6 +21,7 @@ import android.widget.GridView;
 import android.widget.Toast;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.superphung.nourriture.Globals;
 import com.superphung.nourriture.R;
 import com.superphung.nourriture.helpers;
 
@@ -33,13 +34,13 @@ public class WorkerRestrictedFood extends AsyncTask<String, Void, String> {
 	private ArrayList<Ingredient> CustomListViewValuesArr;
 	private RestrictedFoodAdapter adapteur;
 	public static final String URL_API = "https://54.64.212.101";
-	private MainDatas MainActivityDatas;
+	//	public static final String URL_API = "https://192.168.0.103:8081";
 
-	public WorkerRestrictedFood(Context c_, View rootView_, ImageLoader imageLoader_, MainDatas MainActivityDatas_) {
+
+	public WorkerRestrictedFood(Context c_, View rootView_, ImageLoader imageLoader_) {
 		context = c_;
 		rootView = rootView_;
 		imageLoader = imageLoader_;
-		MainActivityDatas = MainActivityDatas_;
 		CustomListViewValuesArr = new ArrayList<Ingredient>();
 	}
 
@@ -60,7 +61,6 @@ public class WorkerRestrictedFood extends AsyncTask<String, Void, String> {
 	@Override
 	protected void onPostExecute(String result) {
 		progress.dismiss(); 
-		System.out.println("result =>"+result);
 		if (result.equals("error"))
 		{
 			Toast toast = Toast.makeText(context, "no internet connection available", Toast.LENGTH_SHORT);
@@ -72,25 +72,9 @@ public class WorkerRestrictedFood extends AsyncTask<String, Void, String> {
 			gallery.setOnItemClickListener(new OnItemClickListener() {
 				@Override
 				public void onItemClick(AdapterView<?> arg0, View v, int position, long arg3) {
-					/*	if (CustomListViewValuesArr.get(position).getType().equals("categorie"))
-	            	{
-	                	current_categorie = CustomListViewValuesArr.get(position).getId();
-	                    fetchRestrictedFood();            		
-	            	}
-	            	else
-	            	{
-	            		imageLoader.stop();
-	    				Fragment fragment = null;
-	    				fragment = new SliderPhotosFragment(position, CustomListViewValuesArr, current_categorie);
-	    				if (fragment != null) {
-	    					FragmentManager fragmentManager = getFragmentManager();
-	    					fragmentManager.beginTransaction()
-	    							.replace(R.id.frame_container, fragment).commit();
-	    				}
-	            	}*/
 				}
 			});
-			adapteur = new RestrictedFoodAdapter(context, 0, 0, CustomListViewValuesArr);
+			adapteur = new RestrictedFoodAdapter(context, 0, 0, CustomListViewValuesArr, "");
 			adapteur.setImageLoader(imageLoader);
 			gallery.setAdapter(adapteur);
 			adapteur.notifyDataSetChanged();
@@ -106,9 +90,8 @@ public class WorkerRestrictedFood extends AsyncTask<String, Void, String> {
 		if (helpers.haveNetworkConnection(context))
 		{
 			List<NameValuePair> parameters = new ArrayList<NameValuePair>(2);
-			String readJSON = helpers.getDatas(URL_API+"/user/"+MainActivityDatas.user.getId()+"/rfood",parameters, "GET");
+			String readJSON = helpers.getDatas(URL_API+"/user/"+Globals.MainActivityDatas.user.getId()+"/rfood",parameters, "GET");
 			try{
-				System.out.println(readJSON);
 				if (!helpers.isNumeric(readJSON)) {
 					JSONArray jsonArray = new JSONArray(readJSON);
 					for(int i=0;i<jsonArray.length();i++)

@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.Ingredient;
-import model.MainDatas;
 
 import org.apache.http.NameValuePair;
 import org.json.JSONArray;
@@ -13,7 +12,9 @@ import org.json.JSONObject;
 import adapter.RestrictedFoodAdapter;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
+import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -21,27 +22,28 @@ import android.widget.GridView;
 import android.widget.Toast;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.superphung.nourriture.Globals;
 import com.superphung.nourriture.R;
+import com.superphung.nourriture.SliderElements;
 import com.superphung.nourriture.helpers;
 
-public class WorkerIngredientFood extends AsyncTask<String, Void, String> {
+public class AllowedFoodListingWorker extends AsyncTask<String, Void, String> {
 	private ProgressDialog progress;
 	private Context context;
 	private ArrayList<Ingredient> listAllIngredients;
 	private RestrictedFoodAdapter adapteur;
 	public static final String URL_API = "https://54.64.212.101";
-	private MainDatas MainActivityDatas;
+	//public static final String URL_API = "https://192.168.0.103:8081";
 	private ImageLoader imageLoader;
-	private String type;
 	private View rootview;
+	private String type;
 
-	public WorkerIngredientFood(Context c_, View rootView_,ImageLoader imageLoader_, MainDatas MainActivityDatas_, String type_) {
+	public AllowedFoodListingWorker(Context c_, View rootView_,ImageLoader imageLoader_, String type_) {
 		context = c_;
-		MainActivityDatas = MainActivityDatas_;
 		listAllIngredients = new ArrayList<Ingredient>();
-		type = type_;
 		rootview = rootView_;
 		imageLoader = imageLoader_;
+		type = type_;
 	}
 
 	@Override
@@ -72,30 +74,24 @@ public class WorkerIngredientFood extends AsyncTask<String, Void, String> {
 			gallery.setOnItemClickListener(new OnItemClickListener() {
 				@Override
 				public void onItemClick(AdapterView<?> arg0, View v, int position, long arg3) {
-					/*	if (CustomListViewValuesArr.get(position).getType().equals("categorie"))
-	            	{
-	                	current_categorie = CustomListViewValuesArr.get(position).getId();
-	                    fetchRestrictedFood();            		
-	            	}
-	            	else
-	            	{
-	            		imageLoader.stop();
-	    				Fragment fragment = null;
-	    				fragment = new SliderPhotosFragment(position, CustomListViewValuesArr, current_categorie);
-	    				if (fragment != null) {
-	    					FragmentManager fragmentManager = getFragmentManager();
-	    					fragmentManager.beginTransaction()
-	    							.replace(R.id.frame_container, fragment).commit();
-	    				}
-	            	}*/
 				}
 			});
-			adapteur = new RestrictedFoodAdapter(context, 0, 0, listAllIngredients);
+			adapteur = new RestrictedFoodAdapter(context, 0, 0, listAllIngredients, type);
 			adapteur.setImageLoader(imageLoader);
 			gallery.setAdapter(adapteur);
 			adapteur.notifyDataSetChanged();
+			gallery.setOnItemClickListener(new OnItemClickListener() {
+				@Override
+				public void onItemClick(AdapterView<?> arg0, View v, int position, long arg3) {
+					Intent myIntent = new Intent(context, SliderElements.class);
+					Bundle b = new Bundle();
+					b.putInt("position", position);
+					b.putString("type", type);
+					myIntent.putExtras(b);
+					context.startActivity(myIntent);	
+				}
+			});
 		}
-		progress.dismiss();
 	}
 
 	@Override
@@ -108,31 +104,36 @@ public class WorkerIngredientFood extends AsyncTask<String, Void, String> {
 		{
 			List<NameValuePair> parameters = new ArrayList<NameValuePair>(2);
 			String readJSONIngredients = helpers.getDatas(URL_API+"/ingredient",parameters, "GET");
-			String readJSONUserRestrictedFood = helpers.getDatas(URL_API+"/user/"+MainActivityDatas.user.getId()+"/rfood",parameters, "GET");
+			String readJSONUserRestrictedFood = helpers.getDatas(URL_API+"/user/"+Globals.MainActivityDatas.user.getId()+"/rfood",parameters, "GET");
 			try{
 				JSONArray jsonArrayIngredients = new JSONArray(readJSONIngredients);
-				for(int i=0;i<jsonArrayIngredients.length();i++)
-				{
-					JSONObject curr = jsonArrayIngredients.getJSONObject(i);
-					Ingredient tmp = new Ingredient(curr.getString("_id"),curr.getString("imgUrl"),curr.getString("description"),curr.getString("name"),null,null);	
-					listAllIngredients.add(tmp);				
-				}
 				if (!helpers.isNumeric(readJSONUserRestrictedFood)) {
 					JSONArray jsonArrayUserRestrictedFood = new JSONArray(readJSONUserRestrictedFood);
-					ArrayList<Ingredient> listAllIngredientsTmp = new ArrayList<Ingredient>();
-					for(int i=0;i<jsonArrayUserRestrictedFood.length();i++)
+					for(int i=0;i<jsonArrayIngredients.length();i++)
 					{
-						JSONObject curr = jsonArrayUserRestrictedFood.getJSONObject(i);
-						Ingredient tmp = new Ingredient(curr.getString("_id"),curr.getString("imgUrl"),curr.getString("description"),curr.getString("name"),null,null);	
-
-						for(int index=0;index < listAllIngredients.size();++index) {
-							if (!tmp.getId().equals(listAllIngredients.get(index).getId())) {
-								System.out.println("je compare le "+tmp.getName()+"et le "+listAllIngredients.get(index).getName());
-								listAllIngredientsTmp.add(listAllIngredients.get(index));
+						JSONObject curr_all = jsonArrayIngredients.getJSONObject(i);
+						Ingredient tmp_all = new Ingredient(curr_all.getString("_id"),curr_all.getString("imgUrl"),curr_all.getString("description"),curr_all.getString("name"),null,null);							
+						boolean isforbidden = false;
+						for(int index=0;index < jsonArrayUserRestrictedFood.length();index++)
+						{
+							JSONObject curr = jsonArrayUserRestrictedFood.getJSONObject(index);
+							Ingredient tmp = new Ingredient(curr.getString("_id"),curr.getString("imgUrl"),curr.getString("description"),curr.getString("name"),null,null);	
+							if (tmp_all.getId().equals(tmp.getId())) {
+								isforbidden = true;
 							}
 						}
+						if (isforbidden == false) {
+							listAllIngredients.add(tmp_all);							
+						}
 					}
-					listAllIngredients = listAllIngredientsTmp;
+				}
+				else {
+					for(int i=0;i<jsonArrayIngredients.length();i++)
+					{
+						JSONObject curr_all = jsonArrayIngredients.getJSONObject(i);
+						Ingredient tmp_all = new Ingredient(curr_all.getString("_id"),curr_all.getString("imgUrl"),curr_all.getString("description"),curr_all.getString("name"),null,null);							
+						listAllIngredients.add(tmp_all);	
+					}
 				}
 			} catch(Exception e){e.printStackTrace();}
 			finally{System.out.println("Success");}

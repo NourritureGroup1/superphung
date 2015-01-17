@@ -8,9 +8,12 @@ import android.widget.TextView;
 public class Holder {            
 	public static class ViewHolder {            
 	    public TextView name;            
-	    public TextView description;                
+	    public TextView description;          
+	    public TextView date;             
 	    public ImageView img;      
 	    public ImageView indicator;
+	    public ImageView like;
+	    public ImageView dislike;
 	    public GridView grid;
 	    //public ExpandableHeightGridView gridhi;
 	    public ProgressBar progressBar;  

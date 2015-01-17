@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:padding="1dip" >
+
+    <ScrollView
+        android:id="@+id/scrollView1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <LinearLayout
+            android:id="@+id/first"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+            <TextView
+                android:id="@+id/name"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/blue"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+            <ImageView
+                android:id="@+id/image"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:adjustViewBounds="true" />
+
+            <ProgressBar
+                android:id="@+id/loading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:visibility="gone" />
+            <Button
+                android:id="@+id/addrfood"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Add restricted food"
+                android:visibility="gone"
+        		android:background="@drawable/square_button_likes"
+        		android:textColor="@color/white_color"
+                android:adjustViewBounds="true" />
+            <Button
+                android:id="@+id/removerfood"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Remove restricted food"
+                android:visibility="gone"
+        		android:background="@drawable/square_button_restricted"
+        		android:textColor="@color/white_color"
+                android:adjustViewBounds="true" />
+            <Button
+                android:id="@+id/like"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Like"
+                android:visibility="gone"
+        		android:background="@drawable/square_button_likes"
+        		android:textColor="@color/white_color"
+                android:adjustViewBounds="true" />
+            <Button
+                android:id="@+id/dislike"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Dislike"
+                android:visibility="gone"
+        		android:background="@drawable/square_button_restricted"
+        		android:textColor="@color/white_color"
+                android:adjustViewBounds="true" />
+            <TextView
+                android:id="@+id/description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/blue"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+        </LinearLayout>
+    </ScrollView>
+
+</FrameLayout>

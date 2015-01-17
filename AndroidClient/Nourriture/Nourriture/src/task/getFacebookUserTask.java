@@ -13,20 +13,19 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.widget.Toast;
 
+import com.superphung.nourriture.Globals;
 import com.superphung.nourriture.MainActivity;
 import com.superphung.nourriture.helpers;
 
 public class getFacebookUserTask extends AsyncTask<String, String, String> {
 	private Context context;
 	private User user;
-	private MainDatas mainDatas;
 	private List<NameValuePair>parameters;
 	private ProgressDialog progress;
 
-	public getFacebookUserTask(Context context_, MainDatas mainActivityDatas,List<NameValuePair>params_)
+	public getFacebookUserTask(Context context_, List<NameValuePair>params_)
 	{
 		context = context_;
-		mainDatas = mainActivityDatas;
 		parameters = params_;
 	}
 
@@ -45,13 +44,14 @@ public class getFacebookUserTask extends AsyncTask<String, String, String> {
 		if (helpers.haveNetworkConnection(context))
 		{
 			String readJSON = null;
-			readJSON = helpers.getDatas(mainDatas.urls.get("POST").get("signin_oauth"),parameters,"POST");
+			readJSON = helpers.getDatas(Globals.MainActivityDatas.urls.get("POST").get("signin_oauth"),parameters,"POST");
 			if (helpers.isNumeric(readJSON))
 				return readJSON;
 			try{
 				JSONObject datas = new JSONObject(readJSON);
 				user = new User(datas.get("_id").toString(), datas.get("name").toString(),
 						datas.get("role").toString(),datas.get("email").toString(), datas.get("oauthID").toString(), "facebook");
+				user.fillDatas(datas);
 				return "success";
 			} catch(Exception e){e.printStackTrace();}
 			finally{}

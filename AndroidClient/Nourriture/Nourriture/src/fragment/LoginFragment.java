@@ -35,11 +35,9 @@ import com.superphung.nourriture.helpers;
 public class LoginFragment extends Fragment implements OnClickListener {
 	private Context context;
 	private View rootView;
-	private MainDatas MainActivityDatas;
 	private Bundle savedInstanceState;
 
-	public LoginFragment(MainDatas mainDatas_){
-		MainActivityDatas = mainDatas_;
+	public LoginFragment(){
 	}
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -83,7 +81,7 @@ public class LoginFragment extends Fragment implements OnClickListener {
 
 	private void registration() {				
 		Fragment fragment = null;
-		fragment = new RegisterFragment(MainActivityDatas);
+		fragment = new RegisterFragment();
 		if (fragment != null) {
 			FragmentManager fragmentManager = getFragmentManager();
 			fragmentManager.beginTransaction()
@@ -105,7 +103,7 @@ public class LoginFragment extends Fragment implements OnClickListener {
 			return ;
 		}
 		else {
-			((MainActivity) context).auth = new AuthentificationLocal(context, MainActivityDatas, email, password);
+			((MainActivity) context).auth = new AuthentificationLocal(context, email, password);
 			((MainActivity) context).auth.proceedAuthentication();
 		}
 	}
@@ -116,7 +114,7 @@ public class LoginFragment extends Fragment implements OnClickListener {
 				return ;
 		int resultCode = GooglePlayServicesUtil.isGooglePlayServicesAvailable(context);
 		if (resultCode == ConnectionResult.SUCCESS) {
-			((MainActivity)context).auth = new AuthentificationGoogle(context, MainActivityDatas);
+			((MainActivity)context).auth = new AuthentificationGoogle(context);
 			((MainActivity)context).auth.init();
 			((MainActivity)context).auth.start();
 			((MainActivity)context).auth.proceedAuthentication();
@@ -131,7 +129,7 @@ public class LoginFragment extends Fragment implements OnClickListener {
 		if (((MainActivity) context).auth != null)
 			if (((MainActivity) context).auth.isAuthenticationInProgress())
 				return ;
-		((MainActivity)context).auth = new AuthentificationFacebook(context, savedInstanceState, MainActivityDatas);
+		((MainActivity)context).auth = new AuthentificationFacebook(context, savedInstanceState);
 		((MainActivity)context).auth.init();
 	}
 	

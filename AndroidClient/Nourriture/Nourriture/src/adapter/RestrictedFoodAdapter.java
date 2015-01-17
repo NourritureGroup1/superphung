@@ -23,25 +23,27 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingProgressListener;
 import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
+import com.superphung.nourriture.Globals;
 import com.superphung.nourriture.R;
 
 public class RestrictedFoodAdapter extends ArrayAdapter<Ingredient> implements Filterable {
 	private Context context;
-	private List<Ingredient> CustomListViewValuesArr = new ArrayList<Ingredient>();
 	@SuppressWarnings("unused")
 	private ViewHolder holder;  
 	private DisplayImageOptions options;
 	private ImageLoader imageLoader;
 	private boolean checked;
+	private String type;
 
 
 	public RestrictedFoodAdapter(Context context_, int resource,
-			int textViewResourceId, List<Ingredient> objects) {
+			int textViewResourceId, List<Ingredient> objects, String type_) {
 		super(context_, resource, textViewResourceId, objects);
 		// TODO Auto-generated constructor stub
 		context = context_;
-		CustomListViewValuesArr = objects;
+		Globals.rfood = objects;
 		checked = false;
+		type = type_;
 		//imageLoader = imageLoader_;
 	}
 	
@@ -49,16 +51,11 @@ public class RestrictedFoodAdapter extends ArrayAdapter<Ingredient> implements F
 		imageLoader = imageLoader_;
 	}
 	
-	/*public RestrictedFoodAdapter(Context c, ArrayList<Ingredient> CustomListViewValuesArr_,ImageLoader imageLoader_) {
-		context = c;
-		CustomListViewValuesArr = CustomListViewValuesArr_;
-		imageLoader = imageLoader_;
-	}*/
 	public int getCount() {
-		return CustomListViewValuesArr.size();
+		return Globals.rfood.size();
 	}
 	public Ingredient getItem(int position) {
-		return CustomListViewValuesArr.get(position);
+		return Globals.rfood.get(position);
 	}
 	public long getItemId(int position) {
 		return position;
@@ -80,19 +77,19 @@ public class RestrictedFoodAdapter extends ArrayAdapter<Ingredient> implements F
 		} else {
 			holder = (ViewHolder) view.getTag();
 		}
-		if (CustomListViewValuesArr.get(position).getImg() != null)
+		if (Globals.rfood.get(position).getImg() != null)
 		{
 			holder.progressBar.setVisibility(View.GONE);
 			holder.img.setVisibility(View.VISIBLE);    	
 			holder.indicator.setVisibility(View.VISIBLE);    	
-			holder.img.setImageBitmap(CustomListViewValuesArr.get(position).getImg()); 
+			holder.img.setImageBitmap(Globals.rfood.get(position).getImg()); 
 			holder.indicator.setBackground(context.getResources().getDrawable(R.drawable.uncheckbox));		
 		}
 		else
 		{
-			if (CustomListViewValuesArr.get(position).getImg() == null)
+			if (Globals.rfood.get(position).getImg() == null)
 			{
-				imageLoader.displayImage(CustomListViewValuesArr.get(position).getImgUrl(), holder.img, options, new SimpleImageLoadingListener() {
+				imageLoader.displayImage(Globals.rfood.get(position).getImgUrl(), holder.img, options, new SimpleImageLoadingListener() {
 					@Override
 					public void onLoadingStarted(String imageUri, View view) {
 						holder.progressBar.setProgress(0);
@@ -105,11 +102,12 @@ public class RestrictedFoodAdapter extends ArrayAdapter<Ingredient> implements F
 					}
 					@Override
 					public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
-						CustomListViewValuesArr.get(position).setImg(loadedImage);
+						Globals.rfood.get(position).setImg(loadedImage);
 						holder.indicator.setBackground(context.getResources().getDrawable(R.drawable.uncheckbox));		
 						holder.progressBar.setVisibility(View.GONE);
 						holder.img.setVisibility(View.VISIBLE);
-						holder.indicator.setVisibility(View.VISIBLE);   
+						if (!type.equals("browse"))
+							holder.indicator.setVisibility(View.VISIBLE);   
 					}
 				}, new ImageLoadingProgressListener() {
 					@Override
@@ -123,25 +121,31 @@ public class RestrictedFoodAdapter extends ArrayAdapter<Ingredient> implements F
 			else
 			{
 				holder.progressBar.setVisibility(View.GONE);
-				holder.indicator.setVisibility(View.VISIBLE);   
-				holder.img.setImageBitmap(CustomListViewValuesArr.get(position).getImg());
+				if (!type.equals("browse"))
+					holder.indicator.setVisibility(View.VISIBLE);   
+				holder.img.setImageBitmap(Globals.rfood.get(position).getImg());
 			}
+		}		
+		holder.name.setText(Globals.rfood.get(position).getName());
+		if (!type.equals("browse"))
+		{
+			holder.indicator.setOnClickListener(new OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					if (checked) {
+						holder.indicator.setBackground(context.getResources().getDrawable(R.drawable.uncheckbox));					
+						checked = false;
+						Globals.rfood.get(position).setChecked(false);
+					}
+					else {
+						holder.indicator.setBackground(context.getResources().getDrawable(R.drawable.checkbox));					
+						checked = true;
+						Globals.rfood.get(position).setChecked(true);
+					}
+				}
+			});			
 		}
-		holder.name.setText(CustomListViewValuesArr.get(position).getName());
-		holder.img.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				if (checked) {
-					holder.indicator.setBackground(context.getResources().getDrawable(R.drawable.uncheckbox));					
-					checked = false;
-				}
-				else {
-					holder.indicator.setBackground(context.getResources().getDrawable(R.drawable.checkbox));					
-					checked = true;
-				}
-			}
-		});
 		return view;
 	}
 }

@@ -21,6 +21,9 @@ import android.widget.ListView;
 import com.superphung.nourriture.MainActivity;
 import com.superphung.nourriture.R;
 
+import fragment.BrowseIngredientsFragment;
+import fragment.ListMyMomentsFragment;
+import fragment.ListUserFragment;
 import fragment.LoginFragment;
 import fragment.ProfileFragment;
 import fragment.RegisterFragment;
@@ -40,7 +43,7 @@ public class MainDatas {
 	private Context context;
 
 	public String API_URL = "https://54.64.212.101";	
-	//public String API_URL = "https://192.168.0.103";
+	//public String API_URL = "https://192.168.0.103:8081";
 
 
 	public void init(Context context_,Bundle savedInstanceState) {
@@ -73,11 +76,14 @@ public class MainDatas {
 		Map<String, String> url_request_delete = new HashMap<String, String>();
 
 		url_request_post.put("login", API_URL+"/login");
-		url_request_post.put("user", API_URL+"/user"); 
+		url_request_post.put("user", API_URL+"/user");
 		url_request_post.put("signup", API_URL+"/signup"); 
 		url_request_post.put("signin_oauth", API_URL+"/user/social"); 
-
+		url_request_post.put("share_moment", API_URL+"/moment"); 
+		
+		url_request_put.put("user", API_URL+"/user"); 
 		url_request_get.put("user", API_URL+"/user"); 
+		url_request_get.put("ingredient", API_URL+"/ingredient"); 
 
 		urls.put("POST", url_request_post);
 		urls.put("PUT", url_request_put);
@@ -110,6 +116,9 @@ public class MainDatas {
 		navDrawerItems = new ArrayList<NavDrawerItem>();
 
 		navDrawerItems.add(new NavDrawerItem(navMenuTitles[2], navMenuIcons.getResourceId(0, -1)));
+		navDrawerItems.add(new NavDrawerItem(navMenuTitles[8], navMenuIcons.getResourceId(5, -1)));
+		navDrawerItems.add(new NavDrawerItem(navMenuTitles[6], navMenuIcons.getResourceId(5, -1)));
+		navDrawerItems.add(new NavDrawerItem(navMenuTitles[7], navMenuIcons.getResourceId(0, -1)));
 		navDrawerItems.add(new NavDrawerItem(navMenuTitles[3], navMenuIcons.getResourceId(2, -1)));
 
 		navMenuIcons.recycle();
@@ -134,9 +143,18 @@ public class MainDatas {
 			Log.e("MainActivity", "JE  SUIS  CO");
 			switch (position) {
 			case 0:
-				fragment = new ProfileFragment(context, this);
+				fragment = new ProfileFragment(context);
 				break;
 			case 1:
+				fragment = new ListMyMomentsFragment();
+				break;
+			case 2:
+				fragment = new BrowseIngredientsFragment();
+				break;
+			case 3:
+				fragment = new ListUserFragment();
+				break;
+			case 4:
 				((MainActivity) context).restartActivity();
 				//fragment = new LoginFragment(this);
 				break;
@@ -148,10 +166,10 @@ public class MainDatas {
 			Log.e("MainActivity", "JE NE SUIS PAS CO");
 			switch (position) {
 			case 0:
-				fragment = new LoginFragment(this);
+				fragment = new LoginFragment();
 				break;
 			case 1:
-				fragment = new RegisterFragment(this);
+				fragment = new RegisterFragment();
 				break;
 			default:
 				break;
