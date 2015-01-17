@@ -142,6 +142,16 @@ exports.delete = function(req, res) {
     });
 };
 
+exports.deleteAndroid = function(req, res) {
+    Ingredient.remove({ _id : req.body.id }, function(err) {
+        if (err) {
+            error.logError(req, res, err);
+            return res.status(500).send(err);
+        }
+        res.status(200).json({ message: "Successfully deleted" });
+    });
+};
+
 exports.upload = function(req, res) {
     Ingredient.findById(req.body.idCreation, function(err, ingredient) {
         if (err) {

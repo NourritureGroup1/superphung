@@ -13,6 +13,7 @@ module.exports = function (app) {
     app.get("/ingredient/:name/psearch", ingredient.getByPartialName);
     app.put("/ingredient/:id", ingredient.update);
     app.delete("/ingredient/:id", ingredient.delete);
+    app.post("/ingredientDeleteAndroid", ingredient.deleteAndroid);
 
     app.post("/uploadsIngredients", ingredient.upload);
 };
