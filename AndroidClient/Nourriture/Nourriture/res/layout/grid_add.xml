@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/container"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@android:color/white"
+>
+        <GridView
+            android:id="@+id/gridview"
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentTop="true"
+            android:gravity="center"
+            android:numColumns="auto_fit"
+            android:stretchMode="columnWidth" >
+
+    </GridView>
+
+    <ImageView
+        android:id="@+id/expanded_image"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:visibility="invisible"/>
+
+    <ProgressBar
+        android:id="@+id/progress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:indeterminate="false"
+        android:visibility="invisible"
+        android:max="100" />z
+    <RadioGroup
+        android:id="@+id/radiogroup"
+        android:layout_width="fill_parent"
+        android:layout_height="60dp"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal"
+        android:background="@drawable/navbar_background"
+    >
+        <RadioButton
+            android:id="@+id/add"
+            style="@style/navbar_button"
+            android:drawableTop="@drawable/check"
+            android:text="All"
+        />
+        <RadioButton
+            android:id="@+id/delete"
+            style="@style/navbar_button"
+            android:drawableTop="@drawable/clear_button"
+            android:text="Pictures"
+            android:layout_marginLeft="5dp"
+        />
+        <RadioButton
+            android:id="@+id/refresh"
+            style="@style/navbar_button"
+            android:drawableTop="@drawable/return_button"
+            android:text="Videos"
+            android:layout_marginLeft="5dp"
+        />
+    </RadioGroup>
+    
+    
+    <LinearLayout
+        android:id="@+id/floatingmenu"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:background="@drawable/laysemitransparentwithborders"
+        android:orientation="vertical"
+        android:layout_marginBottom="-4dp"
+        android:visibility="gone"
+    >
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="5dp"
+            android:paddingTop="15dp"
+            android:paddingBottom="15dp"
+            android:text="Contacts"
+            android:textColor="#ffffff"
+            android:textSize="16dp"
+        />
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:background="#ff999999"
+        />
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="5dp"
+            android:paddingTop="15dp"
+            android:paddingBottom="15dp"
+            android:text="Calendar"
+            android:textColor="#ffffff"
+            android:textSize="16dp"
+        />
+    </LinearLayout>
+</RelativeLayout>

@@ -19,22 +19,21 @@ import android.widget.Toast;
 import com.google.android.gms.auth.GoogleAuthException;
 import com.google.android.gms.auth.GoogleAuthUtil;
 import com.google.android.gms.auth.UserRecoverableAuthException;
+import com.superphung.nourriture.Globals;
 import com.superphung.nourriture.MainActivity;
 import com.superphung.nourriture.helpers;
 
 public class RegisterTask extends AsyncTask<String, String, String> {
 	private Context context;
 	private User user;
-	private MainDatas mainDatas;
 	private List<NameValuePair> parameters;
 	private String type;
 	private ProgressDialog progress;
 
-	public RegisterTask(List<NameValuePair> parameters_, Context context_, MainDatas mainActivityDatas, String type_)
+	public RegisterTask(List<NameValuePair> parameters_, Context context_, String type_)
 	{
 		parameters = parameters_;
 		context = context_;
-		mainDatas = mainActivityDatas;
 		type = type_;
 	}
 
@@ -50,12 +49,15 @@ public class RegisterTask extends AsyncTask<String, String, String> {
 
 	@Override
 	protected String doInBackground(String... params) {
+		System.out.println("1type : "+type);
 		if (helpers.haveNetworkConnection(context))
 		{
 			String readJSON = null;
+			System.out.println("type : "+type);
 			if (type == "google") 
 				setAccessTokenGoogle();
-			readJSON = helpers.getDatas(mainDatas.urls.get("POST").get("signup"),parameters,"POST");
+			System.out.println("type2 : "+type);
+			readJSON = helpers.getDatas(Globals.MainActivityDatas.urls.get("POST").get("signup"),parameters,"POST");
 			System.out.println(readJSON);
 			if (helpers.isNumeric(readJSON))
 				return readJSON;

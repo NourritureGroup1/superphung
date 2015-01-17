@@ -19,20 +19,19 @@ import android.widget.Toast;
 import com.google.android.gms.auth.GoogleAuthException;
 import com.google.android.gms.auth.GoogleAuthUtil;
 import com.google.android.gms.auth.UserRecoverableAuthException;
+import com.superphung.nourriture.Globals;
 import com.superphung.nourriture.MainActivity;
 import com.superphung.nourriture.helpers;
 
 public class getGoogleUserTask extends AsyncTask<String, String, String> {
 	private Context context;
 	private User user;
-	private MainDatas mainDatas;
 	private List<NameValuePair>parameters;
 	private ProgressDialog progress;
 
-	public getGoogleUserTask(Context context_, MainDatas mainActivityDatas,List<NameValuePair>params_)
+	public getGoogleUserTask(Context context_,List<NameValuePair>params_)
 	{
 		context = context_;
-		mainDatas = mainActivityDatas;
 		parameters = params_;
 	}
 
@@ -61,13 +60,14 @@ public class getGoogleUserTask extends AsyncTask<String, String, String> {
 			} catch (GoogleAuthException e) {
 				Log.e("error:", e.getMessage());
 			}
-			readJSON = helpers.getDatas(mainDatas.urls.get("POST").get("signin_oauth"),parameters,"POST");
+			readJSON = helpers.getDatas(Globals.MainActivityDatas.urls.get("POST").get("signin_oauth"),parameters,"POST");
 			if (helpers.isNumeric(readJSON))
 				return readJSON;
 			try{
 				JSONObject datas = new JSONObject(readJSON);
 				user = new User(datas.get("_id").toString(), datas.get("name").toString(),
 						datas.get("role").toString(),datas.get("email").toString(), datas.get("oauthID").toString(), "google");
+				user.fillDatas(datas);
 				return "success";
 			} catch(Exception e){e.printStackTrace();}
 			finally{}

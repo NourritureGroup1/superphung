@@ -11,18 +11,19 @@
 	    android:orientation="vertical"
 	    android:padding="5dp" >
 	    <ImageView
-	        android:id="@+id/image"
-	        android:layout_width="100dp"
-	        android:layout_height="100dp"
-	        android:visibility="gone"
-	        android:layout_marginRight="10dp" >
-	    </ImageView>
-	    <ImageView
 	        android:id="@+id/checkindicator"
 	        android:layout_width="25dp"
 	        android:layout_height="25dp"
 	        android:visibility="gone"
 	        android:layout_alignRight="@+id/image">
+	    </ImageView>
+	    <ImageView
+	        android:id="@+id/image"
+	        android:layout_below="@+id/checkindicator"
+	        android:layout_width="100dp"
+	        android:layout_height="100dp"
+	        android:visibility="gone"
+	        android:layout_marginRight="10dp" >
 	    </ImageView>
     </RelativeLayout>
     

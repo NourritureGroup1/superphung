@@ -28,17 +28,15 @@ public class AuthentificationGoogle extends Authentification implements Connecti
 	private static final int RC_SIGN_IN = 0;
 	private GoogleApiClient mGoogleApiClient;
 	private Context context;
-	private MainDatas MainActivityDatas;
 	private boolean mIntentInProgress;
 	private ConnectionResult mConnectionResult;
 	private boolean authenticationProgress;
 
-	public AuthentificationGoogle(Context context_,MainDatas MainActivityDatas_) {
+	public AuthentificationGoogle(Context context_ ) {
 		type = "google";
 		isConnected = false;
 		user = null;
 		context = context_;
-		MainActivityDatas = MainActivityDatas_;
 		authenticationProgress = false;
 	}
 
@@ -97,7 +95,7 @@ public class AuthentificationGoogle extends Authentification implements Connecti
 			List<NameValuePair> parameters = new ArrayList<NameValuePair>(2);
 			parameters.add(new BasicNameValuePair("email", email));
 			parameters.add(new BasicNameValuePair("name", personName));
-			AsyncTask<String, String, String> googleUser = new getGoogleUserTask(context,MainActivityDatas,parameters);
+			AsyncTask<String, String, String> googleUser = new getGoogleUserTask(context,parameters);
 			((MainActivity)context).saveAuthenticator("google", null,null);
 			googleUser.execute();
 			authenticationProgress = false;

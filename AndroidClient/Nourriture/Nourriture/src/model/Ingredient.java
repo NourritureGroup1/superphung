@@ -12,7 +12,9 @@ public class Ingredient {
     private List<String> nutrients;
     private String imgUrl;
     private Bitmap img;
-	public static final String URL_API = "https://54.64.212.101";//"https://192.168.0.103:8081";
+	private boolean checked;
+	public static final String URL_API = "https://54.64.212.101";
+	//public static final String URL_API = "https://192.168.0.103:8081";
 
     
     public Ingredient(String id_, String imgUrl_, String description_, String name_, List<String> category_, List<String> nutrients_) {
@@ -78,4 +80,15 @@ public class Ingredient {
     public Bitmap getImg() {
     	return img;
     }
+
+
+
+	public void setChecked(boolean b) {
+		// TODO Auto-generated method stub
+		checked = b;
+	}
+	
+	public boolean getChecked() {
+		return checked;
+	}
 }

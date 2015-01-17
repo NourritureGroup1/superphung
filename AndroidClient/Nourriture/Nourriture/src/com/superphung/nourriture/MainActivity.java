@@ -29,7 +29,6 @@ import android.widget.Toast;
 import fragment.ProfileFragment;
 
 public class MainActivity extends Activity {
-	private MainDatas MainActivityDatas = new MainDatas();
 	public Authentification auth;
 	private Bundle savedI;
 
@@ -42,7 +41,8 @@ public class MainActivity extends Activity {
 		setContentView(R.layout.activity_main);
 		//((MyApplication) getApplication()).getTracker(MyApplication.TrackerName.APP_TRACKER);
 		savedI = savedInstanceState;
-		MainActivityDatas.init(this,savedInstanceState);
+		Globals.MainActivityDatas = new MainDatas();
+		Globals.MainActivityDatas.init(this,savedInstanceState);
 		loadAuthenticator();
 	}
 
@@ -66,13 +66,13 @@ public class MainActivity extends Activity {
 			System.out.println("mon dernier email est :"+email);
 			System.out.println("mon dernier password est :"+password);
 			if (auth_type.contains("facebook")) {
-				auth = new AuthentificationFacebook(this, savedI, MainActivityDatas);
+				auth = new AuthentificationFacebook(this, savedI);
 				auth.init();
 			}
 			else if (auth_type.contains("google")) {
 				int resultCode = GooglePlayServicesUtil.isGooglePlayServicesAvailable(this);
 				if (resultCode == ConnectionResult.SUCCESS) {
-					auth = new AuthentificationGoogle(this, MainActivityDatas);
+					auth = new AuthentificationGoogle(this);
 					auth.init();
 					auth.start();
 					auth.proceedAuthentication();
@@ -83,7 +83,7 @@ public class MainActivity extends Activity {
 				}
 			}
 			else if (auth_type.contains("locale")) {
-				auth = new AuthentificationLocal(this, MainActivityDatas, email, password);
+				auth = new AuthentificationLocal(this, email, password);
 				auth.init();
 				auth.proceedAuthentication();
 			}
@@ -98,7 +98,7 @@ public class MainActivity extends Activity {
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		if (MainActivityDatas.mDrawerToggle.onOptionsItemSelected(item)) {
+		if (Globals.MainActivityDatas.mDrawerToggle.onOptionsItemSelected(item)) {
 			return true;
 		}
 		if (item.getItemId() == R.id.action_settings)
@@ -110,7 +110,7 @@ public class MainActivity extends Activity {
 	@Override
 	public boolean onPrepareOptionsMenu(Menu menu) {
 		boolean drawerOpen;
-		drawerOpen = MainActivityDatas.mDrawerLayout.isDrawerOpen(MainActivityDatas.mDrawerList);
+		drawerOpen = Globals.MainActivityDatas.mDrawerLayout.isDrawerOpen(Globals.MainActivityDatas.mDrawerList);
 		menu.findItem(R.id.action_settings).setVisible(!drawerOpen);
 		return super.onPrepareOptionsMenu(menu);
 	}
@@ -137,27 +137,27 @@ public class MainActivity extends Activity {
 
 	@Override
 	public void setTitle(CharSequence title) {
-		MainActivityDatas.mTitle = title;
+		Globals.MainActivityDatas.mTitle = title;
 		getActionBar().setTitle(title);
 	}
 
 	@Override
 	protected void onPostCreate(Bundle savedInstanceState) {
 		super.onPostCreate(savedInstanceState);
-		MainActivityDatas.mDrawerToggle.syncState();
+		Globals.MainActivityDatas.mDrawerToggle.syncState();
 	}
 
 	@Override
 	public void onConfigurationChanged(Configuration newConfig) {
 		super.onConfigurationChanged(newConfig);
-		MainActivityDatas.mDrawerToggle.onConfigurationChanged(newConfig);
+		Globals.MainActivityDatas.mDrawerToggle.onConfigurationChanged(newConfig);
 	}
 
 	public void loginUser(User user_) {
-		MainActivityDatas.user = user_;
-		MainActivityDatas.getUserMenuConnected();
+		Globals.MainActivityDatas.user = user_;
+		Globals.MainActivityDatas.getUserMenuConnected();
 		Fragment fragment = null;
-		fragment = new ProfileFragment(this,MainActivityDatas);
+		fragment = new ProfileFragment(this);
 		if (fragment != null) {
 			FragmentManager fragmentManager = getFragmentManager();
 			fragmentManager.beginTransaction()
@@ -212,5 +212,10 @@ public class MainActivity extends Activity {
 		super.onResume();
 		if (auth != null)
 			auth.onResume();
+	}
+	
+	@Override
+	public void onBackPressed() {
+		moveTaskToBack(true);
 	}
 }

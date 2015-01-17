@@ -40,7 +40,6 @@
             android:layout_marginTop="8dp"
             android:ems="10"
             android:inputType="textPassword" >
-            <requestFocus />
         </EditText>
 	</LinearLayout>
     <LinearLayout

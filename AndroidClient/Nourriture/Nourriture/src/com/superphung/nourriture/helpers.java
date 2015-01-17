@@ -22,6 +22,7 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.HttpPut;
 import org.apache.http.conn.ClientConnectionManager;
 import org.apache.http.conn.scheme.Scheme;
 import org.apache.http.conn.scheme.SchemeRegistry;
@@ -79,13 +80,13 @@ public class helpers {
 	}
 
 	public static String getDatas(String address, List<NameValuePair> parameters, String type_request){
-
 		HttpResponse response = null;
 		HttpClient client = new DefaultHttpClient();
 		client = sslClient(client);
 
 		StringBuilder builder = new StringBuilder();
 		if (type_request == "POST") {
+			System.out.println("ip>"+address);
 			HttpPost httpPost = new HttpPost(address);
 			try {
 				httpPost.setEntity(new UrlEncodedFormEntity(parameters));
@@ -95,6 +96,24 @@ public class helpers {
 			}
 			try {
 				response = client.execute(httpPost);
+			} catch (ClientProtocolException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		else if(type_request == "PUT") {
+			HttpPut httpPut = new HttpPut(address);
+			try {
+				httpPut.setEntity(new UrlEncodedFormEntity(parameters));
+			} catch (UnsupportedEncodingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			try {
+				response = client.execute(httpPut);
 			} catch (ClientProtocolException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

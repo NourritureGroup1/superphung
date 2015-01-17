@@ -30,10 +30,8 @@ import com.superphung.nourriture.MyApplication.TrackerName;
 public class RegisterFragment extends Fragment implements OnClickListener {
 	private Context context;
 	private View rootView;
-	private MainDatas MainActivityDatas;
 
-	public RegisterFragment(MainDatas mainDatas_){
-		MainActivityDatas = mainDatas_;
+	public RegisterFragment(){
 	}
 
 	@Override
@@ -68,7 +66,7 @@ public class RegisterFragment extends Fragment implements OnClickListener {
 			parameters.add(new BasicNameValuePair("name", name));
 			parameters.add(new BasicNameValuePair("password", password));
 			parameters.add(new BasicNameValuePair("role", "consumer"));
-			new RegisterTask(parameters, context,MainActivityDatas,"local").execute();
+			new RegisterTask(parameters, context,"local").execute();
 		}
 	}
 	

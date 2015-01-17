@@ -15,24 +15,23 @@ import android.os.Bundle;
 import android.widget.Toast;
 
 import com.facebook.Session;
+import com.superphung.nourriture.Globals;
 import com.superphung.nourriture.MainActivity;
 import com.superphung.nourriture.helpers;
 
 public class AuthentificationLocal extends Authentification {
 	private Context context;
-	private MainDatas MainActivityDatas;
 	private String email;
 	private String password;
 	private User user;
 	private String type;
 	private boolean authenticationProgress;
 
-	public AuthentificationLocal(Context context_,MainDatas MainActivityDatas_, String email_, String password_) {
+	public AuthentificationLocal(Context context_, String email_, String password_) {
 		type = "local";
 		isConnected = false;
 		user = null;
 		context = context_;
-		MainActivityDatas = MainActivityDatas_;
 		email = email_;
 		password = password_;
 		authenticationProgress = false;
@@ -70,7 +69,6 @@ public class AuthentificationLocal extends Authentification {
 		@Override
 		protected  void onPreExecute()
 		{
-			//showing a dialog to tell the user we are authenticating him
 			progress = new ProgressDialog(context);
 			progress.setTitle("Wait a moment");
 			progress.setMessage("Authentication in progress...");
@@ -79,24 +77,20 @@ public class AuthentificationLocal extends Authentification {
 
 		@Override
 		protected String doInBackground(String... params) {
-			System.out.println("je test ma co");
 			if (helpers.haveNetworkConnection(context))
 			{
-				System.out.println("je test ma co2");
 				List<NameValuePair> parameters = new ArrayList<NameValuePair>(2);
 				parameters.add(new BasicNameValuePair("email", email));
 				parameters.add(new BasicNameValuePair("password", password));
 				String readJSON = null;
-				System.out.println("je test ma co3");
-				readJSON = helpers.getDatas(MainActivityDatas.urls.get("POST").get("login"),parameters,"POST");
+				readJSON = helpers.getDatas(Globals.MainActivityDatas.urls.get("POST").get("login"),parameters,"POST");
 				System.out.println(readJSON);
-				System.out.println("je test ma co4");
-				
 				if (helpers.isNumeric(readJSON))
 					return readJSON;
 				try{
 					JSONObject datas = new JSONObject(readJSON);
-					user = new User(datas.get("_id").toString(),datas.get("name").toString(),datas.get("role").toString(),email, password);
+					user = new User(datas.get("_id").toString(),datas.get("name").toString(),datas.get("role").toString(),email, datas.get("password").toString());
+					user.fillDatas(datas);
 					return "success";
 				} catch(Exception e){e.printStackTrace();}
 				finally{}
@@ -150,7 +144,6 @@ public class AuthentificationLocal extends Authentification {
 
 	@Override
 	public boolean isAuthenticationInProgress() {
-		// TODO Auto-generated method stub
 		return authenticationProgress;
 	}
 }
