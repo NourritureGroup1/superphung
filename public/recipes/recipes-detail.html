@@ -1,25 +1,62 @@
-<div class="container">
+<div style="width: 100%;text-align: center;">
     <div class="alert alert-info" ng-show="recipesDetailCtrl.showLike()">You like this recipe</div>
-    <div class="media">
-        <a class="pull-left">
-            <img class="media-object" ng-src="{{recipesDetailCtrl.recipe.imgUrl}}" width="120px" height="120px" alt="recipe">
+    <div class="media" style="display: inline-block;">
+        <a>
+            <img style="margin-bottom: 20px;" class="media-object img-circle" ng-src="{{recipesDetailCtrl.recipe.imgUrl}}" width="120px" height="120px" alt="recipe">
         </a>
 
-        <div class="media-body">
-            <h2 class="media-heading" ng-bind="recipesDetailCtrl.recipe.name"></h2>
-            <h3>by {{recipesDetailCtrl.recipe.creator}}</h3>
-            <h4>Description : </h4>
-            <div ng-bind="recipesDetailCtrl.recipe.description"></div>
-            <h4>Steps :</h4>
-            <div ng-repeat="step in recipesDetailCtrl.recipe.steps">
-                <div ng-bind="step"></div><br>
-            </div>
-            <h4>Ingredients :</h4>
-            <div ng-repeat="ing in recipesDetailCtrl.recipe.ingredients track by $index">
-                <div ng-bind="ing"></div>
-            </div>
+        <div class="media-body" style="display: inline;">
+            <h2 style="color: yellowgreen;" class="media-heading" ng-bind="recipesDetailCtrl.recipe.name"></h2>
+            <h3 class="put-inline" >Created by {{recipesDetailCtrl.recipe.creator}}</h3><br/><br/>
+            <h4 class="put-inline">Description : </h4>
+            <span ng-bind="recipesDetailCtrl.recipe.description"></span><br/><br/>
+            <h4 class="put-inline">Steps :</h4>
+            <span ng-repeat="step in recipesDetailCtrl.recipe.steps">
+                <span ng-bind="step"></span>
+            </span><br/><br/>
+            <h4 class="put-inline">Ingredients :</h4>
+            <span ng-repeat="ing in recipesDetailCtrl.recipe.ingredients track by $index">
+                <span ng-bind="ing"></span>
+            </span><br/><br/>
             <button type="button" class="btn btn-primary" ng-click="recipesDetailCtrl.likeRecipe()" ng-show="!recipesDetailCtrl.showLike()">Like</button>
             <button type="button" class="btn btn-primary" ng-click="recipesDetailCtrl.removeLikeRecipe()" ng-show="recipesDetailCtrl.showLike()">Remove like</button>
         </div>
     </div>
 </div>
+
+<!--
+            <div class="row">
+                <div class="col-md-12"> 
+                    
+                    <div class="panel">
+                        <div class="panel-body cancel-margin-bottom">
+                            /stories
+                            <div class="row">    
+                                <br>
+                                <div ng-repeat="recipe in recipesListCtrl.recipesDisplay | filter : recipesListCtrl.searchText">
+                                    <div class="col-md-2 col-sm-3 text-center">
+                                        <a class="pull-left" ng-href="#/recipes/{{recipe._id}}">
+                            <img style="width:100px;height:100px" class="img-circle" ng-src="{{recipe.imgUrl}}" width="120px" height="120px" alt="recipe"/>
+                        </a>
+
+                                    </div>
+                                            
+                                    <div class="col-md-10 col-sm-9">
+                                        <h3 class="media-heading">{{ recipe.name }}</h3>
+                                        <div class="row">
+                                            <div class="col-xs-9">
+                                                <h4><span class="label label-default">{{ recipe.description }}</span></h4><h4>
+                                                    <small style="font-family:courier,'new courier';" class="text-muted">2 hours ago  • <a href="#" class="text-muted">Read More</a></small>
+                                                </h4></div>
+                                            <div class="col-xs-3"></div>
+                                        </div>
+                                        <br><br>
+                                    </div>
+                                    <hr>   
+                                </div>
+                            </div> 
+                            /stories 
+                        </div>
+                    </div>   
+                </div>/col-12
+            </div>-->

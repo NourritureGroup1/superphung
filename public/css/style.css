@@ -189,7 +189,7 @@ a,a:hover {
 
 .navigation-bar
 {
-    margin-top: 20px;
+/*    margin-top: 20px;*/
     border-top: none !important;
     text-align: center;
 }
@@ -212,4 +212,21 @@ a,a:hover {
 .cancel-margin-bottom
 {
     padding-bottom: 0;
+    padding-left: 20;
+}
+
+.inline-display
+{
+    display: inline-block;
+}
+
+.link
+{
+    text-decoration: underline;
+    color: rgb(35,82,124);
+}
+
+.put-inline
+{
+    display: inline;
 }
