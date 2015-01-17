@@ -1,22 +1,22 @@
-<div class="container">
+<div style="width: 100%;text-align: center;">
     <div class="alert alert-info" ng-show="ingredientsDetailCtrl.showLike()">You like this ingredient</div>
-    <div class="media">
-        <a class="pull-left">
-            <img class="media-object" ng-src="{{ingredientsDetailCtrl.ingredient.imgUrl}}" width="120px" height="120px" alt="ingredient">
+    <div class="media" style="display: inline-block;">
+        <a>
+            <img style="margin-bottom: 20px;" class="media-object img-circle" ng-src="{{ingredientsDetailCtrl.ingredient.imgUrl}}" width="120px" height="120px" alt="ingredient">
         </a>
 
-        <div class="media-body">
-            <h2 class="media-heading" ng-bind="ingredientsDetailCtrl.ingredient.name"></h2>
-            <h4>Description : </h4>
-            <div ng-bind="ingredientsDetailCtrl.ingredient.description"></div>
-            <h4>Category :</h4>
-            <div ng-repeat="category in ingredientsDetailCtrl.ingredient.category">
-                <div ng-bind="category"></div>
-            </div>
-            <h4>Nutrients :</h4>
-            <div ng-repeat="n in ingredientsDetailCtrl.ingredient.nutrients track by $index">
-                <div ng-bind="n"></div>
-            </div>
+        <div class="media-body" style="display: inline;">
+            <h2 style="color: yellowgreen" class="media-heading" ng-bind="ingredientsDetailCtrl.ingredient.name"></h2><br/>
+            <h4 class="put-inline">Description : </h4>
+            <span ng-bind="ingredientsDetailCtrl.ingredient.description"></span><br/><br/>
+            <h4 class="put-inline">Category :</h4>
+            <span ng-repeat="category in ingredientsDetailCtrl.ingredient.category">
+                <span ng-bind="category"></span>
+            </span><br/><br/>
+            <h4 class="put-inline">Nutrients :</h4>
+            <span ng-repeat="n in ingredientsDetailCtrl.ingredient.nutrients track by $index">
+                <span ng-bind="n"></span>
+            </span><br/><br/>
             <button type="button" class="btn btn-primary" ng-click="ingredientsDetailCtrl.likeIngredient()" ng-show="!ingredientsDetailCtrl.showLike()">Like</button>
             <button type="button" class="btn btn-primary" ng-click="ingredientsDetailCtrl.removeLikeIngredient()" ng-show="ingredientsDetailCtrl.showLike()">Remove like</button>
         </div>

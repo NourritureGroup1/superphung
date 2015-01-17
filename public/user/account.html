@@ -13,9 +13,9 @@
     <tab heading="Likes recipes">
         <br>
         <div ng-repeat="(i, recipe) in userCtrl.likesRecipes">
-            <span>{{i+1}}) </span>
-            <a ng-href="#/recipes/{{recipe._id}}">{{recipe.name}}</a>
-            <span>: {{recipe.description}}</span>
+<!--            <span>{{i+1}}) </span>-->
+<h3 class="inline-display"><a class="link" ng-href="#/recipes/{{recipe._id}}">{{recipe.name}}</a></h3>
+<h4 class="inline-display">: {{recipe.description}}</h4>
         </div>
     </tab>
     <tab heading="Restricted Food">
