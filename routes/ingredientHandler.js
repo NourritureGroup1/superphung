@@ -81,6 +81,36 @@ exports.create = function (req, res) {
     });
 };
 
+exports.createAndroid = function (req, res) {
+
+    Ingredient.findOne({ name: req.body.name }, function(err, ingredient) {
+        if (err) {
+            error.logError(req, res, err);
+            return res.status(500).send(err);
+        }
+        else if (ingredient) {
+            return res.status(409).send("ingredient exist");
+        }
+        else {
+            var _ingredient = new Ingredient();
+
+            _ingredient.name = req.body.name;
+            _ingredient.description = req.body.description;
+            _ingredient.category = stringToArray(req.body.category);
+            _ingredient.nutrients = stringToArray(req.body.nutrients);
+            _ingredient.imgUrl = "/uploads/" + req.files.file.name;
+
+            _ingredient.save(function(err) {
+                if (err) {
+                    error.logError(req, res, err);
+                    return res.status(500).send(err);
+                }
+                res.status(201).json(_ingredient);
+            });
+        }
+    });
+};
+
 exports.update = function(req, res) {
     Ingredient.findById(req.params.id, function(err, ingredient) {
         if (err) {
