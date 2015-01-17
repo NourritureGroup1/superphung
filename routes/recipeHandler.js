@@ -130,6 +130,16 @@ exports.delete = function (req, res) {
     });
 };
 
+exports.deleteAndroid = function (req, res) {
+    Recipe.remove({ _id : req.body.id }, function(err) {
+        if (err) {
+            error.logError(req, res, err);
+            return res.status(500).send(err);
+        }
+        res.status(200).json({ message : "Successfully deleted" });
+    });
+};
+
 exports.upload = function (req, res) {
     console.log("post - upload req.body : ", req.body);
     console.log("post - file upload : " + JSON.stringify(req.files));
