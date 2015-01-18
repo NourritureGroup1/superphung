@@ -68,7 +68,7 @@ public class RfoodListingWorker  extends AsyncTask<String, Void, String> {
 					for(int i=0;i<jsonArrayUserRestrictedFood.length();i++)
 					{
 						JSONObject curr = jsonArrayUserRestrictedFood.getJSONObject(i);
-						listUserRFood.add(new Ingredient(curr.getString("_id"),curr.getString("imgUrl"),curr.getString("description"),curr.getString("name"),null,null));
+						listUserRFood.add(new Ingredient(curr.getString("_id"),URL_API+curr.getString("imgUrl"),curr.getString("description"),curr.getString("name"),null,null));
 					}
 				}
 			} catch(Exception e){e.printStackTrace();}
@@ -88,6 +88,11 @@ public class RfoodListingWorker  extends AsyncTask<String, Void, String> {
 			Toast toast = Toast.makeText(context, "no internet connection available", Toast.LENGTH_SHORT);
 			toast.show();
 			return ;
+		}
+		if (listUserRFood.size() == 0)
+		{
+			Toast toast = Toast.makeText(context, "You have no restricted food yet.", Toast.LENGTH_SHORT);
+			toast.show(); 
 		}
 		GridView gallery = (GridView) rootview.findViewById(R.id.gridview);
 		if (gallery != null) {

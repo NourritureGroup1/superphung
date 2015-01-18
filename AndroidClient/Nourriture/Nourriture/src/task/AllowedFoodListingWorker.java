@@ -69,6 +69,11 @@ public class AllowedFoodListingWorker extends AsyncTask<String, Void, String> {
 			toast.show();
 			return ;
 		}
+		if (listAllIngredients.size() == 0)
+		{
+			Toast toast = Toast.makeText(context, "There is no restricted food you can add.", Toast.LENGTH_SHORT);
+			toast.show(); 
+		}
 		GridView gallery = (GridView) rootview.findViewById(R.id.gridview);
 		if (gallery != null) {
 			gallery.setOnItemClickListener(new OnItemClickListener() {
@@ -112,12 +117,12 @@ public class AllowedFoodListingWorker extends AsyncTask<String, Void, String> {
 					for(int i=0;i<jsonArrayIngredients.length();i++)
 					{
 						JSONObject curr_all = jsonArrayIngredients.getJSONObject(i);
-						Ingredient tmp_all = new Ingredient(curr_all.getString("_id"),curr_all.getString("imgUrl"),curr_all.getString("description"),curr_all.getString("name"),null,null);							
+						Ingredient tmp_all = new Ingredient(curr_all.getString("_id"),URL_API+curr_all.getString("imgUrl"),curr_all.getString("description"),curr_all.getString("name"),null,null);							
 						boolean isforbidden = false;
 						for(int index=0;index < jsonArrayUserRestrictedFood.length();index++)
 						{
 							JSONObject curr = jsonArrayUserRestrictedFood.getJSONObject(index);
-							Ingredient tmp = new Ingredient(curr.getString("_id"),curr.getString("imgUrl"),curr.getString("description"),curr.getString("name"),null,null);	
+							Ingredient tmp = new Ingredient(curr.getString("_id"),URL_API+curr.getString("imgUrl"),curr.getString("description"),curr.getString("name"),null,null);	
 							if (tmp_all.getId().equals(tmp.getId())) {
 								isforbidden = true;
 							}
@@ -131,7 +136,7 @@ public class AllowedFoodListingWorker extends AsyncTask<String, Void, String> {
 					for(int i=0;i<jsonArrayIngredients.length();i++)
 					{
 						JSONObject curr_all = jsonArrayIngredients.getJSONObject(i);
-						Ingredient tmp_all = new Ingredient(curr_all.getString("_id"),curr_all.getString("imgUrl"),curr_all.getString("description"),curr_all.getString("name"),null,null);							
+						Ingredient tmp_all = new Ingredient(curr_all.getString("_id"),URL_API+curr_all.getString("imgUrl"),curr_all.getString("description"),curr_all.getString("name"),null,null);							
 						listAllIngredients.add(tmp_all);	
 					}
 				}

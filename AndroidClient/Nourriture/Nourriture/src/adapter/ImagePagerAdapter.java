@@ -2,19 +2,16 @@ package adapter;
 
 import java.util.List;
 
+import model.Ingredient;
 import task.addSingleRFoodTask;
 import task.getLikesIngredientTask;
-
-import model.Ingredient;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.Parcelable;
 import android.support.v4.view.PagerAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -23,7 +20,6 @@ import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
-import com.superphung.nourriture.Globals;
 import com.superphung.nourriture.R;
 
 public class ImagePagerAdapter extends PagerAdapter {
@@ -72,6 +68,7 @@ public class ImagePagerAdapter extends PagerAdapter {
 			}
 			@Override
 			public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
+				@SuppressWarnings("unused")
 				String message = null;
 				switch (failReason.getType()) {
 				case IO_ERROR:

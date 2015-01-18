@@ -68,9 +68,14 @@ exports.create = function (req, res) {
             _ingredient.description = req.body.description;
             _ingredient.category = stringToArray(req.body.category);
             _ingredient.nutrients = stringToArray(req.body.nutrients);
-            _ingredient.imgUrl = "/uploads/" + req.body.imgUrl;
-            /*if (typeof req.body.imgUrl == 'undefined') {
-                ingredient.imgUrl = "/uploads/" + req.files.file.name;
+			try {
+                _ingredient.imgUrl = "/uploads/" + req.files.file.name;
+				}
+				catch(err) {
+				            _ingredient.imgUrl = "/uploads/" + req.body.imgUrl;
+				}
+         /*  if (req.body.imgUrl == undefined) {
+                _ingredient.imgUrl = "/uploads/" + req.files.file.name;
             }*/
 
             _ingredient.save(function(err) {

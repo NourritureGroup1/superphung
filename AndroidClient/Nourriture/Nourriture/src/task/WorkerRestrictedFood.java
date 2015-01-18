@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.Ingredient;
-import model.MainDatas;
 
 import org.apache.http.NameValuePair;
 import org.json.JSONArray;
@@ -67,6 +66,11 @@ public class WorkerRestrictedFood extends AsyncTask<String, Void, String> {
 			toast.show();
 			return ;
 		}
+		if (CustomListViewValuesArr.size() == 0)
+		{
+			Toast toast = Toast.makeText(context, "You have no restricted food yet.", Toast.LENGTH_SHORT);
+			toast.show(); 
+		}
 		gallery = (GridView) rootView.findViewById(R.id.gridview);
 		if (gallery != null) {
 			gallery.setOnItemClickListener(new OnItemClickListener() {
@@ -97,7 +101,7 @@ public class WorkerRestrictedFood extends AsyncTask<String, Void, String> {
 					for(int i=0;i<jsonArray.length();i++)
 					{
 						JSONObject curr = jsonArray.getJSONObject(i);
-						Ingredient tmp = new Ingredient(curr.getString("_id"),curr.getString("imgUrl"),curr.getString("description"),curr.getString("name"),null,null);	
+						Ingredient tmp = new Ingredient(curr.getString("_id"),URL_API+curr.getString("imgUrl"),curr.getString("description"),curr.getString("name"),null,null);	
 						CustomListViewValuesArr.add(tmp);				
 					}
 				}

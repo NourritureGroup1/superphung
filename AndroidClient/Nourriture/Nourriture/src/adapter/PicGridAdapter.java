@@ -2,33 +2,16 @@ package adapter;
 
 import java.util.List;
 
-import task.addSingleRFoodTask;
-import task.getLikesIngredientTask;
-
-import model.Ingredient;
 import model.Moment;
 import adapter.Holder.ViewHolder;
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.drawable.Drawable;
-import android.os.Parcelable;
-import android.support.v4.view.PagerAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.Filterable;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
-import android.widget.TextView;
 
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.assist.FailReason;
-import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
-import com.superphung.nourriture.Globals;
 import com.superphung.nourriture.R;
 
 public class PicGridAdapter extends ArrayAdapter<Moment> implements Filterable {

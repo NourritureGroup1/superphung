@@ -1,9 +1,5 @@
 package com.superphung.nourriture;
 
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GooglePlayServicesUtil;
-import com.google.gson.Gson;
-
 import model.Authentification;
 import model.AuthentificationFacebook;
 import model.AuthentificationGoogle;
@@ -13,7 +9,6 @@ import model.User;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
@@ -26,6 +21,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
+
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesUtil;
+
 import fragment.ProfileFragment;
 
 public class MainActivity extends Activity {
@@ -162,7 +161,7 @@ public class MainActivity extends Activity {
 			FragmentManager fragmentManager = getFragmentManager();
 			fragmentManager.beginTransaction()
 			.replace(R.id.frame_container, fragment).commit();
-			setTitle(getResources().getStringArray(R.array.nav_drawer_items)[2]);
+			setTitle(getResources().getStringArray(R.array.nav_drawer_items_connected)[0]);
 
 		}
 	}

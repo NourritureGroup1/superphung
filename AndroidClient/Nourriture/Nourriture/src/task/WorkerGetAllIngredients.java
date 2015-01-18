@@ -10,16 +10,19 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import adapter.RestrictedFoodAdapter;
+import adapter.BrowseFoodAdapter;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.GridView;
 import android.widget.Toast;
-import android.widget.AdapterView.OnItemClickListener;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.superphung.nourriture.Globals;
@@ -31,12 +34,12 @@ public class WorkerGetAllIngredients extends AsyncTask<String, Void, String> {
 	private Context context;
 	private View rootview;
 	private ImageLoader imageLoader;
-	private RestrictedFoodAdapter adapteur;
+	private BrowseFoodAdapter adapteur;
 	public static final String URL_API = "https://54.64.212.101";
 	//public static final String URL_API = "https://192.168.0.103:8081";
 	private ArrayList<Ingredient> listAllIngredients;
 
-	public WorkerGetAllIngredients(Context c_, View rootview_, RestrictedFoodAdapter adapteur_, ImageLoader imageLoader_) {
+	public WorkerGetAllIngredients(Context c_, View rootview_, BrowseFoodAdapter adapteur_, ImageLoader imageLoader_) {
 		context = c_;
 		rootview = rootview_;
 		listAllIngredients = new ArrayList<Ingredient>();
@@ -86,12 +89,40 @@ public class WorkerGetAllIngredients extends AsyncTask<String, Void, String> {
 					context.startActivity(myIntent);	
 				}
 			});
+			if (Globals.MainActivityDatas.user.getRole().equals("gastronomist")) {
+				gallery.setOnItemLongClickListener(new OnItemLongClickListener() {
+
+					@Override
+					public boolean onItemLongClick(AdapterView<?> parent,
+							View view, int position, long id) {
+						alertMessage(position);
+						return true;
+					}
+				});
+
+			}
 		}
 	}
 
 	@Override
 	protected void onProgressUpdate(Void... values) {}
-
+	public void alertMessage(final int position) { 
+		DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() { 
+			public void onClick(DialogInterface dialog, int which) { 
+				switch (which) {
+				case DialogInterface.BUTTON_POSITIVE: // Yes button clicked 
+					new DeleteIngredient(context, Globals.rfood.get(position).getId()).execute();
+					Globals.rfood.remove(position);
+					adapteur.notifyDataSetChanged();
+					break; 
+				case DialogInterface.BUTTON_NEGATIVE: // No button clicked 
+					break; 
+				}
+			} 
+		}; 
+		AlertDialog.Builder builder = new AlertDialog.Builder(context); 
+		builder.setMessage("Are you sure you want to delete this ingredient ?").setPositiveButton("Yes", dialogClickListener).setNegativeButton("No", dialogClickListener).show(); 
+	}
 
 	public String  getAll()
 	{
@@ -105,7 +136,7 @@ public class WorkerGetAllIngredients extends AsyncTask<String, Void, String> {
 					for(int i=0;i<allIngredientsjson.length();i++)
 					{
 						JSONObject curr_all = allIngredientsjson.getJSONObject(i);
-						Ingredient tmp_all = new Ingredient(curr_all.getString("_id"),curr_all.getString("imgUrl"),curr_all.getString("description"),curr_all.getString("name"),null,null);							
+						Ingredient tmp_all = new Ingredient(curr_all.getString("_id"),URL_API+curr_all.getString("imgUrl"),curr_all.getString("description"),curr_all.getString("name"),null,null);							
 						listAllIngredients.add(tmp_all);		
 					}
 				} catch (JSONException e) {

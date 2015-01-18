@@ -9,14 +9,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import task.ShareMomentTask;
-
-import model.AuthImageDownloader;
 import model.Moment;
-import adapter.ImagePagerAdapter;
-import adapter.MomentAdapter;
+import task.ShareMomentTask;
 import adapter.PicGridAdapter;
-import adapter.RestrictedFoodAdapter;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Fragment;
@@ -43,14 +38,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
-import com.nostra13.universalimageloader.core.ImageLoaderConfiguration.Builder;
-import com.nostra13.universalimageloader.core.assist.ImageScaleType;
-import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 import com.superphung.nourriture.Globals;
-import com.superphung.nourriture.MainActivity;
+import com.superphung.nourriture.MyApplication;
+import com.superphung.nourriture.MyApplication.TrackerName;
 import com.superphung.nourriture.R;
 
 public class ProfileFragment extends Fragment implements OnClickListener {
@@ -143,7 +135,7 @@ public class ProfileFragment extends Fragment implements OnClickListener {
 			FragmentManager fragmentManager = getFragmentManager();
 			fragmentManager.beginTransaction()
 			.replace(R.id.frame_container, fragment).commit();
-			((Activity) context).setTitle(((Activity) context).getResources().getStringArray(R.array.nav_drawer_items)[4]);
+			((Activity) context).setTitle("My restricted food");
 		}
 	}
 	
@@ -185,10 +177,10 @@ public class ProfileFragment extends Fragment implements OnClickListener {
 	public void onStart() {
 		// TODO Auto-generated method stub
 		super.onStart();
-		/*Tracker t = ((MyApplication) getActivity().getApplication()).getTracker(
+		Tracker t = ((MyApplication) getActivity().getApplication()).getTracker(
 			    TrackerName.APP_TRACKER);
 			t.setScreenName("Current user profile Fragment");
-			t.send(new HitBuilders.AppViewBuilder().build());*/
+			t.send(new HitBuilders.AppViewBuilder().build());
 	}
 	
 	@Override
@@ -256,7 +248,7 @@ public class ProfileFragment extends Fragment implements OnClickListener {
                 current_pic_file = tempPath;
                 Bitmap bm;
                 BitmapFactory.Options btmapOptions = new BitmapFactory.Options();
-                btmapOptions.inSampleSize = 4;
+                btmapOptions.inSampleSize = 2;
                 bm = BitmapFactory.decodeFile(tempPath, btmapOptions);
                 //pic.setImageBitmap(bm);
         		List<Moment> list_moments = new ArrayList<Moment>();
@@ -272,7 +264,8 @@ public class ProfileFragment extends Fragment implements OnClickListener {
 	
 	public String getPath(Uri uri, Activity activity) {
         String[] projection = { MediaColumns.DATA };
-        Cursor cursor = activity
+        @SuppressWarnings("deprecation")
+		Cursor cursor = activity
                 .managedQuery(uri, projection, null, null, null);
         int column_index = cursor.getColumnIndexOrThrow(MediaColumns.DATA);
         cursor.moveToFirst();

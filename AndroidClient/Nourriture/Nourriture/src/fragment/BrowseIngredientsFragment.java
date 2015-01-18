@@ -6,36 +6,41 @@ import java.util.List;
 import model.AuthImageDownloader;
 import model.Ingredient;
 import task.WorkerGetAllIngredients;
-import adapter.RestrictedFoodAdapter;
+import adapter.BrowseFoodAdapter;
 import android.app.Fragment;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.View.OnKeyListener;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.SearchView;
 import android.widget.SearchView.OnQueryTextListener;
 import android.widget.TextView;
 
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration.Builder;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
+import com.superphung.nourriture.AddIngredient;
 import com.superphung.nourriture.Globals;
+import com.superphung.nourriture.MyApplication;
+import com.superphung.nourriture.MyApplication.TrackerName;
 import com.superphung.nourriture.R;
 
 public class BrowseIngredientsFragment extends Fragment {
 	private Context context;
 	private View rootView;
-	private RestrictedFoodAdapter adapteur;
+	private BrowseFoodAdapter adapteur;
 	private String query_search = "";
 
 	public BrowseIngredientsFragment(){
@@ -61,10 +66,11 @@ public class BrowseIngredientsFragment extends Fragment {
 		configBuilder.defaultDisplayImageOptions(options);
 		ImageLoaderConfiguration config=configBuilder.build();
 		imageLoader.init(config);
-		adapteur = new RestrictedFoodAdapter(context, 0, 0, Globals.rfood_filtered, "browse");
+		adapteur = new BrowseFoodAdapter(context, 0, 0, Globals.rfood_filtered, "browse");
 		new WorkerGetAllIngredients(context, rootView,adapteur, imageLoader).execute();
 
 		SearchView searchView = (SearchView) rootView.findViewById(R.id.searchView1);
+		Button addIngredient = (Button) rootView.findViewById(R.id.add);
 		int id = searchView.getContext()
 				.getResources()
 				.getIdentifier("android:id/search_src_text", null, null);
@@ -130,6 +136,18 @@ public class BrowseIngredientsFragment extends Fragment {
 				return false;
 			}
 		});
+		
+		if (Globals.MainActivityDatas.user.getRole().equals("gastronomist")) {
+			addIngredient.setVisibility(View.VISIBLE);
+			addIngredient.setOnClickListener(new OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					Intent myIntent = new Intent(context, AddIngredient.class);
+					startActivityForResult(myIntent,111);
+				}
+			});
+		}
 
 		return rootView;
 	}
@@ -138,9 +156,9 @@ public class BrowseIngredientsFragment extends Fragment {
 	public void onStart() {
 		// TODO Auto-generated method stub
 		super.onStart();
-		/*Tracker t = ((MyApplication) getActivity().getApplication()).getTracker(
+		Tracker t = ((MyApplication) getActivity().getApplication()).getTracker(
 			    TrackerName.APP_TRACKER);
-			t.setScreenName("Register Fragment");
-			t.send(new HitBuilders.AppViewBuilder().build());*/
+			t.setScreenName("Browse ingredient Fragment");
+			t.send(new HitBuilders.AppViewBuilder().build());
 	}
 }

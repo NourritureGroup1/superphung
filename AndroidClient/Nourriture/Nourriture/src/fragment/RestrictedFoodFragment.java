@@ -16,6 +16,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
@@ -23,6 +25,8 @@ import com.nostra13.universalimageloader.core.ImageLoaderConfiguration.Builder;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 import com.superphung.nourriture.AddRFood;
+import com.superphung.nourriture.MyApplication;
+import com.superphung.nourriture.MyApplication.TrackerName;
 import com.superphung.nourriture.R;
 import com.superphung.nourriture.RemoveRFood;
 
@@ -93,10 +97,10 @@ public class RestrictedFoodFragment extends Fragment {
 	@Override
 	public void onStart() {
 		super.onStart();
-		/*Tracker t = ((MyApplication) getActivity().getApplication()).getTracker(
+		Tracker t = ((MyApplication) getActivity().getApplication()).getTracker(
 			    TrackerName.APP_TRACKER);
 			t.setScreenName("Restricted food Fragment");
-			t.send(new HitBuilders.AppViewBuilder().build());*/
+			t.send(new HitBuilders.AppViewBuilder().build());
 	}
 	
 	@Override

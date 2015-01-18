@@ -8,8 +8,8 @@ public class Ingredient {
     private String name;
     private String id;
     private String description;
-    private List<String> category;
-    private List<String> nutrients;
+    private String category;
+    private String nutrients;
     private String imgUrl;
     private Bitmap img;
 	private boolean checked;
@@ -17,13 +17,13 @@ public class Ingredient {
 	//public static final String URL_API = "https://192.168.0.103:8081";
 
     
-    public Ingredient(String id_, String imgUrl_, String description_, String name_, List<String> category_, List<String> nutrients_) {
+    public Ingredient(String id_, String imgUrl_, String description_, String name_, String category_, String nutrients_) {
         name = name_;
         id = id_;
         description = description_;
         category = category_;
         nutrients = nutrients_;
-        imgUrl = URL_API + imgUrl_;
+        imgUrl = imgUrl_;
     }
 
     
@@ -50,18 +50,18 @@ public class Ingredient {
     public void setDescription(String description_) {
     	description = description_;
     }
-    public List<String> getCategory() {
+    public String getCategory() {
     	return category;
     }
     
-    public void setCategory(List<String> category_) {
+    public void setCategory(String category_) {
     	category = category_;
     }
-    public List<String> getNutrients() {
+    public String getNutrients() {
     	return nutrients;
     }
     
-    public void setNutrients(List<String> nutrients_) {
+    public void setNutrients(String nutrients_) {
     	nutrients = nutrients_;
     }
     

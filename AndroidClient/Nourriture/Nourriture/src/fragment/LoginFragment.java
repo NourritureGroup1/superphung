@@ -5,7 +5,6 @@ import java.util.Arrays;
 import model.AuthentificationFacebook;
 import model.AuthentificationGoogle;
 import model.AuthentificationLocal;
-import model.MainDatas;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
@@ -137,9 +136,9 @@ public class LoginFragment extends Fragment implements OnClickListener {
 	public void onStart() {
 		// TODO Auto-generated method stub
 		super.onStart();
-		/*Tracker t = ((MyApplication) getActivity().getApplication()).getTracker(
+		Tracker t = ((MyApplication) getActivity().getApplication()).getTracker(
 			    TrackerName.APP_TRACKER);
 			t.setScreenName("Login Fragment");
-			t.send(new HitBuilders.AppViewBuilder().build());*/
+			t.send(new HitBuilders.AppViewBuilder().build());
 	}
 }

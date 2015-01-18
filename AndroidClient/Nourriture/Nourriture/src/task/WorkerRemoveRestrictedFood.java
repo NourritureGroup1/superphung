@@ -64,7 +64,6 @@ public class WorkerRemoveRestrictedFood extends AsyncTask<String, Void, String> 
 				e.printStackTrace();
 			}
 			Globals.MainActivityDatas.user.fillDatas(datas);
-			String rfoodIds = (Globals.MainActivityDatas.user.getRestrictedFood().equals("")) ? foodIds : Globals.MainActivityDatas.user.getRestrictedFood()+","+foodIds;
 			parameters.add(new BasicNameValuePair("badFood", Globals.MainActivityDatas.user.getBadFood()));
 			parameters.add(new BasicNameValuePair("dislikes", Globals.MainActivityDatas.user.getDislikes()));
 			parameters.add(new BasicNameValuePair("favoriteFood", Globals.MainActivityDatas.user.getFavoriteFood()));

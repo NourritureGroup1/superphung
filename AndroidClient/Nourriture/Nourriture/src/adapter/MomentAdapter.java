@@ -1,9 +1,12 @@
 package adapter;
 
 import java.util.List;
+import java.util.Locale;
 
 import model.Moment;
-import model.User;
+
+import org.ocpsoft.prettytime.PrettyTime;
+
 import adapter.Holder.ViewHolder;
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -19,7 +22,6 @@ import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
-import com.superphung.nourriture.Globals;
 import com.superphung.nourriture.R;
 
 public class MomentAdapter extends ArrayAdapter<Moment> implements Filterable {
@@ -66,7 +68,8 @@ public class MomentAdapter extends ArrayAdapter<Moment> implements Filterable {
 			holder = (ViewHolder) view.getTag();
 		}
 		holder.description.setText(list.get(position).getDescription());
-		holder.date.setText(list.get(position).getDate().toString());
+		PrettyTime p = new PrettyTime(new Locale("en"));
+		holder.date.setText(p.format(list.get(position).getDate()));
 		imageLoader.displayImage(list.get(position).getImgUrl(), holder.img, options, new SimpleImageLoadingListener() {
 			@Override
 			public void onLoadingStarted(String imageUri, View view) {

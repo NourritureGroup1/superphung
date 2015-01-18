@@ -2,10 +2,6 @@ package adapter;
 
 import java.util.List;
 
-import task.addSingleRFoodTask;
-import task.getLikesIngredientTask;
-
-import model.Ingredient;
 import model.Moment;
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -13,18 +9,14 @@ import android.os.Parcelable;
 import android.support.v4.view.PagerAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
-import com.superphung.nourriture.Globals;
 import com.superphung.nourriture.R;
 
 public class MomentPagerAdapter extends PagerAdapter {
@@ -44,7 +36,6 @@ public class MomentPagerAdapter extends PagerAdapter {
 
 	@Override
 	public int getCount() {
-		// TODO Auto-generated method stub
 		return list.size();
 	}
 
@@ -61,19 +52,14 @@ public class MomentPagerAdapter extends PagerAdapter {
 		assert imageLayout != null;
 		ImageView imageView = (ImageView) imageLayout.findViewById(R.id.image);
 		TextView description = (TextView) imageLayout.findViewById(R.id.description);
-		imageView.setImageBitmap(list.get(position).getImg());
-		//TextView name = (TextView) imageLayout.findViewById(R.id.name);
-		//final Button like = (Button) imageLayout.findViewById(R.id.like);
-		//final Button dislike = (Button) imageLayout.findViewById(R.id.dislike);
-
-		/*final ProgressBar spinner = (ProgressBar) imageLayout.findViewById(R.id.loading);
+		
 		imageLoader.displayImage(list.get(position).getImgUrl(), imageView, options, new SimpleImageLoadingListener() {
 			@Override
 			public void onLoadingStarted(String imageUri, View view) {
-				spinner.setVisibility(View.VISIBLE);
 			}
 			@Override
 			public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
+				@SuppressWarnings("unused")
 				String message = null;
 				switch (failReason.getType()) {
 				case IO_ERROR:
@@ -92,18 +78,16 @@ public class MomentPagerAdapter extends PagerAdapter {
 					message = "Unknown error";
 					break;
 				}
-				spinner.setVisibility(View.GONE);
 			}
 			@Override
 			public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
-				spinner.setVisibility(View.GONE);
 				if (context == null)
 					imageLoader.stop();
 			}
-		});*/
+		});
+		
 		view.addView(imageLayout, 0);
 		description.setText(list.get(position).getDescription());
-		//name.setText(list.get(position).getName());
 		return imageLayout;
 	}
 

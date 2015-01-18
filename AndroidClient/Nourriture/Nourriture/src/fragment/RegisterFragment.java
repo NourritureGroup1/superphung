@@ -3,8 +3,6 @@ package fragment;
 import java.util.ArrayList;
 import java.util.List;
 
-import model.MainDatas;
-
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 
@@ -23,9 +21,9 @@ import android.widget.Toast;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 import com.superphung.nourriture.MyApplication;
+import com.superphung.nourriture.MyApplication.TrackerName;
 import com.superphung.nourriture.R;
 import com.superphung.nourriture.helpers;
-import com.superphung.nourriture.MyApplication.TrackerName;
 
 public class RegisterFragment extends Fragment implements OnClickListener {
 	private Context context;
@@ -74,9 +72,9 @@ public class RegisterFragment extends Fragment implements OnClickListener {
 	public void onStart() {
 		// TODO Auto-generated method stub
 		super.onStart();
-		/*Tracker t = ((MyApplication) getActivity().getApplication()).getTracker(
+		Tracker t = ((MyApplication) getActivity().getApplication()).getTracker(
 			    TrackerName.APP_TRACKER);
 			t.setScreenName("Register Fragment");
-			t.send(new HitBuilders.AppViewBuilder().build());*/
+			t.send(new HitBuilders.AppViewBuilder().build());
 	}
 }

@@ -3,26 +3,15 @@ package task;
 import java.util.ArrayList;
 import java.util.List;
 
-import model.Ingredient;
-import model.MainDatas;
-
 import org.apache.http.NameValuePair;
-import org.json.JSONArray;
 import org.json.JSONObject;
 
-import adapter.RestrictedFoodAdapter;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
-import android.widget.GridView;
-import android.widget.Toast;
 
-import com.nostra13.universalimageloader.core.ImageLoader;
 import com.superphung.nourriture.Globals;
 import com.superphung.nourriture.R;
 import com.superphung.nourriture.helpers;
@@ -31,7 +20,6 @@ public class getLikesIngredientTask extends AsyncTask<String, Void, String> {
 	private Context context;
 	private View rootView;
 	private int position;
-	private ArrayList<Ingredient> CustomListViewValuesArr;
 	public static final String URL_API = "https://54.64.212.101";
 	//	public static final String URL_API = "https://192.168.0.103:8081";
 
@@ -40,7 +28,6 @@ public class getLikesIngredientTask extends AsyncTask<String, Void, String> {
 		context = c_;
 		rootView = rootView_;
 		position = position_;
-		CustomListViewValuesArr = new ArrayList<Ingredient>();
 	}
 
 	@Override

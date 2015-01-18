@@ -22,6 +22,7 @@ import com.superphung.nourriture.MainActivity;
 import com.superphung.nourriture.R;
 
 import fragment.BrowseIngredientsFragment;
+import fragment.BrowseRecipeFragment;
 import fragment.ListMyMomentsFragment;
 import fragment.ListUserFragment;
 import fragment.LoginFragment;
@@ -35,6 +36,7 @@ public class MainDatas {
 	public CharSequence mDrawerTitle;
 	public CharSequence mTitle;
 	public String[] navMenuTitles;
+	public String[] navMenuTitles_connected;
 	public TypedArray navMenuIcons;
 	public ArrayList<NavDrawerItem> navDrawerItems;
 	public NavDrawerListAdapter adapter;
@@ -52,6 +54,7 @@ public class MainDatas {
 		mTitle = ((Activity) context).getTitle();
 		mDrawerTitle = ((Activity) context).getTitle();
 		navMenuTitles = ((Activity) context).getResources().getStringArray(R.array.nav_drawer_items);
+		navMenuTitles_connected = ((Activity) context).getResources().getStringArray(R.array.nav_drawer_items_connected);
 		getUserMenu();
 		mDrawerToggle = new ActionBarDrawerToggle((Activity) context, mDrawerLayout,R.drawable.ic_launcher,R.string.app_name,R.string.app_name) {
 			public void onDrawerClosed(View view) {
@@ -80,10 +83,14 @@ public class MainDatas {
 		url_request_post.put("signup", API_URL+"/signup"); 
 		url_request_post.put("signin_oauth", API_URL+"/user/social"); 
 		url_request_post.put("share_moment", API_URL+"/moment"); 
+		url_request_post.put("ingredient", API_URL+"/ingredientAndroid"); 
+		url_request_post.put("uploadsIngredients", API_URL+"/uploadsIngredients"); 
+		url_request_post.put("deleteIngredients", API_URL+"/ingredientDeleteAndroid"); 
 		
 		url_request_put.put("user", API_URL+"/user"); 
 		url_request_get.put("user", API_URL+"/user"); 
 		url_request_get.put("ingredient", API_URL+"/ingredient"); 
+		url_request_get.put("recipe", API_URL+"/recipe"); 
 
 		urls.put("POST", url_request_post);
 		urls.put("PUT", url_request_put);
@@ -115,11 +122,12 @@ public class MainDatas {
 		mDrawerList = (ListView) ((Activity) context).findViewById(R.id.list_slidermenu);
 		navDrawerItems = new ArrayList<NavDrawerItem>();
 
-		navDrawerItems.add(new NavDrawerItem(navMenuTitles[2], navMenuIcons.getResourceId(0, -1)));
-		navDrawerItems.add(new NavDrawerItem(navMenuTitles[8], navMenuIcons.getResourceId(5, -1)));
-		navDrawerItems.add(new NavDrawerItem(navMenuTitles[6], navMenuIcons.getResourceId(5, -1)));
-		navDrawerItems.add(new NavDrawerItem(navMenuTitles[7], navMenuIcons.getResourceId(0, -1)));
-		navDrawerItems.add(new NavDrawerItem(navMenuTitles[3], navMenuIcons.getResourceId(2, -1)));
+		navDrawerItems.add(new NavDrawerItem(navMenuTitles_connected[0], navMenuIcons.getResourceId(0, -1)));
+		navDrawerItems.add(new NavDrawerItem(navMenuTitles_connected[1], navMenuIcons.getResourceId(5, -1)));
+		navDrawerItems.add(new NavDrawerItem(navMenuTitles_connected[2], navMenuIcons.getResourceId(5, -1)));
+		navDrawerItems.add(new NavDrawerItem(navMenuTitles_connected[3], navMenuIcons.getResourceId(0, -1)));
+		navDrawerItems.add(new NavDrawerItem(navMenuTitles_connected[4], navMenuIcons.getResourceId(2, -1)));
+		navDrawerItems.add(new NavDrawerItem(navMenuTitles_connected[5], navMenuIcons.getResourceId(2, -1)));
 
 		navMenuIcons.recycle();
 		mDrawerList.setOnItemClickListener(new SlideMenuClickListener());
@@ -155,6 +163,9 @@ public class MainDatas {
 				fragment = new ListUserFragment();
 				break;
 			case 4:
+				fragment = new BrowseRecipeFragment();
+				break;
+			case 5:
 				((MainActivity) context).restartActivity();
 				//fragment = new LoginFragment(this);
 				break;
@@ -181,7 +192,12 @@ public class MainDatas {
 			.replace(R.id.frame_container, fragment).commit();
 			mDrawerList.setItemChecked(position, true);
 			mDrawerList.setSelection(position);
-			((Activity) context).setTitle(navMenuTitles[position]);
+			if (user.getConnected() == true) {
+				((Activity) context).setTitle(navMenuTitles_connected[position]);
+			}
+			else {
+				((Activity) context).setTitle(navMenuTitles[position]);				
+			}
 			mDrawerLayout.closeDrawer(mDrawerList);
 		} else {
 			Log.e("MainActivity", "Error in creating fragment");

@@ -3,7 +3,6 @@ package task;
 import java.io.IOException;
 import java.util.List;
 
-import model.MainDatas;
 import model.User;
 
 import org.apache.http.NameValuePair;
@@ -38,7 +37,6 @@ public class getGoogleUserTask extends AsyncTask<String, String, String> {
 	@Override
 	protected  void onPreExecute()
 	{
-		//showing a dialog to tell the user we are authenticating him
 		progress = new ProgressDialog(context);
 		progress.setTitle("Wait a moment");
 		progress.setMessage("Authentication in progress...");

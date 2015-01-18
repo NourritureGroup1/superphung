@@ -2,7 +2,6 @@ package task;
 
 import java.util.List;
 
-import model.MainDatas;
 import model.User;
 
 import org.apache.http.NameValuePair;

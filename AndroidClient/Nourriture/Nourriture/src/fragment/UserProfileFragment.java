@@ -12,12 +12,14 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.GridView;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 import com.superphung.nourriture.Globals;
+import com.superphung.nourriture.MyApplication;
+import com.superphung.nourriture.MyApplication.TrackerName;
 import com.superphung.nourriture.R;
 
 public class UserProfileFragment extends Fragment implements OnClickListener {
@@ -80,7 +82,7 @@ public class UserProfileFragment extends Fragment implements OnClickListener {
 			FragmentManager fragmentManager = getFragmentManager();
 			fragmentManager.beginTransaction()
 			.replace(R.id.frame_container, fragment).commit();
-			((Activity) context).setTitle(Globals.currentUser+"'s moments");
+			((Activity) context).setTitle(Globals.currentUser.getName()+"'s moments");
 		}
 	}
 
@@ -103,7 +105,7 @@ public class UserProfileFragment extends Fragment implements OnClickListener {
 			FragmentManager fragmentManager = getFragmentManager();
 			fragmentManager.beginTransaction()
 			.replace(R.id.frame_container, fragment).commit();
-			((Activity) context).setTitle(Globals.currentUser.getName()+"'s restructed food");
+			((Activity) context).setTitle(Globals.currentUser.getName()+"'s restricted food");
 		}
 	}
 	
@@ -111,9 +113,9 @@ public class UserProfileFragment extends Fragment implements OnClickListener {
 	public void onStart() {
 		// TODO Auto-generated method stub
 		super.onStart();
-		/*Tracker t = ((MyApplication) getActivity().getApplication()).getTracker(
+		Tracker t = ((MyApplication) getActivity().getApplication()).getTracker(
 			    TrackerName.APP_TRACKER);
-			t.setScreenName("Current user profile Fragment");
-			t.send(new HitBuilders.AppViewBuilder().build());*/
+			t.setScreenName("Another user's profile Fragment");
+			t.send(new HitBuilders.AppViewBuilder().build());
 	}
 }

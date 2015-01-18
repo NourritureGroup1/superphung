@@ -1,7 +1,6 @@
 package fragment;
 
 import model.AuthImageDownloader;
-import task.getAllProfileTask;
 import task.getAllUserMoment;
 import android.app.Fragment;
 import android.content.Context;
@@ -12,6 +11,8 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
@@ -19,6 +20,8 @@ import com.nostra13.universalimageloader.core.ImageLoaderConfiguration.Builder;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 import com.superphung.nourriture.Globals;
+import com.superphung.nourriture.MyApplication;
+import com.superphung.nourriture.MyApplication.TrackerName;
 import com.superphung.nourriture.R;
 
 public class ListUserMomentsFragment extends Fragment implements OnClickListener {
@@ -35,7 +38,7 @@ public class ListUserMomentsFragment extends Fragment implements OnClickListener
 		rootView = inflater.inflate(R.layout.listview, container, false);
 		context = getActivity();
 		imageLoader = ImageLoader.getInstance();
-		DisplayImageOptions options = new DisplayImageOptions.Builder()
+		options = new DisplayImageOptions.Builder()
 		//.showImageForEmptyUri(R.drawable.no_avatar)
 		//.showImageOnFail(R.drawable.no_avatar)
 		.resetViewBeforeLoading(true)
@@ -66,9 +69,9 @@ public class ListUserMomentsFragment extends Fragment implements OnClickListener
 	public void onStart() {
 		// TODO Auto-generated method stub
 		super.onStart();
-		/*Tracker t = ((MyApplication) getActivity().getApplication()).getTracker(
+		Tracker t = ((MyApplication) getActivity().getApplication()).getTracker(
 			    TrackerName.APP_TRACKER);
-			t.setScreenName("Login Fragment");
-			t.send(new HitBuilders.AppViewBuilder().build());*/
+			t.setScreenName("List moments of another user");
+			t.send(new HitBuilders.AppViewBuilder().build());
 	}
 }

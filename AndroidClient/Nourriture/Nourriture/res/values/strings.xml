@@ -22,13 +22,14 @@
     <string-array name="nav_drawer_items">
         <item >Login</item>
         <item >Register</item>
+    </string-array>
+    <string-array name="nav_drawer_items_connected">
         <item >My profile</item>
-        <item >Sign out</item>
-        <item >My restricted food</item>
-        <item >Edit my profile</item>
+        <item >My moments</item>
         <item >Browse Ingredients</item>
         <item >Browse Users</item>
-        <item >My moments</item>
+        <item >Browse Recipes</item>
+        <item >Sign out</item>
     </string-array>
     
     <!-- Nav Drawer List Item Icons -->

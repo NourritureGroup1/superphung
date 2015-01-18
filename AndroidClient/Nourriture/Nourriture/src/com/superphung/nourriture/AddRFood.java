@@ -1,13 +1,11 @@
 package com.superphung.nourriture;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import model.AuthImageDownloader;
 import model.Ingredient;
-import task.WorkerAddRestrictedFood;
 import task.AllowedFoodListingWorker;
-import adapter.RestrictedFoodAdapter;
+import task.WorkerAddRestrictedFood;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
@@ -21,8 +19,6 @@ import com.nostra13.universalimageloader.core.ImageLoaderConfiguration.Builder;
 
 public class AddRFood extends Activity {
 	private ImageLoader imageLoader;
-	private RestrictedFoodAdapter adapteur_autocomplete;
-	private List<Ingredient> list_autocomplete;
 
 	@Override
 	protected void onCreate(Bundle saveInstanceState){
@@ -38,7 +34,6 @@ public class AddRFood extends Activity {
 		new AllowedFoodListingWorker(this, getWindow().getDecorView().getRootView(),imageLoader, "rfood").execute();
 		final RadioButton confirm = (RadioButton)findViewById(R.id.add);
 		final RadioButton return_button = (RadioButton)findViewById(R.id.refresh);
-		RadioButton delete = (RadioButton)findViewById(R.id.delete);
 
 		return_button.setOnClickListener(new OnClickListener() {
 
@@ -55,6 +50,7 @@ public class AddRFood extends Activity {
 			public void onClick(View v) {
 				String arrayfood = "";
 				if (Globals.rfood != null) {
+					@SuppressWarnings("unused")
 					int i = 0;
 					for(Ingredient food : Globals.rfood) {
 						if (food.getChecked()) {

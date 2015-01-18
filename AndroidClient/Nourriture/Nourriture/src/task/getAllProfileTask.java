@@ -3,33 +3,26 @@ package task;
 import java.util.ArrayList;
 import java.util.List;
 
-import model.Ingredient;
-import model.MainDatas;
 import model.User;
 
 import org.apache.http.NameValuePair;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import adapter.RestrictedFoodAdapter;
 import adapter.UserAdapter;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.GridView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.nostra13.universalimageloader.core.ImageLoader;
 import com.superphung.nourriture.Globals;
 import com.superphung.nourriture.R;
 import com.superphung.nourriture.helpers;
@@ -41,6 +34,7 @@ public class getAllProfileTask extends AsyncTask<String, Void, String> {
 	private View rootView;
 	private ArrayList<User> CustomListViewValuesArr;
 	public static final String URL_API = "https://54.64.212.101";
+	private ProgressBar progress;
 	//	public static final String URL_API = "https://192.168.0.103:8081";
 
 
@@ -52,6 +46,7 @@ public class getAllProfileTask extends AsyncTask<String, Void, String> {
 
 	@Override
 	protected void onPreExecute() {
+		progress = (ProgressBar) rootView.findViewById(R.id.prossbar);
 	}
 
 
@@ -62,8 +57,14 @@ public class getAllProfileTask extends AsyncTask<String, Void, String> {
 
 	@Override
 	protected void onPostExecute(String result) {
+		progress.setVisibility(View.GONE);
+		if (CustomListViewValuesArr.size() == 0)
+		{
+			Toast toast = Toast.makeText(context, "No users available.", Toast.LENGTH_SHORT);
+			toast.show(); 
+		}
 		ListView list = (ListView) rootView.findViewById(R.id.listView);
-		ArrayAdapter adapter = new UserAdapter(context, 0, 0, CustomListViewValuesArr);
+		ArrayAdapter<User> adapter = new UserAdapter(context, 0, 0, CustomListViewValuesArr);
 		list.setAdapter(adapter);
 		list.setOnItemClickListener(new OnItemClickListener() {
 
