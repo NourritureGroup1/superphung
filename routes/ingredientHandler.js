@@ -68,6 +68,7 @@ exports.create = function (req, res) {
             _ingredient.description = req.body.description;
             _ingredient.category = stringToArray(req.body.category);
             _ingredient.nutrients = stringToArray(req.body.nutrients);
+<<<<<<< HEAD
 			try {
                 _ingredient.imgUrl = "/uploads/" + req.files.file.name;
 				}
@@ -77,6 +78,39 @@ exports.create = function (req, res) {
          /*  if (req.body.imgUrl == undefined) {
                 _ingredient.imgUrl = "/uploads/" + req.files.file.name;
             }*/
+=======
+            _ingredient.imgUrl = "/uploads/" + req.body.imgUrl;
+
+            _ingredient.save(function(err) {
+                if (err) {
+                    error.logError(req, res, err);
+                    return res.status(500).send(err);
+                }
+                res.status(201).json(_ingredient);
+            });
+        }
+    });
+};
+
+exports.createAndroid = function (req, res) {
+
+    Ingredient.findOne({ name: req.body.name }, function(err, ingredient) {
+        if (err) {
+            error.logError(req, res, err);
+            return res.status(500).send(err);
+        }
+        else if (ingredient) {
+            return res.status(409).send("ingredient exist");
+        }
+        else {
+            var _ingredient = new Ingredient();
+
+            _ingredient.name = req.body.name;
+            _ingredient.description = req.body.description;
+            _ingredient.category = stringToArray(req.body.category);
+            _ingredient.nutrients = stringToArray(req.body.nutrients);
+            _ingredient.imgUrl = "/uploads/" + req.files.file.name;
+>>>>>>> 3df8f956ae4db9e559338fa4cc315a400020679a
 
             _ingredient.save(function(err) {
                 if (err) {
@@ -112,6 +146,16 @@ exports.update = function(req, res) {
 
 exports.delete = function(req, res) {
     Ingredient.remove({ _id : req.params.id }, function(err) {
+        if (err) {
+            error.logError(req, res, err);
+            return res.status(500).send(err);
+        }
+        res.status(200).json({ message: "Successfully deleted" });
+    });
+};
+
+exports.deleteAndroid = function(req, res) {
+    Ingredient.remove({ _id : req.body.id }, function(err) {
         if (err) {
             error.logError(req, res, err);
             return res.status(500).send(err);

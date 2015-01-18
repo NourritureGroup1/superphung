@@ -12,6 +12,7 @@ module.exports = function (app) {
     app.post("/recipe", recipe.create);
     app.put("/recipe/:id", recipe.update);
     app.delete("/recipe/:id", recipe.delete);
+    app.post("/recipeDeleteAndroid", recipe.deleteAndroid);
 
     app.post("/uploadsRecipes", recipe.upload);
 };
